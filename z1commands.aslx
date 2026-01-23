@@ -436,20 +436,17 @@
     <pattern>ANSWER;REPLY</pattern>
     <script>
       msg ("Nobody seems to be awaiting your answer.")
-      // TODO
       GLOBAL.P_CONT = 0
       GLOBAL.QUOTE_FLAG = false
     </script>
   </command>
 
   <command name="V_REPLY">
-    <pattern>ANSWER #object1#;REPLY #object1#</pattern>
+    <pattern>ANSWER #object1#;REPLY TO #object1#</pattern>
     <script>
       msg ("It is hardly likely that the " + GLOBAL.PRSO.alias + " is interested.")
-      // TODO
       GLOBAL.P_CONT = 0
       GLOBAL.QUOTE_FLAG = false
-      return (true)
     </script>
   </command>
 
@@ -703,7 +700,7 @@
         return (true)
       }
       else if (IsDefined("OBJ") and (GLOBAL.PRSO = WALL or GLOBAL.PRSO = GRANITE_WALL)) {
-        // TODO - after the 'and' this 'else if' should just check if the player entered a synonym of "wall"
+        // after the 'and' this 'else if' should just check if the player entered a synonym of "wall"
         msg ("Climbing the walls is to no avail.")
       }
       else if (not GLOBAL.HERE = PATH and (not IsDefined("OBJ") or OBJ = TREE) and GLOBAL_IN_P(TREE, GLOBAL.HERE)) {

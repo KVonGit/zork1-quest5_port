@@ -785,7 +785,7 @@
       msg ("Going up empty-handed is a bad idea.")
       return (NOTHING)
     }
-    else if (NEXT_P(F) = NOTHING or (not NEXT_P(NEXT_P(F))) or not IN_P (LAMP, GLOBAL.WINNER)) {
+    else if (NEXT_P(F) = NOTHING or (NEXT_P(NEXT_P(F)) = NOTHING) or not IN_P (LAMP, GLOBAL.WINNER)) {
       if (not FSET_P(TRAP_DOOR, "OPENBIT")) {
         FCLEAR (TRAP_DOOR, "TOUCHBIT")
       }
@@ -2091,7 +2091,7 @@
         return (false)
       }
       else {
-        // TODO - Something is wrong with GOTO calling V_FIRST_LOOK in this room; possibly M_ENTER should stop the action when RFATAL ;)
+        // TODO - This is a dirty hack. Something is wrong with GOTO calling V_FIRST_LOOK in this room ;)
         //V_FIRST_LOOK
         if (GLOBAL.P_CONT > 0 or HasAttribute(game.pov,"commandqueue")) {
           msg ("The rest of your commands have been lost in the noise.")
@@ -3753,7 +3753,7 @@
       case (V_PRAY) {
         if (GLOBAL.HERE = SOUTH_TEMPLE) {
           FCLEAR (LAMP, "INVISIBLE")
-          Log ("TODO - DEAD_FUNCTION - case(PRAY) setting GLOBAL.WINNER.ACTION to null!")
+          dLog ("DEAD_FUNCTION - case(PRAY) setting GLOBAL.WINNER.ACTION to null!")
           GLOBAL.WINNER.ACTION = null
           GLOBAL.ALWAYS_LIT = false
           GLOBAL.DEAD = false

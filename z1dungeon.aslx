@@ -2120,17 +2120,12 @@
     <OPENBIT />
     <TRYTAKEBIT />
     <feature_container />
-    <contentsprefix>who is holding</contentsprefix>
     <ACTION>TROLL_FCN</ACTION>
     <STRENGTH type="int">2</STRENGTH>
     <LDESC>A nasty-looking troll, brandishing a bloody axe, blocks all passages out of the room.</LDESC>
     <FLAGS>ACTORBIT OPENBIT TRYTAKEBIT</FLAGS>
-    <listchildren />
     <SYNONYM>TROLL</SYNONYM>
     <ADJECTIVE>NASTY</ADJECTIVE>
-    <addscript type="script">
-      msg ("The troll wouldn't like that. (TODO)")
-    </addscript>
   </object>
 
   <object name="TRUNK">
@@ -3301,7 +3296,10 @@
       <FEXIT />
       <runscript />
       <script type="script">
-        msg ("TODO - UP_CHIMNEY_FUNCTION")
+        exit_to = UP_CHIMNEY_FUNCTION()
+        if (not exit_to = NOTHING) {
+          GOTO (exit_to, true)
+        }
       </script>
     </exit>
   </object>
@@ -3362,7 +3360,10 @@
       <runscript />
       <script type="script">
         // TO MAZE_4
-        msg ("TODO - MAZE_DIODES")
+        exit_to = MAZE_DIODES()
+        if (not exit_to = NOTHING){
+          GOTO (exit_to, true)
+        }
       </script>
     </exit>
   </object>
