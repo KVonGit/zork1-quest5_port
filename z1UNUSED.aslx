@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+  UNUSED stuff
+                    for ZORK 1
+-->
+<library>
+
+  <function name="SetUpCustomVerbsLists"><![CDATA[
+    foreach (o, AllObjects()) {
+      o.displayverbs = ListExclude(o.displayverbs,Split("cloningdisplayverbs"))
+      o.inventoryverbs = ListExclude(o.inventoryverbs,Split("cloninginventoryverbs"))
+      if (FSET_P(o,"TAKEBIT")) {
+        list add (o.displayverbs, "Take")
+      }
+      if (not FSET_P(o,"SURFACEBIT") and (FSET_P(o,"CONTBIT") or FSET_P(o,"DOORBIT"))) {
+        if (not FSET_P(o,"OPENBIT")) {
+          list add (o.displayverbs, "Open")
+          list add (o.inventoryverbs, "Open")
+        }
+        else {
+          list add (o.displayverbs, "Close")
+          list add (o.inventoryverbs, "Close")
+        }
+        o.changedOPENBIT => {
+          this.isopen = this.OPENBIT
+          if (FSET_P(this,"OPENBIT")) {
+            PUT (this.displayverbs, IndexOf (this.displayverbs, "Open"), "Close")
+            PUT (this.inventoryverbs, IndexOf (this.inventoryverbs, "Open"), "Close")
+          }
+          else {
+            PUT (this.displayverbs, IndexOf (this.displayverbs, "Close"), "Open")
+            PUT (this.inventoryverbs, IndexOf (this.inventoryverbs, "Close"), "Open")
+          }
+        }
+      }
+      if (FSET_P(o,"READBIT")) {
+        list add (o.displayverbs, "Read")
+        list add (o.inventoryverbs, "Read")
+      }
+      if (FSET_P(o,"LIGHTBIT") or FSET_P(o,"FLAMEBIT")) {
+        if (FSET_P(o,"FLAMEBIT")) {
+          if (not FSET_P(o,"ONBIT")) {
+            list add (o.displayverbs, "Light")
+            list add (o.inventoryverbs, "Light")
+          }
+          else {
+            list add (o.displayverbs, "Douse")
+            list add (o.inventoryverbs, "Douse")
+            o.listalias = o.alias + " (providing light)"
+          }
+          o.changedONBIT => {
+            if (FSET_P(this,"ONBIT")) {
+              PUT (this.displayverbs, IndexOf (this.displayverbs, "Light"), "Douse")
+              PUT (this.inventoryverbs, IndexOf (this.inventoryverbs, "Light"), "Douse")
+              this.listalias = this.alias + " (providing light)"
+            }
+            else {
+              PUT (this.displayverbs, IndexOf (this.displayverbs, "Douse"), "Light")
+              PUT (this.inventoryverbs, IndexOf (this.inventoryverbs, "Douse"), "Light")
+              this.listalias = this.alias
+            }
+          }
+        }
+        else {
+          if (not FSET_P(o,"ONBIT")) {
+            list add (o.displayverbs, "Turn on")
+            list add (o.inventoryverbs, "Turn on")
+          }
+          else {
+            list add (o.displayverbs, "Turn off")
+            list add (o.inventoryverbs, "Turn off")
+            o.listalias = o.alias + " (providing light)"
+          }
+          o.changedONBIT => {
+            if (FSET_P(this,"ONBIT")) {
+              PUT (this.displayverbs, IndexOf (this.displayverbs, "Turn on"), "Turn off")
+              PUT (this.inventoryverbs, IndexOf (this.inventoryverbs, "Turn on"), "Turn off")
+              this.listalias = this.alias + " (providing light)"
+            }
+            else {
+              PUT (this.displayverbs, IndexOf (this.displayverbs, "Turn off"), "Turn on")
+              PUT (this.inventoryverbs, IndexOf (this.inventoryverbs, "Turn off"), "Turn on")
+              this.listalias = this.alias
+            }
+          }
+        }
+      }
+    }
+  ]]></function>
+
+  <function name="DoLoadingScreen"><![CDATA[
+    // JS.eval ("$('#status,#gameContent,#qv-status').hide(); $('#gameBorder').prepend('<div id=\"loadingstory\"><br/><br/><br/><br/><center>ZORK I: THE GREAT UNDERGROUND EMPIRE<br/>by Marc Blank and Dave Lebling<br/>Original Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986 Infocom, Inc. All rights reserved.<br/>ZORK is a registered trademark of Infocom, Inc.<br/>MIT License - Copyright (c) 2025 Microsoft</center><br/><br/>Quest Text Adventure Engine, version 5.9<br/>Copyright (c) 2025 Alex Warren, Andy Joel and contributors<br/><br/>Story loading. Please wait. . .<br/>312 pages allocated.</div>');")
+    // SetTimeout (6) {
+      // JS.eval ("$('#loadingstory').remove(); $('#gameContent').show(); $('#status').show(); $('#qv-status').show();")
+      // }
+    // SetTimeout (2) {
+      // JS.updateLocation (CapFirst(game.pov.parent.alias) + "<span class=\"score-moves\" style=\"float:right;margin-right:1%;\">Score: " + GLOBAL.SCORE + "&emsp;Moves: " + GLOBAL.MOVES + "&emsp;</span>")
+      // }
+  ]]></function>
+
+</library>

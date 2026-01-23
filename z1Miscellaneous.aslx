@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<!--
+  Miscellaneous stuff
+                    for ZORK 1
+-->
+<library>
+
+  <turnscript name="i_update_moves_and_location">
+    <enabled />
+    <script><![CDATA[
+      GLOBAL.MOVES = GLOBAL.MOVES + 1
+      UpdateLocationString (CapFirst (GLOBAL.HERE.alias))
+    ]]></script>
+  </turnscript>
+
+  <function name="PreGO">
+    InitCurrentPronouns
+    DisableQuestCommands
+    SetUpRFATAL
+  </function>
+
+  <object name="NOTHING">
+    <inherit name="editor_object" />
+    <alias>nothing</alias>
+  </object>
+
+  <object name="zgraveyard">
+    <inherit name="editor_object" />
+  </object>
+
+  <object name="FEXIT">
+    <inherit name="editor_object" />
+  </object>
+
+  <object name="NEXIT">
+    <inherit name="editor_object" />
+  </object>
+
+  <object name="SYNONYM">
+    <inherit name="editor_object" />
+    <WITH>USING THROUGH THRU</WITH>
+    <IN>INSIDE INTO</IN>
+    <ON>ONTO</ON>
+    <UNDER>UNDERNEATH BENEATH BELOW</UNDER>
+    <NORTH>N</NORTH>
+    <SOUTH>S</SOUTH>
+    <EAST>E</EAST>
+    <WEST>W</WEST>
+    <DOWN>D</DOWN>
+    <UP>U</UP>
+    <NW>NORTHWEST</NW>
+    <NE>NORTHE NORTHEAST</NE>
+    <SW>SOUTHWEST</SW>
+    <SE>SOUTHE SOUTHEAST</SE>
+    <ANSWER type="string"></ANSWER>
+    <ATTACK>FIGHT HURT INJURE HIT</ATTACK>
+    <BRUSH>CLEAN</BRUSH>
+    <BURN>INCINERATE IGNITE</BURN>
+    <CHOMP>LOSE BARF</CHOMP>
+    <CLIMB>SIT</CLIMB>
+    <CROSS>FORD</CROSS>
+    <CUT>SLICE PIERCE</CUT>
+    <CURSE>SHIT FUCK DAMN</CURSE>
+    <DESTROY>DAMAGE BREAK BLOCK SMASH</DESTROY>
+    <DRINK>IMBIBE SWALLOW</DRINK>
+    <EAT>CONSUME TASTE BITE</EAT>
+    <EXAMINE>DESCRIBE WHAT WHATS</EXAMINE>
+    <EXORCISE>BANISH CAST DRIVE BEGONE</EXORCISE>
+    <EXTINGUISH>DOUSE</EXTINGUISH>
+    <FIND>WHERE SEEK SEE</FIND>
+    <FOLLOW>PURSUE CHASE COME</FOLLOW>
+    <GIVE>DONATE OFFER FEED</GIVE>
+    <HELLO>HI</HELLO>
+    <INCANT>CHANT</INCANT>
+    <JUMP>LEAP DIVE</JUMP>
+    <KICK>TAUNT</KICK>
+    <KILL>MURDER SLAY DISPATCH</KILL>
+    <KNOCK>RAP</KNOCK>
+    <LOOK>L STARE GAZE</LOOK>
+    <LUBRICATE>OIL GREASE</LUBRICATE>
+    <MELT>LIQUIFY</MELT>
+    <MUMBLE>SIGH</MUMBLE>
+    <ODYSSEUS>ULYSSES</ODYSSEUS>
+    <PLUG>GLUE PATCH REPAIR FIX</PLUG>
+    <PLUGH>XYZZY</PLUGH>
+    <POUR>SPILL</POUR>
+    <PULL>TUG YANK</PULL>
+    <PUSH>PRESS</PUSH>
+    <PUT>STUFF INSERT PLACE HIDE</PUT>
+    <RAISE>LIFT</RAISE>
+    <READ>SKIM</READ>
+    <RING>PEAL</RING>
+    <RUB>TOUCH FEEL PAT PET</RUB>
+    <SKIP>HOP</SKIP>
+    <SMELL>SNIFF</SMELL>
+    <SWIM>BATHE WADE</SWIM>
+    <SWING>THRUST</SWING>
+    <TAKE>GET HOLD CARRY REMOVE GRAB CATCH</TAKE>
+    <TELL>ASK</TELL>
+    <THROW>HURL CHUCK TOSS</THROW>
+    <TIE>FASTEN SECURE ATTACH</TIE>
+    <TREASURE>TEMPLE</TREASURE>
+    <TURN>SET FLIP SHUT</TURN>
+    <UNTIE>FREE RELEASE UNFASTEN UNATTACH UNHOOK</UNTIE>
+    <WAIT>Z</WAIT>
+    <WAKE>AWAKE SURPRISE STARTLE</WAKE>
+    <WALK>GO RUN PROCEED STEP</WALK>
+    <WAVE>BRANDISH</WAVE>
+    <WIN>WINNAGE</WIN>
+    <YELL>SCREAM SHOUT</YELL>
+  </object>
+
+  <object name="BUZZ">
+    <inherit name="editor_object" />
+    <AGAIN>AGAIN G OOPS</AGAIN>
+    <BUZZ>A AN THE IS AND OF THEN ALL ONE BUT EXCEPT . , " YES NO Y HERE</BUZZ>
+  </object>
+
+  <object name="TEMP">
+    <inherit name="editor_object" />
+  </object>
+
+  <object name="command_graveyard">
+    <inherit name="editor_object" />
+  </object>
+
+  <function name="StringContains" parameters="str, srch"><![CDATA[
+    return (Instr(str,srch)>0)
+  ]]></function>
+
+  <function name="FinishPrompt"><![CDATA[
+    msg ("Would you like to restart the game from the beginning, undo your last turn, or end this session of the game?<br/>(Type RESTART, UNDO, or QUIT)")
+    get input {
+      if (LCase(Trim(result)) = "restart") {
+        JS.eval ("if(webPlayer){window.location.reload();}else if (typeof(RestartGame) != 'undefined'){RestartGame();}else{addTextAndScroll('Try pressing CTRL+R.')};")
+        msg ("Restarting...")
+      }
+      else if (LCase(Trim(result)) = "undo") {
+        UpdateLocationString (CapFirst(GetDisplayAlias(game.pov.parent)))
+        JS.eval ("$('#inventoryLabel,#inventoryAccordion,#placesObjectsLabel,#placesObjectsAccordion,#compassLabel,#compassAccordion').show();")
+        invoke (UNDO_modified.script)
+      }
+      else if (LCase(Trim(result)) = "quit") {
+        finish
+      }
+      else {
+        FinishPrompt
+      }
+    }
+  ]]></function>
+
+  <function name="OList" parameters="s" type="objectlist">
+    olist = NewObjectList()
+    foreach (o, Split(olist)) {
+      list add (olist, GetObject(o))
+    }
+    return (olist)
+  </function>
+
+  <function name="RemoveBuzzWords" parameters="str" type="string"><![CDATA[
+    if (str = "") {
+      return (str)
+    }
+    if (HasAttribute (game, "buzzwords")) {
+      if (ListCount (game.buzzwords) > 0) {
+        strarr = Split (str, " ")
+        newstr = NewStringList()
+        foreach (wrd, strarr) {
+          if (not wrd in game.buzzwords) {
+            list add (newstr, wrd)
+          }
+        }
+        str = Join(newstr, " ")
+      }
+    }
+    dLog ("[RemoveBuzzWords] str: " + str)
+    return (Trim(str))
+  ]]></function>
+
+  <function name="MIN" parameters="N1, N2" type="int">
+    // TODO - Note: Quest will use the built-in 'min', which is the same as this
+    dLog ("[Running custom MIN]")
+    if (L_P(N1,N2)) {
+      return (N1)
+    }
+    return (N2)
+  </function>
+
+  <function name="InitCurrentPronouns">
+    GLOBAL.CURRENT_PRONOUNS = NewObjectDictionary()
+    dictionary add (GLOBAL.CURRENT_PRONOUNS, "it", NOTHING)
+    dictionary add (GLOBAL.CURRENT_PRONOUNS, "him", NOTHING)
+    dictionary add (GLOBAL.CURRENT_PRONOUNS, "they", NOTHING)
+    dictionary add (GLOBAL.CURRENT_PRONOUNS, "she", NOTHING)
+  </function>
+
+  <function name="DisableQuestCommands">
+    foreach (qc, AllCommands()) {
+      if (not StartsWith (qc.name, "V_")) {
+        qc.parent = command_graveyard
+        //Log ("[DisableQuestCommands] Command disabled: " + qc.name)
+      }
+    }
+  </function>
+
+  <function name="UpdateLocationString" parameters="room_name"><![CDATA[
+    JS.eval("var scoreMoves = ''; if ($('#divOutput').width() < 768){ scoreMoves = '" + GLOBAL.SCORE + "/" + GLOBAL.MOVES + "'; }else{ scoreMoves = 'Score: " + GLOBAL.SCORE + "&emsp;Moves: " + GLOBAL.MOVES + "'; } updateLocation ('" + room_name + "<span class=\"score-moves\" style=\"float:right;margin-right:1%;\">' + scoreMoves + '&emsp;</span>');")
+  ]]></function>
+
+</library>
