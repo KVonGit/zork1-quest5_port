@@ -1201,7 +1201,8 @@
     <pattern>EXIT #object1#;EXIT</pattern>
     <script>
       PRSO = GLOBAL.PRSO
-      if (PRSO = NOTHING or PRSO = ROOMS) {
+      if (PRSO = ROOMS and FSET_P(LOC(GLOBAL.WINNER),"VEHBIT")) {
+        PERFORM (V_DISEMBARK, LOC(GLOBAL.WINNER), NOTHING)       
       }
       else if (not PRSO = NOTHING and IN_P(GLOBAL.WINNER, PRSO)) {
         PERFORM (V_DISEMBARK, PRSO, NOTHING)
