@@ -916,6 +916,10 @@
     <not_all />
     <alt type="stringlist">
       <value>door</value>
+      <value>dusty door</value>
+      <value>dusty trapdoor</value>
+      <value>dusty trap-door</value>
+      <value>dusty cover</value>
     </alt>
   </object>
 
@@ -2439,6 +2443,7 @@
     <usedefaultprefix type="boolean">false</usedefaultprefix>
     <alias>West of House</alias>
     <ACTION>WEST_HOUSE</ACTION>
+    <GLOBAL>WHITE_HOUSE BOARD FOREST</GLOBAL>
     <RLANDBIT />
     <ONBIT />
     <SACREDBIT />
@@ -5813,8 +5818,9 @@
       game.pov.parent = GLOBAL.HERE
     }
     THIS_IS_IT (MAILBOX)
-    msg ("<b style=\"font-size:125%;\">" + game.gamename + "</b>")
-    msg ("<div style=\"font-size:88%;\">" + game.description + "<br/>Version " + game.version + "</div>")
+    //msg ("<b style=\"font-size:125%;\">" + game.gamename + "</b>")
+    //msg ("<div style=\"font-size:88%;\">" + game.description + "<br/>Version " + game.version + "</div>")
+    invoke (V_VERSION.script)
     CRLF
     GLOBAL.LIT = true
     GLOBAL.WINNER = game.pov

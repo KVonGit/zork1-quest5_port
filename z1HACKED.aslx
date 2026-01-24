@@ -544,6 +544,9 @@
         FinishTurn
       }
       else {
+        if (Instr (command,"?") > 0 and (StartsWith(command,"what") or StartsWith(command,"where"))) {
+          command = Replace(command,"?","") 
+        }
         shownlink = false
         if (game.echocommand) {
           if (metadata <> null and game.enablehyperlinks and game.echohyperlinks) {
@@ -575,6 +578,11 @@
         game.pov.commandmetadata = metadata
         if (game.multiplecommands) {
           command = Replace(command, " then ", ".")
+          if (Trim(Replace(command,".","")) = ""){
+            msg ("I beg your pardon?")
+            RFATAL
+            return (2)
+          }
           commands = Split(command, ".")
           if (ListCount(commands) = 1) {
             game.pov.commandqueue = null
@@ -943,25 +951,5 @@
     }
   ]]></function>
   
-  <object name="player"> <!-- UNUSED IN THIS PORT -->
-    <inherit name="editor_object" />
-    <inherit name="editor_player" />
-    <visible type="boolean">false</visible>
-    <changedparent type="script">
-      GLOBAL.HERE = this.parent
-      if (game.pov = this) {
-        if (IsDefined("oldvalue")) {
-          OnEnterRoom (oldvalue)
-        }
-        else {
-          OnEnterRoom (null)
-        }
-        if (game.gridmap) {
-          MergePOVCoordinates
-        }
-      }
-      this.hasbeenmoved = true
-    </changedparent>
-  </object>
 
 </library>

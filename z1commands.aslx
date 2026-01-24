@@ -64,7 +64,7 @@
     <pattern type="string">^#XTRACE</pattern>
     <script>
       SuppressTurnscripts
-      if (StartsWith (game.version, "0")) {
+      if (EndsWith (game.version, "beta")) {
         game.debugging = not GetBoolean(game,"debugging")
         msg ("Debugging {either game.debugging:en|dis}abled.")
       }
@@ -395,7 +395,7 @@
 <SYNONYM TURN SET FLIP SHUT>
 -->
   <command name="V_LAMP_ON">
-    <pattern type="string"><![CDATA[^ACTIVATE( (?<object1>.*))?$|^LIGHT (?<object1>.*) WITH (?<object2>.*)$|^LIGHT( (?<object1>.*))?$|^(TURN|SET|FLIP|SHUT) ON (?<object1>.*) WITH (?<object2>.*)$|^(TURN|SET|FLIP|SHUT) ON( (?<object1>.*))?$|^(TURN|SET|FLIP|SHUT) (?<object1>.*) ON$]]></pattern>
+    <pattern type="string"><![CDATA[^ACTIVATE( (?<object1>.*))?$|^LIGHT (?<object1>.*) WITH (?<object2>.*)$|^LIGHT( (?<object1>.*))?$|^(TURN|SET|FLIP|SHUT|SWITCH) ON (?<object1>.*) WITH (?<object2>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) ON( (?<object1>.*))?$|^(TURN|SET|FLIP|SHUT|SWITCH) (?<object1>.*) ON$]]></pattern>
     <attr name="SCOPE_PRSO" type="string">HELD CARRIED ON_GROUND IN_ROOM</attr>
     <attr name="FIND_PRSO">LIGHTBIT</attr>
     <attr name="FIND_PRSI">FLAMEBIT</attr>
@@ -735,6 +735,7 @@
       do (V_CLIMB_UP, "script", QuickParams ("DIR", "UP"))
     </script>
   </command>
+
   <command name="V_CLIMB_ON">
     <pattern type="string"><![CDATA[^(CLIMB|SIT|TAKE|GET|HOLD|CARRY|REMOVE|GRAB|CATCH) (ON|ONTO)( (?<object1>.*))$]]></pattern>
     <attr name="FIND_PRSO">VEHBIT</attr>
@@ -824,7 +825,7 @@
   </command>
 
   <command name="V_COMMAND">
-    <pattern>COMMAND #object1#</pattern>
+    <pattern>COMMAND #object1# TO #text#;COMMAND #object1#;#object1#, #text#</pattern>
     <attr name="FIND_PRSO">ACTORBIT</attr>
     <script>
       PRSO = GLOBAL.PRSO
@@ -1214,7 +1215,7 @@
   </command>
 
   <command name="V_EXAMINE">
-    <pattern type="string"><![CDATA[^(EXAMINE|X|DESCRIBE|WHAT|WHATS|LOOK AT) (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(EXAMINE|X|DESCRIBE|(WHAT IS)|WHAT|WHATS|(WHAT'S)|(LOOK AT)) (?<object1>.*)$]]></pattern>
     <attr name="SCOPE_PRSO" type="string">MANY</attr>
     <allow_all />
     <script>

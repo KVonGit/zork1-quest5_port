@@ -5,19 +5,19 @@
   <include ref="z1commands.aslx" />
   <include ref="z1dungeon.aslx" />
   <include ref="z1actions.aslx" />
-  <include ref="z1globals.aslx" />
   <include ref="z1notZIL.aslx" />
   <include ref="z1HACKED.aslx" />
   <include ref="z1Miscellaneous.aslx" />
   <include ref="z1ParserAddons.aslx" />
+  <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
     <gameid>qcode-z1-2026-0123-8b00-e7d39e177663</gameid>
-    <version>0.1.4 beta</version>
+    <version>0.1.5.1 beta</version>
     <firstpublished>2026</firstpublished>
     <debugging type="boolean">false</debugging>
     <attr name="debug_fighting" type="boolean">false</attr>
     <subtitle>Infocom interactive fiction - a fantasy story</subtitle>
-    <description><![CDATA[by Marc Blank and Dave Lebling<br/>Infocom interactive fiction - a fantasy story<br/>Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986 Infocom, Inc. All rights reserved.<br/>ZORK is a registered trademark of Infocom, Inc.<br/>MIT License - Copyright (c) 2025 Microsoft<br/>2026  Quest 5.9 por t by KV]]></description>
+    <description><![CDATA[by Marc Blank and Dave Lebling<br/>Infocom interactive fiction - a fantasy story<br/>Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986 Infocom, Inc. All rights reserved.<br/>ZORK is a registered trademark of Infocom, Inc.<br/>MIT License - Copyright (c) 2025 Microsoft<br/>2026  Quest 5.9 port by KV<br/><br/>Manual:<br/>https://infodoc.plover.net/manuals/zork1.pdf<br/><br/>Map:<br/>https://eblong.com/infocom/maps/zork-1-map-ZUG-1982.jpeg<br/><br/>InvisiClues (hints):<br/>https://dfabulich.github.io/infocom-hints-html/zork-i-the-great-underground-empire.html<br/><br/>Walkthrough:<br/>http://www.eristic.net/games/infocom/zork1.html  ]]></description>
     <author>Marc Blank and Dave Lebling</author>
     <category>Fantasy</category>
     <showtitle type="boolean">false</showtitle>
@@ -42,7 +42,7 @@
     <defaultbackground>White</defaultbackground>
     <customlocationbordercolour>Black</customlocationbordercolour>
     <marginscolour type="string"></marginscolour>
-    <publishfileextensions>*.jpg;*.jpeg;*.png;*.gif;*.js;*.wav;*.mp3;*.htm;*.html;*.svg;*.ogg;*.ogv;*.zip</publishfileextensions>
+    <publishfileextensions>*.jpg;*.jpeg;*.png;*.gif;*.js;*.wav;*.mp3;*.htm;*.html;*.svg;*.ogg;*.ogv;*.zip;*.pdf</publishfileextensions>
     <pov type="object">ADVENTURER</pov>
     <start type="script">
       PreGO
@@ -55,7 +55,40 @@
       RemoveTypeHereLabel
       FixContinueLink
     </inituserinterface>
+    <unresolvedcommandhandler type="script">
+      words = Split(command," ")
+      len = ListCount(words)
+      if (len = 0) {
+        msg ("I beg your pardon?")
+      }
+      else {
+        msg (Template("UnrecognisedCommand"))
+      }
+    </unresolvedcommandhandler>
   </game>
+  <object name="room">
+    <inherit name="editor_room" />
+    <object name="player">
+      <inherit name="editor_object" />
+      <inherit name="editor_player" />
+      <visible type="boolean">false</visible>
+      <changedparent type="script">
+        GLOBAL.HERE = this.parent
+        if (game.pov = this) {
+          if (IsDefined("oldvalue")) {
+            OnEnterRoom (oldvalue)
+          }
+          else {
+            OnEnterRoom (null)
+          }
+          if (game.gridmap) {
+            MergePOVCoordinates
+          }
+        }
+        this.hasbeenmoved = true
+      </changedparent>
+    </object>
+  </object>
   <walkthrough name="to_troll_fight">
     <steps type="simplestringlist">
       delay:50

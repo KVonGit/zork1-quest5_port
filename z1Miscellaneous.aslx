@@ -113,7 +113,7 @@
   <object name="BUZZ">
     <inherit name="editor_object" />
     <AGAIN>AGAIN G OOPS</AGAIN>
-    <BUZZ>A AN THE IS AND OF THEN ALL ONE BUT EXCEPT . , " YES NO Y HERE</BUZZ>
+    <BUZZ>A AN THE IS AND OF THEN ALL ONE BUT EXCEPT . , " ' ? ! YES NO Y HERE</BUZZ>
   </object>
 
   <object name="TEMP">
