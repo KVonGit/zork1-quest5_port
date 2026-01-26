@@ -296,7 +296,7 @@
       // CHANGE: Should still never get here, but we don't return null.
       // If we get here somehow, trust user's scripts to define scope.
     }
-    items = ObjectListCompact(items)
+    items = ObjectListCompact(items) - game.pov
     // CHANGE: Run the script 'changecommandscope' (if it exists) for the game object, the player's room and
     // containing rooms, and the current command. This allows the user to change command scope on a per-location
     // or per-command basis
@@ -951,5 +951,32 @@
     }
   ]]></function>
   
+  <function name="CompareNames" parameters="name, value, obj, fullmatches, partialmatches"><![CDATA[
+    namearr = Split(name, " ")
+    valuearr = Split(value, " ")
+    name = ""
+    value = ""
+    foreach (wrd, namearr) {
+      wrd = Left (wrd, 6)
+      name = name + " " + wrd
+    }
+    foreach (wrd, valuearr) {
+      wrd = Left (wrd, 6)
+      value = value + " " + wrd
+    }
+    name = Trim(name)
+    value = Trim(value)
+    if (name = value) {
+      if (not ListContains(fullmatches, obj)) {
+        list add (fullmatches, obj)
+      }
+    }
+    // check if input matches the start of any word in the name
+    if (Instr(name, value) = 1 or Instr(name, " " + value) > 0) {
+      if (not ListContains(partialmatches, obj)) {
+        list add (partialmatches, obj)
+      }
+    }
+  ]]></function>
 
 </library>

@@ -642,6 +642,7 @@
   <function name="LIVING_ROOM_FCN" parameters="RARG" type="boolean"><![CDATA[
     dLog("[LIVING_ROOM_FCN]...")
     if (RARG = "M_LOOK") {
+      dLog("[LIVING_ROOM_FCN] RARG is M_LOOK")
       TELL ("You are in the living room. There is a doorway to the east")
       if (GetBoolean(GLOBAL, "MAGIC_FLAG")) {
         TELL (". To the west is a cyclops-shaped opening in an old wooden door, above which is some strange gothic lettering, ")
@@ -663,9 +664,11 @@
         TELL ("and a large oriental rug in the center of the room.")
       }
       msg ("")
+      dLog("[LIVING_ROOM_FCN] returning True")
       return (true)
     }
     else if (RARG = "M_END") {
+      dLog("[LIVING_ROOM_FCN] RARG is M_END")
       if (GLOBAL.PRSA = V_TAKE or (GLOBAL.PRSA = V_PUT and GLOBAL.PRSI = TROPHY_CASE)) {
         if (TypeOf(GLOBAL.PRSO) = "objectlist") {
           foreach (o, GLOBAL.PRSO) {
@@ -681,8 +684,11 @@
         }
       }
       GLOBAL.SCORE = GLOBAL.BASE_SCORE + OTVAL_FROB(null)
-      return (SCORE_UPD (0))
+      SCORE_UPD (0)
+      dLog("[LIVING_ROOM_FCN] returning False")
+      return (false)
     }
+    dLog("[LIVING_ROOM_FCN] returning False")
     return (false)
   ]]></function>
 
@@ -917,7 +923,7 @@
         }
         return (true)
       }
-      else if (IN_P(TROLL.GLOBAL.HERE)) {
+      else if (IN_P(TROLL, GLOBAL.HERE)) {
         TROLL.LDESC = "A pathetically babbling troll is here."
         msg ("The troll, disarmed, cowers in terror, pleading for his life in the guttural tongue of the trolls.")
         return (true)

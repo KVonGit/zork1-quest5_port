@@ -700,7 +700,10 @@
   </function>
 
   <function name="SEE_INSIDE_P" parameters="OBJ" type="boolean">
-    return ((not FSET_P(OBJ,"INVISIBLE")) and (FSET_P(OBJ,"TRANSBIT") or FSET_P(OBJ,"OPENBIT")))
+    dLog ("[SEE_INSIDE_P]...")
+    res = not FSET_P(OBJ,"INVISIBLE") and (FSET_P(OBJ,"TRANSBIT") or FSET_P(OBJ,"OPENBIT"))
+    dLog ("[SEE_INSIDE_P] returning " + res)
+    return (res)
   </function>
 
   <function name="SCORE_UPD" parameters="NUM" type="boolean">

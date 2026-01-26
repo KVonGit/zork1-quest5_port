@@ -430,7 +430,7 @@
       <value>bloody ax</value>
     </alt>
     <alias>bloody axe</alias>
-    <scenery />
+    <!-- <scenery /> -->
     <WEAPONBIT />
     <TRYTAKEBIT />
     <TAKEBIT />
@@ -1880,7 +1880,7 @@
     <alt type="stringlist">
       <value>thief's bag</value>
     </alt>
-    <scenery />
+    <scenery /> <!-- TODO -->
     <SYNONYM>BAG</SYNONYM>
     <ADJECTIVE>LARGE THIEFS</ADJECTIVE>
     <ACTION>LARGE_BAG_F</ACTION>
@@ -1894,7 +1894,7 @@
     <parent type="object">THIEF</parent>
     <LOC type="object">THIEF</LOC>
     <alias>stiletto</alias>
-    <scenery />
+    <scenery /> <!-- TODO -->
     <alt type="stringlist">
       <value>vicious stiletto</value>
     </alt>

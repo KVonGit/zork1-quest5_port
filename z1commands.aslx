@@ -1125,8 +1125,8 @@
         RFATAL
         return (2)
       }
-      EAT_P = null
-      DRINK_P = null
+      EAT_P = false
+      DRINK_P = false
       NOBJ = null
       EAT_P = FSET_P(GLOBAL.PRSO, "FOODBIT")
       if (EAT_P) {
@@ -1251,7 +1251,7 @@
           msg ("There is nothing special to be seen.")
         }
         else if (SEE_INSIDE_P(PRSO)) {
-          if (ListCount(GetDirectChildren(PRSO)) > 0) {
+          if (ListCount(FilterByNotAttribute(GetDirectChildren(PRSO),"INVISIBLE")) > 0) {
             pippo = PRINT_CONT (PRSO)
             return (true)
           }

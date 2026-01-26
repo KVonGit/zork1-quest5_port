@@ -12,7 +12,7 @@
   <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
     <gameid>qcode-z1-2026-0123-8b00-e7d39e177663</gameid>
-    <version>0.1.5.1 beta</version>
+    <version>0.1.6.1 beta</version>
     <firstpublished>2026</firstpublished>
     <debugging type="boolean">false</debugging>
     <attr name="debug_fighting" type="boolean">false</attr>
@@ -67,11 +67,13 @@
     </unresolvedcommandhandler>
   </game>
   <object name="room">
-    <inherit name="editor_room" />
+    <inherit name="editor_object" />
+    <alias>unusedobject</alias>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
       <visible type="boolean">false</visible>
+      <alias>unusedobject</alias>
       <changedparent type="script">
         GLOBAL.HERE = this.parent
         if (game.pov = this) {
@@ -89,6 +91,7 @@
       </changedparent>
     </object>
   </object>
+
   <walkthrough name="to_troll_fight">
     <steps type="simplestringlist">
       delay:50
@@ -438,6 +441,172 @@
       w
       w
       w
+    </steps>
+  </walkthrough>
+  <walkthrough name="book">
+    <steps type="simplestringlist">
+      delay:50
+      open mailbox
+      get leaflet
+      read it
+      drop it
+      n
+      n
+      climb tree
+      get egg
+      d
+      open egg
+      s
+      e
+      open window
+      in
+      take all
+      open brown sack
+      west
+      take all
+      move rug
+      open trap door
+      light
+      down
+      drop jewel-encrusted egg
+      #random 187
+      n
+      attack troll with sword
+      g
+      drop sword
+      w
+      w
+      w
+      u
+      get coins and key
+      sw
+      e
+      s
+      se
+      odysseus
+      e
+      e
+      open case
+      put coins in case
+      drop lunch, bottle, and key
+      open trap
+      d
+      s
+      e
+      get painting
+      w
+      n
+      u
+      put painting in case
+      d
+      n
+      e
+      e
+      e.jump
+      echo
+      get bar
+      w
+      w
+      w
+      s
+      u
+      put bar in case
+      d
+      n
+      e
+      e
+      e
+      u
+      e
+      n
+      get matchbook
+      n
+      get wrench and screwdriver
+      push yellow
+      s
+      s
+      turn bolt with wrench
+      drop wrench
+      w
+      z
+      z
+      n
+      get trunk
+      s
+      sw
+      sw
+      w
+      s
+      u
+      put trunk in case
+      d
+      n
+      e
+      n
+      ne
+      n
+      n
+      get air pump
+      n
+      get trident
+      u
+      n
+      n
+      w
+      d
+      u
+      put trident in case
+      e
+      u
+      get rope
+      d
+      w
+      d
+      n
+      e
+      e
+      se
+      e
+      tie rope to railing
+      d
+      get torch
+      turn off lamp
+      s
+      drop sack, lantern, pump, matchbook, and screwdriver
+      e
+      get coffin
+      open it
+      take sceptre
+      w
+      s
+      pray
+      e
+      s
+      e
+      in
+      w
+      put coffin and sceptre in case
+      d
+      n
+      e
+      e
+      se
+      e
+      d
+      s
+      get matchbook and bell
+      open matchbook
+      s
+      get candles and black book
+      put out candles
+      d
+      d
+      ring bell
+      get candles
+      light match
+      light candles
+      read book
+      read book
     </steps>
   </walkthrough>
   <walkthrough name="eristic">
