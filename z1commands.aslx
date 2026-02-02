@@ -26,6 +26,7 @@
       }
       game.suppressturnscripts = true
     ]]></script>
+    <SYNONYM>OOPS</SYNONYM>
   </command>
 
   <command name="V_UNDO_modified"> <!-- NOT IN ORIGINAL! -->
@@ -42,10 +43,11 @@
       }
       SuppressTurnscripts
     ]]></script>
+    <SYNONYM>UNDO</SYNONYM>
   </command>
 
   <command name="V_prounouns"> <!-- NOT IN ORIGINAL! -->
-    <pattern>pronouns</pattern>
+    <pattern>pronouns;pronou</pattern>
     <script>
       dict = GLOBAL.CURRENT_PRONOUNS
       foreach (i, dict) {
@@ -58,6 +60,7 @@
       }
       SuppressTurnscripts
     </script>
+    <SYNONYM>PRONOUNS PRONOU</SYNONYM>
   </command>
 
   <command name="V_DEBUG"> <!-- NOT IN ORIGINAL! -->
@@ -72,6 +75,10 @@
         msg ("I didn't understand your command.")
       }
     </script>
+    <SYNONYM>#XTRACE</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      #XTRA = V_XTRACE
+    </SYNTAX>
   </command>
 
   <function name="dLog" parameters="str"><![CDATA[
@@ -87,13 +94,17 @@
   ]]></function>
 
   <command name="V_VERBOSE">
-    <pattern>VERBOSE</pattern>
+    <pattern>VERBOSE;VERBOS</pattern>
     <script>
       GLOBAL.VERBOSE = true
       GLOBAL.SUPER_BRIEF = false
       msg ("Maximum verbosity.")
       SuppressTurnscripts
     </script>
+    <SYNONYM>VERBOSE VERBOS</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      VERBOSE = V_VERBOSE
+    </SYNTAX>
   </command>
 
   <command name="V_BRIEF">
@@ -104,19 +115,27 @@
       msg ("Brief descriptions.")
       SuppressTurnscripts
     </script>
+    <SYNONYM>BRIEF</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      BRIEF = V_BRIEF
+    </SYNTAX>
   </command>
 
   <command name="V_SUPER_BRIEF">
-    <pattern>SUPER;SUPERBRIEF</pattern>
+    <pattern>SUPER;SUPERBRIEF;SUPERB</pattern>
     <script>
       GLOBAL.SUPER_BRIEF = true
       msg ("Superbrief descriptions.")
       SuppressTurnscripts
     </script>
+    <SYNONYM>SUPER SUPERBRIEF SUPERB</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      SUPER = V_SUPER_BRIEF
+    </SYNTAX>
   </command>
 
   <command name="V_DIAGNOSE">
-    <pattern>DIAGNOSE</pattern>
+    <pattern>DIAGNOSE;DIAGNO</pattern>
     <script>
       // V_DIAGNOSE
       // from 1actions.zil
@@ -186,6 +205,10 @@
       }
       SuppressTurnscripts
     </script>
+    <SYNONYM>DIAGNOSE DIAGNO</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      DIAGNOSE = V_DIAGNOSE
+    </SYNTAX>
   </command>
 
   <command name="V_INVENTORY">
@@ -198,6 +221,10 @@
         msg ("You are empty-handed.")
       }
     </script>
+    <SYNONYM>INVENTORY I</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      INVENTORY = V_INVENTORY
+    </SYNTAX>
   </command>
 
   <command name="V_QUIT">
@@ -215,10 +242,14 @@
         }
       }
     </script>
+    <SYNONYM>QUIT Q</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      QUIT = V_QUIT
+    </SYNTAX>
   </command>
 
   <command name="V_RESTART">
-    <pattern>RESTART</pattern>
+    <pattern>RESTART;RESTAR</pattern>
     <script>
       SuppressTurnscripts
       invoke (V_SCORE.script)
@@ -236,6 +267,10 @@
         }
       }
     </script>
+    <SYNONYM>RESTART RESTAR</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      RESTART = V_RESTART
+    </SYNTAX>
   </command>
 
   <command name="V_RESTORE">
@@ -244,6 +279,10 @@
       SuppressTurnscripts
       JS.eval("addText (\"Quest 5 doesn't work that way.<br/>\"); if (window.location.href.indexOf(\"res\") == 0) { addTextAndScroll (\"To play from a save from the Windows app, you must directly load the save file instead of the game itself.<br/>\"); }else{ addTextAndScroll (\"To access your saves online, restart the game or open a new tab and start the game to load the list of saves.<br/>You should also check out the <a target=\\\"_blank\\\" href=\\\"https://textadventures.co.uk/games/play/q_zjajkiwuu8ijbmyyixrw\\\">Viva Save Manager</a><br/>\"); }")
     ]]></script>
+    <SYNONYM>RESTORE</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      RESTORE = V_RESTORE
+    </SYNTAX>
   </command>
 
   <command name="V_SAVE">
@@ -252,6 +291,7 @@
       do (save, "script")
       SuppressTurnscripts
     </script>
+    <SYNONYM>SAVE</SYNONYM>
   </command>
 
   <command name="V_SCORE">
@@ -292,6 +332,7 @@
       msg (".")
       SuppressTurnscripts
     ]]></script>
+    <SYNONYM>SCORE</SYNONYM>
   </command>
 
   <command name="V_SCRIPT">
@@ -300,18 +341,20 @@
       do (transcript_on_cmd, "script")
       SuppressTurnscripts
     </script>
+    <SYNONYM>SCRIPT</SYNONYM>
   </command>
 
   <command name="V_UNSCRIPT">
-    <pattern>UNSCRIPT</pattern>
+    <pattern>UNSCRIPT;UNSCRI</pattern>
     <script>
       do (transcript_off_cmd, "script")
       SuppressTurnscripts
     </script>
+    <SYNONYM>UNSCRIPT UNSCRI</SYNONYM>
   </command>
 
   <command name="V_view_transcript_unmodified"> <!-- NOT IN ORIGINAL! -->
-    <pattern type="string">^(view|display|show) (the |)(script|transcript)$</pattern>
+    <pattern type="string">^(view|display|displa|show) (the |)(script|transcript)$</pattern>
     <script>
       if (not GetBoolean(game, "notranscript")) {
         JS.showTranscript ()
@@ -321,14 +364,16 @@
       }
       SuppressTurnscripts
     </script>
+    <SYNONYM>VIEW DISPLAY DISPLA SHOW</SYNONYM>
   </command>
 
   <command name="V_VERSION">
-    <pattern>VERSION;ABOUT</pattern>
+    <pattern>VERSION;VERSIO;ABOUT</pattern>
     <script><![CDATA[
       SuppressTurnscripts
       msg ("<div style=\"font-size:88%;\"><b>ZORK I: The Great Underground Empire</b><br/>by Marc Blank and Dave Lebling<br/>Infocom interactive fiction - a fantasy story<br/>Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986 Infocom, Inc. All rights reserved.<br/>ZORK is a registered trademark of Infocom, Inc.<br/>MIT License - Copyright (c) 2025 Microsoft<br/>2026 Quest 5.9 port by KV<br/>IFID: {=UCase(game.gameid)}<br/>v{game.version}</div>")
     ]]></script>
+    <SYNONYM>VERSION VERSIO ABOUT</SYNONYM>
   </command>
 
   <command name="V_VERIFY">
@@ -337,6 +382,7 @@
       SuppressTurnscripts
       msg ("Verifying game file...<br/>The file is correct.")
     ]]></script>
+    <SYNONYM>$VERIFY</SYNONYM>
   </command>
 
   <command name="V_RANDOM">
@@ -352,6 +398,7 @@
         msg ("Illegal call to #RANDOM.")
       }
     </script>
+    <SYNONYM>#RANDOM</SYNONYM>
   </command>
 
   <command name="V_COMMAND_FILE">
@@ -359,6 +406,7 @@
     <script>
       invoke (V_RECORD.script)
     </script>
+    <SYNONYM>#COMMAND</SYNONYM>
   </command>
 
   <command name="V_RECORD">
@@ -368,34 +416,33 @@
       //game.recording_steps = true
       SuppressTurnscripts
     </script>
+    <SYNONYM>#RECORD</SYNONYM>
   </command>
 
   <command name="V_UNRECORD">
-    <pattern type="string">^#UNRECORD$</pattern>
+    <pattern type="string">^(#UNRECORD|#UNRECO)$</pattern>
     <script>
       invoke (V_RECORD.script)
       //game.recording_steps = false
     </script>
+    <SYNONYM>#UNRECORD #UNRECO</SYNONYM>
   </command>
 
 <!-- REAL VERBS -->
 
 <!--
-<SYNTAX ACTIVATE OBJECT (FIND LIGHTBIT)
-	(HELD CARRIED ON-GROUND IN-ROOM) = V-LAMP-ON>
+<SYNTAX ACTIVATE OBJECT (FIND LIGHTBIT) (HELD CARRIED ON-GROUND IN-ROOM) = V-LAMP-ON>
 
-<SYNTAX LIGHT OBJECT (FIND LIGHTBIT)
-	(HELD CARRIED ON-GROUND IN-ROOM TAKE HAVE) = V-LAMP-ON>
+<SYNTAX LIGHT OBJECT (FIND LIGHTBIT) (HELD CARRIED ON-GROUND IN-ROOM TAKE HAVE) = V-LAMP-ON>
 
-<SYNTAX TURN ON	OBJECT (FIND LIGHTBIT)
-	(HELD CARRIED ON-GROUND IN-ROOM) = V-LAMP-ON>
+<SYNTAX TURN ON	OBJECT (FIND LIGHTBIT) (HELD CARRIED ON-GROUND IN-ROOM) = V-LAMP-ON>
 
 <SYNTAX TURN ON OBJECT WITH OBJECT (HAVE) = V-LAMP-ON>
 
 <SYNONYM TURN SET FLIP SHUT>
 -->
   <command name="V_LAMP_ON">
-    <pattern type="string"><![CDATA[^ACTIVATE( (?<object1>.*))?$|^LIGHT (?<object1>.*) WITH (?<object2>.*)$|^LIGHT( (?<object1>.*))?$|^(TURN|SET|FLIP|SHUT|SWITCH) ON (?<object1>.*) WITH (?<object2>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) ON( (?<object1>.*))?$|^(TURN|SET|FLIP|SHUT|SWITCH) (?<object1>.*) ON$]]></pattern>
+    <pattern type="string"><![CDATA[^(ACTIVATE|ACTIVA)( (?<object1>.*))?$|^LIGHT (?<object1>.*) WITH (?<object2>.*)$|^LIGHT( (?<object1>.*))?$|^(TURN|SET|FLIP|SHUT|SWITCH) ON (?<object1>.*) WITH (?<object2>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) ON( (?<object1>.*))?$|^(TURN|SET|FLIP|SHUT|SWITCH) (?<object1>.*) ON$]]></pattern>
     <attr name="SCOPE_PRSO" type="string">HELD CARRIED ON_GROUND IN_ROOM</attr>
     <attr name="FIND_PRSO">LIGHTBIT</attr>
     <attr name="FIND_PRSI">FLAMEBIT</attr>
@@ -430,6 +477,13 @@
         msg ("You can't turn that on.")
       }
     </script>
+    <SYNONYM>ACTIVATE ACTIVA LIGHT TURN SET FLIP SHUT SWITCH</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      ACTIVATE OBJECT (FIND LIGHTBIT) (HELD CARRIED ON-GROUND IN-ROOM) = V-LAMP-ON
+      LIGHT OBJECT (FIND LIGHTBIT) (HELD CARRIED ON-GROUND IN-ROOM TAKE HAVE) = V-LAMP-ON
+      TURN ON	OBJECT (FIND LIGHTBIT) (HELD CARRIED ON-GROUND IN-ROOM) = V-LAMP-ON
+      TURN ON OBJECT WITH OBJECT (HAVE) = V-LAMP-ON
+    </SYNTAX>
   </command>
 
   <command name="V_ANSWER">
@@ -439,6 +493,10 @@
       GLOBAL.P_CONT = 0
       GLOBAL.QUOTE_FLAG = false
     </script>
+    <SYNONYM>ANSWER REPLY</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      ANSWER
+    </SYNTAX>
   </command>
 
   <command name="V_REPLY">
@@ -448,10 +506,14 @@
       GLOBAL.P_CONT = 0
       GLOBAL.QUOTE_FLAG = false
     </script>
+    <SYNONYM>ANSWER REPLY</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      ANSWER OBJECT = V-REPLY
+    </SYNTAX>
   </command>
 
   <command name="V_PUT">
-    <pattern type="string"><![CDATA[^DROP (?<object1>.*) (DOWN|INTO|IN) (?<object2>.*)$|^APPLY (?<object1>.*) TO (?<object2>.*)$|^(MOVE|PUT|STUFF|INSERT|PLACE|HIDE) (?<object1>.*) IN(|TO) (?<object2>.*)$|^SQUEEZE (?<object1>.*) (ON|ONTO) (?<object2>.*)$|^(THROW|HURL|CHUCK|TOSS) (?<object1>.*) (IN|INTO|ON|ONTO) (?<object2>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^DROP (?<object1>.*) (DOWN|INTO|IN) (?<object2>.*)$|^APPLY (?<object1>.*) TO (?<object2>.*)$|^(MOVE|PUT|STUFF|INSERT|PLACE|HIDE) (?<object1>.*) IN(|TO) (?<object2>.*)$|^(SQUEEZE|SQUEEZ) (?<object1>.*) (ON|ONTO) (?<object2>.*)$|^(THROW|HURL|CHUCK|TOSS) (?<object1>.*) (IN|INTO|ON|ONTO) (?<object2>.*)$]]></pattern>
     <attr name="SCOPE_PRSO" type="string">HELD MANY HAVE TAKE</attr>
     <scope>HELD;HAVE</scope>
     <allow_all />
@@ -497,10 +559,20 @@
         }
       }
     ]]></script>
+    <SYNONYM>DROP APPLY MOVE PUT STUFF INSERT PLACE HIDE SQUEEZE SQUEEZ THROW HURL CHUCK TOSS</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      APPLY OBJECT TO OBJECT = V-PUT PRE-PUT
+      DROP OBJECT (HELD MANY HAVE) DOWN OBJECT = V-PUT PRE-PUT
+      DROP OBJECT (HELD MANY HAVE) IN OBJECT = V-PUT PRE-PUT
+      MOVE OBJECT (HELD MANY HAVE) IN OBJECT = V-PUT PRE-PUT
+      PUT OBJECT (HELD MANY HAVE) IN OBJECT = V-PUT PRE-PUT
+      SQUEEZE OBJECT ON OBJECT = V-PUT PRE-PUT
+      THROW OBJECT (HELD CARRIED HAVE) IN OBJECT = V-PUT PRE-PUT
+    </SYNTAX>
   </command>
 
   <command name="V_ATTACK">
-    <pattern type="string"><![CDATA[^(ATTACK|FIGHT|HURT|INJURE|HIT|KILL|MURDER|SLAY|DISPATCH|STAB|STRIKE) (?<object1>.*) WITH (?<object2>.*)$|^(ATTACK|FIGHT|HURT|INJURE|HIT|KILL|MURDER|SLAY|DISPATCH|STAB|STRIKE)( (?<object1>.*))?$|^KNOCK DOWN (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(ATTACK|FIGHT|HURT|INJURE|HIT|KILL|MURDER|SLAY|DISPATCH|DISPAT|STAB|STRIKE) (?<object1>.*) WITH (?<object2>.*)$|^(ATTACK|FIGHT|HURT|INJURE|HIT|KILL|MURDER|SLAY|DISPATCH|DISPAT|STAB|STRIKE)( (?<object1>.*))?$|^KNOCK DOWN (?<object1>.*)$]]></pattern>
     <attr name="FIND_PRSO">ACTORBIT</attr>
     <attr name="SCOPE_PRSO" type="string">ON_GROUND IN_ROOM</attr>
     <attr name="FIND_PRSI">WEAPONBIT</attr>
@@ -529,6 +601,10 @@
         HERO_BLOW
       }
     </script>
+    <SYNONYM>ATTACK FIGHT HURT INJURE HIT KILL MURDER SLAY DISPATCH DISPAT STAB STRIKE KNOCK</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      ATTACK OBJECT (FIND ACTORBIT) (ON-GROUND IN-ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE) = V-ATTACK
+    </SYNTAX>
   </command>
 
   <command name="V_BACK">
@@ -536,6 +612,7 @@
     <script>
       msg ("Sorry, my memory is poor. Please give me a direction.")
     </script>
+    <SYNONYM>BACK</SYNONYM>
   </command>
 
   <command name="V_BLAST">
@@ -543,10 +620,11 @@
     <script>
       msg ("You can't blast anything by using words.")
     </script>
+    <SYNONYM>BLAST BLOW</SYNONYM>
   </command>
 
   <command name="V_LAMP_OFF">
-    <pattern type="string"><![CDATA[^BLOW OUT (?<object1>.*)$|^(EXTINGUISH|DOUSE) (?<object1>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) OFF (?<object1>.*) WITH (?<object2>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) OFF (?<object1>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) (?<object1>.*) OFF$|^(BLOW|PUT) OUT (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^BLOW OUT (?<object1>.*)$|^(EXTINGUISH|EXTING|DOUSE) (?<object1>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) OFF (?<object1>.*) WITH (?<object2>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) OFF (?<object1>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) (?<object1>.*) OFF$|^(BLOW|PUT) OUT (?<object1>.*)$]]></pattern>
     <SCOPE_PRSO type="string">HELD CARRIED ON_GROUND IN_ROOM TAKE HAVE</SCOPE_PRSO>
     <FIND_PRSO type="string">ONBIT</FIND_PRSO>
     <script>
@@ -570,6 +648,7 @@
         msg ("You can't turn that off.")
       }
     </script>
+    <SYNONYM>BLOW EXTINGUISH EXTING DOUSE TURN SET FLIP SHUT SWITCH PUT</SYNONYM>
   </command>
 
   <command name="V_INFLATE">
@@ -580,6 +659,7 @@
     <script>
       msg ("How can you inflate that?")
     </script>
+    <SYNONYM>BLOW INFLATE INFLAT</SYNONYM>
   </command>
 
   <command name="V_BREATHE">
@@ -587,10 +667,11 @@
     <script>
       PERFORM (V_INFLATE, GLOBAL.PRSO, LUNGS)
     </script>
+    <SYNONYM>BLOW</SYNONYM>
   </command>
 
   <command name="V_BOARD">
-    <pattern type="string"><![CDATA[^BOARD (?<object1>.*)$|^(TAKE|GET|HOLD|CARRY|REMOVE|GRAB|CATCH) (IN|INSIDE|ON|ONTO)( (?<object2>.*))?$|^(CLIMB|SIT) (IN|INTO) (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^BOARD (?<object1>.*)$|^(TAKE|GET|HOLD|CARRY|REMOVE|GRAB|CATCH) (IN|INSIDE|ON|ONTO)( (?<object1>.*))?$|^(CLIMB|SIT) (IN|INTO) (?<object1>.*)$]]></pattern>
     <attr name="FIND_PRSO">VEHBIT</attr>
     <attr name="SCOPE_PRSO" type="string">ON_GROUND IN_ROOM</attr>
     <scope>object1=ON_GROUND;IN_ROOM</scope>
@@ -602,6 +683,7 @@
         return (true)
       }
     </script>
+    <SYNONYM>BOARD TAKE GET HOLD CARRY REMOVE GRAB CATCH CLIMB SIT</SYNONYM>
   </command>
 
   <command name="V_BRUSH">
@@ -611,6 +693,7 @@
     <script>
       msg ("If you wish, but heaven only knows why.")
     </script>
+    <SYNONYM>BRUSH CLEAN</SYNONYM>
   </command>
 
   <command name="V_BUG">
@@ -618,10 +701,11 @@
     <script>
       msg ("Bug? Not in a flawless program like this! (Cough, cough).")
     </script>
+    <SYNONYM>BUG</SYNONYM>
   </command>
 
   <command name="V_BURN">
-    <pattern>BURN DOWN #object1#;INCINERATE DOWN #object1# WITH #object2#;IGNITE DOWN #object1# WITH #object2#;BURN #object1# WITH #object2#;INCINERATE #object1# WITH #object2#;IGNITE #object1# WITH #object2#</pattern>
+    <pattern>BURN DOWN #object1#;INCINERATE DOWN #object1# WITH #object2#;INCINE DOWN #object1# WITH #object2#;IGNITE DOWN #object1# WITH #object2#;BURN #object1# WITH #object2#;INCINERATE #object1# WITH #object2#;INCINE #object1# WITH #object2#;IGNITE #object1# WITH #object2#</pattern>
     <attr name="FIND_PRSO">BURNBIT</attr>
     <attr name="SCOPE_PRSO" type="string">HELD CARRIED ON_GROUND IN_ROOM</attr>
     <attr name="FIND_PRSI">FLAMEBIT</attr>
@@ -650,6 +734,7 @@
         }
       }
     </script>
+    <SYNONYM>BURN INCINERATE INCINE IGNITE</SYNONYM>
   </command>
 
   <command name="V_CHOMP">
@@ -657,10 +742,11 @@
     <script>
       msg ("Preposterous!")
     </script>
+    <SYNONYM>CHOMP LOSE BARF</SYNONYM>
   </command>
 
   <command name="V_CLIMB_UP">
-    <pattern type="string"><![CDATA[^(CLIMB|SIT|WALK|GO|RUN|PROCEED|STEP) UP (?<object1>.*)$|^(CLIMB|SIT) UP$]]></pattern>
+    <pattern type="string"><![CDATA[^(CLIMB|SIT|WALK|GO|RUN|PROCEED|PROCEE|STEP) UP (?<object1>.*)$|^(CLIMB|SIT) UP$]]></pattern>
     <attr name="FIND_PRSO">CLIMBBIT</attr>
     <attr name="SCOPE_PRSO" type="string">ON_GROUND IN_ROOM</attr>
     <scope>ON_GROUND;IN_ROOM</scope>
@@ -714,16 +800,18 @@
       }
       return (true)
     ]]></script>
+    <SYNONYM>CLIMB SIT WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
   </command>
 
   <command name="V_CLIMB_DOWN">
-    <pattern type="string"><![CDATA[^(CLIMB|SIT|WALK|GO|RUN|PROCEED|STEP) DOWN (?<object1>.*)$|^(CLIMB|SIT) DOWN$]]></pattern>
+    <pattern type="string"><![CDATA[^(CLIMB|SIT|WALK|GO|RUN|PROCEED|PROCEE|STEP) DOWN (?<object1>.*)$|^(CLIMB|SIT) DOWN$]]></pattern>
     <attr name="FIND_PRSO">CLIMBBIT</attr>
     <attr name="SCOPE_PRSO" type="string">ON_GROUND IN_ROOM</attr>
     <scope>ON_GROUND;IN_ROOM</scope>
     <script>
       do (V_CLIMB_UP, "script", QuickParams ("DIR", "DOWN"))
     </script>
+    <SYNONYM>CLIMB SIT WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
   </command>
 
   <command name="V_CLIMB_FOO">
@@ -734,6 +822,7 @@
     <script>
       do (V_CLIMB_UP, "script", QuickParams ("DIR", "UP"))
     </script>
+    <SYNONYM>CLIMB SIT</SYNONYM>
   </command>
 
   <command name="V_CLIMB_ON">
@@ -754,10 +843,11 @@
         msg ("You can't climb onto the " + GLOBAL.PRSO.alias + ".")
       }
     </script>
+    <SYNONYM>CLIMB SIT TAKE GET HOLD CARRY REMOVE GRAB CATCH</SYNONYM>
   </command>
 
   <command name="V_THROUGH">
-    <pattern type="string"><![CDATA[^(CLIMB|SIT) WITH (?<object1>.*)$|^ENTER (?<object1>.*)$|^(WALK|GO|RUN|PROCEED|STEP) (IN|INTO|WITH|ON|ONTO) (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(CLIMB|SIT) WITH (?<object1>.*)$|^ENTER (?<object1>.*)$|^(WALK|GO|RUN|PROCEED|PROCEE|STEP) (IN|INTO|WITH|ON|ONTO) (?<object1>.*)$]]></pattern>
     <script>
       if (not IsDefined ("OBJ")) {
         OBJ = NOTHING
@@ -781,6 +871,7 @@
         msg (PICK_ONE(GLOBAL.YUKS))
       }
     </script>
+    <SYNONYM>CLIMB SIT ENTER WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
   </command>
 
   <command name="V_CLOSE">
@@ -822,10 +913,11 @@
         msg ("You cannot close that.")
       }
     </script>
+    <SYNONYM>CLOSE</SYNONYM>
   </command>
 
   <command name="V_COMMAND">
-    <pattern>COMMAND #object1# TO #text#;COMMAND #object1#;#object1#, #text#</pattern>
+    <pattern>COMMAND #object1# TO #text#;COMMAND #object1#;COMMAN #object1# TO #text#;#object1#, #text#</pattern>
     <attr name="FIND_PRSO">ACTORBIT</attr>
     <script>
       PRSO = GLOBAL.PRSO
@@ -836,6 +928,7 @@
         msg ("You cannot talk to that!")
       }
     </script>
+    <SYNONYM>COMMAND COMMAN</SYNONYM>
   </command>
 
   <command name="V_COUNT">
@@ -848,6 +941,7 @@
         msg ("You have lost your mind.")
       }
     </script>
+    <SYNONYM>COUNT</SYNONYM>
   </command>
 
   <command name="V_CROSS">
@@ -855,6 +949,7 @@
     <script>
       msg ("You can't cross that!")
     </script>
+    <SYNONYM>CROSS FORD</SYNONYM>
   </command>
 
   <command name="V_CUT">
@@ -891,6 +986,7 @@
         msg ("Strange concept, cutting the " + PRSO.alias + "....")
       }
     </script>
+    <SYNONYM>CUT SLICE PIERCE</SYNONYM>
   </command>
 
   <command name="V_CURSES">
@@ -909,17 +1005,19 @@
         msg ("Such language in a high-class establishment like this!")
       }
     </script>
+    <SYNONYM>CURSE SHIT FUCK DAMN</SYNONYM>
   </command>
 
   <command name="V_DEFLATE">
-    <pattern>DEFLATE #object1#</pattern>
+    <pattern>DEFLATE #object1#;DEFLAT #object1#</pattern>
     <script>
       msg ("Come on, now!")
     </script>
+    <SYNONYM>DEFLATE DEFLAT</SYNONYM>
   </command>
 
   <command name="V_MUNG">
-    <pattern type="string"><![CDATA[^(DESTROY|DAMAGE|BREAK|BLOCK|SMASH)(| DOWN) (?<object1>.*) WITH (?<object2>.*)$|^(POKE|PUNCTURE) (?<object1>.*) WITH (?<object2>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(DESTROY|DESTRO|DAMAGE|BREAK|BLOCK|SMASH)(| DOWN) (?<object1>.*) WITH (?<object2>.*)$|^(POKE|PUNCTURE|PUNCTU) (?<object1>.*) WITH (?<object2>.*)$]]></pattern>
     <attr name="SCOPE_PRSO" type="string">ON_GROUND IN_ROOM HELD CARRIED</attr>
     <attr name="SCOPE_PRSI">HELD CARRIED TAKE</attr>
     <scope>object1=ON_GROUND;IN_ROOM;HELD;CARRIED|object2=HELD;CARRIED;TAKE</scope>
@@ -933,10 +1031,11 @@
         }
       }
     </script>
+    <SYNONYM>DESTROY DESTRO DAMAGE BREAK BLOCK SMASH POKE PUNCTURE PUNCTU</SYNONYM>
   </command>
 
   <command name="V_OPEN">
-    <pattern type="string"><![CDATA[^(DESTROY|DAMAGE|BREAK|BLOCK|SMASH) (INTO|IN) (?<object1>.*)$|OPEN (?<object1>.*) WITH (?<object2>.*)$|^OPEN(| UP) (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(DESTROY|DESTRO|DAMAGE|BREAK|BLOCK|SMASH) (INTO|IN) (?<object1>.*)$|OPEN (?<object1>.*) WITH (?<object2>.*)$|^OPEN(| UP) (?<object1>.*)$]]></pattern>
     <attr name="SCOPE_PRSO" type="string">ON_GROUND IN_ROOM HELD CARRIED</attr>
     <scope>object1=ON_GROUND;IN_ROOM;HELD;CARRIED</scope>
     <script><![CDATA[
@@ -994,6 +1093,7 @@
         msg ("You must tell me how to do that to a " + PRSO.alias + ".")
       }
     ]]></script>
+    <SYNONYM>DESTROY DESTRO DAMAGE BREAK BLOCK SMASH OPEN</SYNONYM>
   </command>
 
   <command name="V_DIG">
@@ -1018,10 +1118,11 @@
         msg ("Digging with a " + PRSI.alias + " is silly.")
       }
     </script>
+    <SYNONYM>DIG</SYNONYM>
   </command>
 
   <command name="V_DISEMBARK">
-    <pattern type="string"><![CDATA[^DISEMBARK( (?<object1>.*))?$|^(TAKE|GET|HOLD|CARRY|REMOVE|GRAB|CATCH) OUT(| OF) (?<object1>.*)$|^STAND( UP)?$|^GET (UP|OUT)$]]></pattern>
+    <pattern type="string"><![CDATA[^(DISEMBARK|DISEMB)( (?<object1>.*))?$|^(TAKE|GET|HOLD|CARRY|REMOVE|GRAB|CATCH) OUT(| OF) (?<object1>.*)$|^STAND( UP)?$|^GET (UP|OUT)$]]></pattern>
     <attr name="FIND_PRSO">VEHBIT</attr>
     <attr name="SCOPE_PRSO" type="string">ON_GROUND IN_ROOM</attr>
     <scope>ON_GROUND;IN_ROOM</scope>
@@ -1046,17 +1147,19 @@
         RFATAL
       }
     </script>
+    <SYNONYM>DISEMBARK DISEMB TAKE GET HOLD CARRY REMOVE GRAB CATCH STAND</SYNONYM>
   </command>
 
   <command name="V_DISENCHANT">
-    <pattern>DISENCHANT #object1#</pattern>
+    <pattern>DISENCHANT #object1#;DISENC #object1#</pattern>
     <script>
       msg ("Nothing happens.")
     </script>
+    <SYNONYM>DISENCHANT DISENC</SYNONYM>
   </command>
 
   <command name="V_DRINK">
-    <pattern>DRINK #object1#;IMBIBE #object1#;SWALLOW #object1#;DRINK;IMBIBE</pattern>
+    <pattern>DRINK #object1#;IMBIBE #object1#;SWALLOW #object1#;SWALLO #object1#;DRINK;IMBIBE</pattern>
     <attr name="FIND_PRSO">DRINKBIT</attr>
     <attr name="SCOPE_PRSO" type="string">HELD CARRIED ON_GROUND IN_ROOM</attr>
     <scope>HELD;CARRIED;ON_GROUND;IN_ROOM</scope>
@@ -1068,15 +1171,17 @@
       }
       do (V_EAT, "script")
     </script>
+    <SYNONYM>DRINK IMBIBE SWALLOW SWALLO</SYNONYM>
   </command>
 
   <command name="V_DRINK_FROM">
-    <pattern>DRINK FROM #object1#;IMBIBE FROM #object1#;SWALLOW FROM #object1#</pattern>
+    <pattern>DRINK FROM #object1#;IMBIBE FROM #object1#;SWALLOW FROM #object1#;SWALLO FROM #object1#</pattern>
     <attr name="SCOPE_PRSO" type="string">HELD CARRIED</attr>
     <scope>HELD;CARRIED</scope>
     <script>
       msg ("How peculiar!")
     </script>
+    <SYNONYM>DRINK IMBIBE SWALLOW SWALLO</SYNONYM>
   </command>
 
   <command name="V_DROP">
@@ -1091,6 +1196,7 @@
         }
       }
     </script>
+    <SYNONYM>DROP LEAVE POUR SPILL</SYNONYM>
   </command>
 
   <command name="V_PUT_ON">
@@ -1112,10 +1218,11 @@
         }
       }
     </script>
+    <SYNONYM>DROP PUT</SYNONYM>
   </command>
 
   <command name="V_EAT">
-    <pattern type="string"><![CDATA[^(EAT|CONSUME|TASTE|BITE)( (?<object1>.*))?$]]></pattern>
+    <pattern type="string"><![CDATA[^(EAT|CONSUME|CONSUM|TASTE|BITE)( (?<object1>.*))?$]]></pattern>
     <attr name="FIND_PRSO">FOODBIT</attr>
     <attr name="SCOPE_PRSO" type="string">HELD CARRIED ON_GROUND IN_ROOM TAKE</attr>
     <scope>HELD;CARRIED;ON_GROUND;IN_ROOM</scope>
@@ -1161,6 +1268,7 @@
         msg ("I don't think that the " + GLOBAL.PRSO.alias + " would agree with you.")
       }
     </script>
+    <SYNONYM>EAT CONSUME CONSUM TASTE BITE</SYNONYM>
   </command>
 
   <command name="V_ECHO">
@@ -1180,15 +1288,17 @@
       }
       msg ("echo echo ...")
     </script>
+    <SYNONYM>ECHO</SYNONYM>
   </command>
 
   <command name="V_ENCHANT">
-    <pattern>ENCHANT #object1#</pattern>
+    <pattern>ENCHANT #object1#;ENCHANT #object1#</pattern>
     <attr name="SCOPE_PRSO" type="string">ON_GROUND IN_ROOM</attr>
     <scope>ON_GROUND;IN_ROOM</scope>
     <script>
       do (V_DISENCHANT, "script")
     </script>
+    <SYNONYM>ENCHANT ENCHAN</SYNONYM>
   </command>
 
   <command name="V_ENTER">
@@ -1196,6 +1306,7 @@
     <script>
       DO_WALK ("IN")
     </script>
+    <SYNONYM>ENTER</SYNONYM>
   </command>
 
   <command name="V_EXIT">
@@ -1212,10 +1323,11 @@
         DO_WALK ("OUT")
       }
     </script>
+    <SYNONYM>EXIT</SYNONYM>
   </command>
 
   <command name="V_EXAMINE">
-    <pattern type="string"><![CDATA[^(EXAMINE|X|DESCRIBE|(WHAT IS)|WHAT|WHATS|(WHAT'S)|(LOOK AT)) (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(EXAMINE|EXAMIN|X|DESCRIBE|DESCRI|(WHAT IS)|WHAT|WHATS|(WHAT'S)|(LOOK AT)) (?<object1>.*)$]]></pattern>
     <attr name="SCOPE_PRSO" type="string">MANY</attr>
     <allow_all />
     <script>
@@ -1229,10 +1341,11 @@
         msg ("There's nothing special about the " + GLOBAL.PRSO.alias + ".")
       }
     </script>
+    <SYNONYM>EXAMINE EXAMIN X DESCRIBE DESCRI WHAT WHAT'S LOOK</SYNONYM>
   </command>
 
   <command name="V_LOOK_INSIDE">
-    <pattern type="string"><![CDATA[^(EXAMINE|DESCRIBE|WHAT|WHATS) (IN|INTO|INSIDE|ON|ONTO) (?<object1>.*)$|^(LOOK|L|STARE|GAZE) (IN|WITH) (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(EXAMINE|DESCRIBE|WHAT|WHATS|WHAT'S) (IN|INTO|INSIDE|ON|ONTO) (?<object1>.*)$|^(LOOK|L|STARE|GAZE) (IN|WITH) (?<object1>.*)$]]></pattern>
     <attr name="SCOPE_PRSO" type="string">HELD CARRIED IN_ROOM ON_GROUND MANY</attr>
     <scope>HELD;CARRIED;IN_ROOM;ON_GROUND</scope>
     <allow_all />
@@ -1267,14 +1380,16 @@
         msg ("You can't look inside a " + PRSO.alias + ".")
       }
     ]]></script>
+    <SYNONYM>EXAMINE EXAMIN DESCRIBE DESCRI WHAT WHATS WHAT'S LOOK L STARE GAZE</SYNONYM>
   </command>
 
   <command name="V_EXORCISE">
-    <pattern type="string"><![CDATA[^(EXORCISE|BANISH|CAST|DRIVE|BEGONE) (OUT |AWAY |)((?<object1>.*))?$]]></pattern>
+    <pattern type="string"><![CDATA[^(EXORCISE|EXORCI|BANISH|CAST|DRIVE|BEGONE) (OUT |AWAY |)((?<object1>.*))?$]]></pattern>
     <attr name="FIND_PRSO">ACTORBIT</attr>
     <script>
       msg ("What a bizarre concept!")
     </script>
+    <SYNONYM>EXORCISE EXORCI BANISH CAST DRIVE BEGONE</SYNONYM>
   </command>
 
   <command name="V_FILL">
@@ -1307,6 +1422,7 @@
         }
       }
     </script>
+    <SYNONYM>FILL</SYNONYM>
   </command>
 
   <command name="V_FIND">
@@ -1339,6 +1455,7 @@
         msg ("Beats me.")
       }
     </script>
+    <SYNONYM>FIND WHERE SEEK SEE SEARCH LOOK</SYNONYM>
   </command>
 
   <command name="V_FOLLOW">
@@ -1346,13 +1463,15 @@
     <script>
       msg ("You're nuts!")
     </script>
+    <SYNONYM>FOLLOW PURSUE CHASE COME</SYNONYM>
   </command>
 
   <command name="V_FROBOZZ">
-    <pattern>FROBOZZ</pattern>
+    <pattern>FROBOZZ;FROBOZ</pattern>
     <script>
       msg ("The FROBOZZ Corporation created, owns, and operates this dungeon.")
     </script>
+    <SYNONYM>FROBOZZ FROBOZ</SYNONYM>
   </command>
 
   <command name="V_GIVE">
@@ -1377,6 +1496,7 @@
         }
       }
     </script>
+    <SYNONYM>GIVE DONATE OFFER FEED</SYNONYM>
   </command>
 
   <command name="V_SGIVE">
@@ -1401,6 +1521,7 @@
       }
       do(V_GIVE,"script",QuickParams("multiple",multiple))
     </script>
+    <SYNONYM>GIVE DONATE OFFER FEED</SYNONYM>
   </command>
 
   <command name="V_HATCH">
@@ -1408,6 +1529,7 @@
     <script>
       msg ("Bizarre!")
     </script>
+    <SYNONYM>HATCH</SYNONYM>
   </command>
 
   <command name="V_HELLO">
@@ -1425,6 +1547,7 @@
         msg (PICK_ONE(GLOBAL.HELLOS))
       }
     </script>
+    <SYNONYM>HELLO HI</SYNONYM>
   </command>
 
   <command name="V_INCANT">
@@ -1434,10 +1557,11 @@
       GLOBAL.QUOTE_FLAG = false
       GLOBAL.P_CONT = 0
     </script>
+    <SYNONYM>INCANT CHANT</SYNONYM>
   </command>
 
   <command name="V_LEAP">
-    <pattern type="string"><![CDATA[^(JUMP|LEAP|DIVE)$|^(JUMP|LEAP|DIVE) (OVER|ACROSS|IN|INTO|FROM|OFF) (?<object1>.*)$|^(WALK|GO|RUN|PROCEED|STEP) OVER (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(JUMP|LEAP|DIVE)$|^(JUMP|LEAP|DIVE) (OVER|ACROSS|IN|INTO|FROM|OFF) (?<object1>.*)$|^(WALK|GO|RUN|PROCEED|PROCEE|STEP) OVER (?<object1>.*)$]]></pattern>
     <script><![CDATA[
       PRSO = GLOBAL.PRSO
       if (not PRSO = NOTHING) {
@@ -1473,6 +1597,7 @@
         invoke(V_SKIP.script)
       }
     ]]></script>
+    <SYNONYM>JUMP LEAP DIVE WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
   </command>
 
   <command name="V_KICK">
@@ -1480,6 +1605,7 @@
     <script>
       HACK_HACK ("Kicking the ")
     </script>
+    <SYNONYM>KICK TAUNT</SYNONYM>
   </command>
 
   <command name="V_STAB">
@@ -1502,6 +1628,7 @@
         msg ("No doubt you propose to stab the " + GLOBAL.PRSO.alias + " with your pinky?")
       }
     </script>
+    <SYNONYM>STAB</SYNONYM>
   </command>
 
   <command name="V_KISS">
@@ -1512,6 +1639,7 @@
     <script>
       msg ("I'd sooner kiss a pig.")
     </script>
+    <SYNONYM>KISS</SYNONYM>
   </command>
 
   <command name="V_KNOCK">
@@ -1524,6 +1652,7 @@
         msg ("Why knock on a " + GLOBAL.PRSO.alias + "?")
       }
     </script>
+    <SYNONYM>KNOCK RAP</SYNONYM>
   </command>
 
   <command name="V_LAUNCH">
@@ -1542,6 +1671,7 @@
         msg ("That's pretty weird.")
       }
     </script>
+    <SYNONYM>LAUNCH</SYNONYM>
   </command>
 
   <command name="V_LEAN_ON">
@@ -1551,6 +1681,7 @@
     <script>
       msg ("Getting tired?")
     </script>
+    <SYNONYM>LEAN</SYNONYM>
   </command>
 
   <command name="V_LEAVE">
@@ -1558,6 +1689,7 @@
     <script>
       DO_WALK ("OUT")
     </script>
+    <SYNONYM>LEAVE</SYNONYM>
   </command>
 
   <command name="V_LISTEN">
@@ -1565,6 +1697,7 @@
     <script>
       msg ("The " + GLOBAL.PRSO.alias + " makes no sound.")
     </script>
+    <SYNONYM>LISTEN</SYNONYM>
   </command>
 
   <command name="V_LOCK">
@@ -1576,6 +1709,7 @@
     <script>
       msg ("It doesn't seem to work.")
     </script>
+    <SYNONYM>LOCK</SYNONYM>
   </command>
 
   <command name="V_LOOK">
@@ -1586,6 +1720,7 @@
         DESCRIBE_OBJECTS (true)
       }
     </script>
+    <SYNONYM>LOOK L STARE GAZE</SYNONYM>
   </command>
 
   <command name="V_LOOK_ON">
@@ -1598,6 +1733,7 @@
         msg ("Look an a " + GLOBAL.PRSO.alias + "???")
       }
     </script>
+    <SYNONYM>LOOK L STARE GAZE</SYNONYM>
   </command>
 
   <command name="V_LOOK_UNDER">
@@ -1605,6 +1741,7 @@
     <script>
       msg ("There is nothing but dust there.")
     </script>
+    <SYNONYM>LOOK L STARE GAZE</SYNONYM>
   </command>
 
   <command name="V_LOOK_BEHIND">
@@ -1612,6 +1749,7 @@
     <script>
       msg ("There is nothing behind the " + GLOBAL.PRSO.alias + ".")
     </script>
+    <SYNONYM>LOOK L STARE GAZE</SYNONYM>
   </command>
 
   <command name="V_READ">
@@ -1630,6 +1768,7 @@
         }
       }
     </script>
+    <SYNONYM>LOOL L STARE GAZE READ SKIM</SYNONYM>
   </command>
 
   <command name="V_READ_PAGE">
@@ -1641,6 +1780,7 @@
       PERFORM (V_READ, GLOBAL.PRSO, NOTHING)
       return (true)
     </script>
+    <SYNONYM>READ SKIM</SYNONYM>
   </command>
 
   <command name="V_LOWER">
@@ -1648,15 +1788,17 @@
     <script>
       HACK_HACK ("Playing in this way with the ")
     </script>
+    <SYNONYM>LOWER</SYNONYM>
   </command>
 
   <command name="V_OIL">
-    <pattern type="string"><![CDATA[^(LUBRICATE|OIL|GREASE) (?<object1>.*) WITH (?<object2>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(LUBRICATE||LUBRIC|LUBE|OIL|GREASE) (?<object1>.*) WITH (?<object2>.*)$]]></pattern>
     <attr name="SCOPE_PRSI">HELD CARRIED</attr>
     <scope>object2=HELD;CARRIED</scope>
     <script>
       msg ("You probably put spinach in your gas tank, too.")
     </script>
+    <SYNONYM>LUBRICATE LUBRIC LUBE OIL GREASE</SYNONYM>
   </command>
 
   <command name="V_MAKE">
@@ -1664,16 +1806,18 @@
     <script>
       msg ("You can't do that.")
     </script>
+    <SYNONYM>MAKE</SYNONYM>
   </command>
 
   <command name="V_MELT">
-    <pattern type="string"><![CDATA[^(MELT|LIQUIFY) (?<object1>.*) WITH (?<object2>.*)$|^(MELT|LIQUIFY) (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(MELT|LIQUIFY|LIQUIF) (?<object1>.*) WITH (?<object2>.*)$|^(MELT|LIQUIFY|LIQUIF) (?<object1>.*)$]]></pattern>
     <attr name="FIND_PRSI">FLAMEBIT</attr>
     <attr name="SCOPE_PRSI">HELD CARRIED ON_GROUND IN_ROOM</attr>
     <scope>object2=HELD;CARRIED;ON_GROUND;IN_ROOM</scope>
     <script>
       msg ("It's not clear that a " + GLOBAL.PRSO.alias + " can be melted.")
     </script>
+    <SYNONYM>MELT LIQUIFY LIQUIF</SYNONYM>
   </command>
 
   <command name="V_MOVE">
@@ -1690,6 +1834,7 @@
         }
       }
     </script>
+    <SYNONYM>MOVE ROLL PULL TUG YANK</SYNONYM>
   </command>
 
   <command name="V_PUSH_TO">
@@ -1699,6 +1844,7 @@
     <script>
       msg ("You can't push things to that.")
     </script>
+    <SYNONYM>MOVE PUSH SLIDE</SYNONYM>
   </command>
 
   <command name="V_TURN">
@@ -1709,6 +1855,7 @@
         msg ("This has no effect.")
       }
     </script>
+    <SYNONYM>MOVE PUSH PRESS TURN SET FLIP SHUT</SYNONYM>
   </command>
 
   <command name="V_MUMBLE">
@@ -1716,10 +1863,11 @@
     <script>
       msg ("You'll have to speak up if you expect me to hear you!")
     </script>
+    <SYNONYM>MUMBLE SIGH</SYNONYM>
   </command>
 
   <command name="V_ODYSSEUS">
-    <pattern>ODYSSEUS;ULYSSES</pattern>
+    <pattern>ODYSSEUS;ULYSSES;ODYSSE;ULYSSE</pattern>
     <script>
       if (GLOBAL.HERE = CYCLOPS_ROOM and IN_P(CYCLOPS, GLOBAL.HERE) and not GLOBAL.CYCLOPS_FLAG) {
         I_CYCLOPS.enabled = false
@@ -1730,6 +1878,7 @@
         REMOVE_CAREFULLY (CYCLOPS)
       }
     </script>
+    <SYNONYM>ODYSSEUS ODYSSE ULYSSES ULYSSE</SYNONYM>
   </command>
 
   <command name="V_OVERBOARD">
@@ -1752,6 +1901,7 @@
         msg ("Huh?")
       }
     </script>
+    <SYNONYM>THROW HURL CHUCK TOSS</SYNONYM>
   </command>
 
   <command name="V_PICK">
@@ -1759,6 +1909,7 @@
     <script>
       msg ("You can't pick that.")
     </script>
+    <SYNONYM>PICK</SYNONYM>
   </command>
 
   <command name="V_TAKE">
@@ -1780,6 +1931,7 @@
         }
       }
     </script>
+    <SYNONYM>TAKE GET HOLD CARRY REMOVE GRAB CATCH PICK</SYNONYM>
   </command>
 
   <command name="V_PLAY">
@@ -1793,6 +1945,7 @@
         msg ("That's silly!")
       }
     </script>
+    <SYNONYM>PLAY</SYNONYM>
   </command>
 
   <command name="V_PLUG">
@@ -1800,6 +1953,7 @@
     <script>
       msg ("This has no effect.")
     </script>
+    <SYNONYM>PLUG GLUE PATCH REPAIR FIX</SYNONYM>
   </command>
 
   <command name="V_ADVENT">
@@ -1808,6 +1962,7 @@
       SuppressTurnscripts
       msg ("A hollow voice says \"Fool.\"")
     </script>
+    <SYNONYM>PLUGH XYZZY</SYNONYM>
   </command>
 
   <command name="V_POUR_ON">
@@ -1835,6 +1990,7 @@
         msg ("You can't pour that.")
       }
     </script>
+    <SYNONYM>POUR SPILL</SYNONYM>
   </command>
 
   <command name="V_PRAY">
@@ -1847,6 +2003,7 @@
         msg ("If you pray enough, your prayers may be answered.")
       }
     </script>
+    <SYNONYM>PRAY</SYNONYM>
   </command>
 
   <command name="V_PUMP">
@@ -1864,6 +2021,7 @@
         msg ("It's not really clear how.")
       }
     </script>
+    <SYNONYM>PUMP</SYNONYM>
   </command>
 
   <command name="V_PUSH">
@@ -1871,6 +2029,7 @@
     <script>
       HACK_HACK ("Pushing the ")
     </script>
+    <SYNONYM>PUSH PRESS</SYNONYM>
   </command>
 
   <command name="V_PUT_UNDER">
@@ -1878,6 +2037,7 @@
     <script>
       msg ("You can't do that.")
     </script>
+    <SYNONYM>PUSH PRESS PUT STUFF INSERT PLACE HIDE SLIDE</SYNONYM>
   </command>
 
   <command name="V_PUT_BEHIND">
@@ -1885,6 +2045,7 @@
     <script>
       msg ("That hiding place is too obvious.")
     </script>
+    <SYNONYM>PUT STUFF INSERT PLACE HIDE</SYNONYM>
   </command>
 
   <command name="V_RAISE">
@@ -1892,6 +2053,7 @@
     <script>
       invoke (V_LOWER.script)
     </script>
+    <SYNONYM>RAISE LIFT</SYNONYM>
   </command>
 
   <command name="V_REPENT">
@@ -1899,6 +2061,7 @@
     <script>
       msg ("It could very well be too late!")
     </script>
+    <SYNONYM>REPENT</SYNONYM>
   </command>
 
   <command name="V_RING">
@@ -1907,6 +2070,7 @@
     <script>
       msg ("How, exactly, can you ring that?")
     </script>
+    <SYNONYM>RING PEAL</SYNONYM>
   </command>
 
   <command name="V_RUB">
@@ -1914,6 +2078,7 @@
     <script>
       HACK_HACK ("Fiddling with the ")
     </script>
+    <SYNONYM>RUB TOUCH FEEL PAT PET</SYNONYM>
   </command>
 
   <command name="V_TELL">
@@ -1938,6 +2103,7 @@
         RFATAL
       }
     ]]></script>
+    <SYNONYM>TALK TELL ASK</SYNONYM>
   </command>
 
   <command name="V_SAY">
@@ -1959,6 +2125,7 @@
         return (true)
       }
     ]]></script>
+    <SYNONYM>SAY</SYNONYM>
   </command>
 
   <command name="V_SEARCH">
@@ -1966,6 +2133,7 @@
     <script>
       msg ("You find nothing unusual.")
     </script>
+    <SYNONYM>SEARCH</SYNONYM>
   </command>
 
   <command name="V_SEND">
@@ -1978,6 +2146,7 @@
         msg ("That doesn't make sends.")
       }
     </script>
+    <SYNONYM>SEND</SYNONYM>
   </command>
 
   <command name="V_SHAKE">
@@ -2012,6 +2181,7 @@
         }
       }
     </script>
+    <SYNONYM>SHAKE</SYNONYM>
   </command>
 
   <command name="V_SKIP">
@@ -2019,6 +2189,7 @@
     <script>
       msg (PICK_ONE(GLOBAL.WHEEEEE))
     </script>
+    <SYNONYM>SKIP HOP</SYNONYM>
   </command>
 
   <command name="V_SMELL">
@@ -2026,6 +2197,7 @@
     <script>
       msg ("It smells like a " + GLOBAL.PRSO.alias + ".")
     </script>
+    <SYNONYM>SMELL SNIFF</SYNONYM>
   </command>
 
   <command name="V_SPIN">
@@ -2033,6 +2205,7 @@
     <script>
       msg ("You can't spin that!")
     </script>
+    <SYNONYM>SPIN</SYNONYM>
   </command>
 
   <command name="V_SPRAY">
@@ -2040,6 +2213,7 @@
     <script>
       invoke (V_SQUEEZE.script)
     </script>
+    <SYNONYM>SPRAY</SYNONYM>
   </command>
 
   <command name="V_SSPRAY">
@@ -2051,10 +2225,11 @@
       GLOBAL.PRSI = PRSI
       invoke (V_SPRAY.script)
     </script>
+    <SYNONYM>SPRAY</SYNONYM>
   </command>
 
   <command name="V_SQUEEZE">
-    <pattern>SQUEEZE #object1#</pattern>
+    <pattern>SQUEEZE #object1#;SQUEEZ #object1#</pattern>
     <script>
       if (FSET_P(GLOBAL.PRSO, "ACTORBIT")) {
         msg ("The " + GLOBAL.PRSO.alias + " does not understand this.")
@@ -2064,6 +2239,7 @@
       }
       CRLF
     </script>
+    <SYNONYM>SQUEEZE SQUEEZ</SYNONYM>
   </command>
 
   <command name="V_STAND">
@@ -2078,6 +2254,7 @@
         msg ("You are already standing, I think.")
       }
     </script>
+    <SYNONYM>STAND</SYNONYM>
   </command>
 
   <command name="V_STAY">
@@ -2085,6 +2262,7 @@
     <script>
       msg ("You will be lost without me!")
     </script>
+    <SYNONYM>STAY</SYNONYM>
   </command>
 
   <command name="V_STRIKE">
@@ -2108,6 +2286,7 @@
         return (true)
       }
     </script>
+    <SYNONYM>STRIKE</SYNONYM>
   </command>
 
   <command name="V_SWIM">
@@ -2126,6 +2305,7 @@
         msg ("Go jump in a lake!")
       }
     </script>
+    <SYNONYM>SWIM BATHE WADE</SYNONYM>
   </command>
 
   <command name="V_SWING">
@@ -2148,6 +2328,7 @@
         PERFORM (V_ATTACK, GLOBAL.PRSI, GLOBAL.PRSO)
       }
     </script>
+    <SYNONYM>SWING THRUST</SYNONYM>
   </command>
 
   <command name="V_THROW">
@@ -2172,6 +2353,7 @@
         msg ("Huh?")
       }
     </script>
+    <SYNONYM>THROW HURL CHUCK TOSS</SYNONYM>
   </command>
 
   <command name="V_THROW_OFF">
@@ -2181,6 +2363,7 @@
     <script>
       msg ("You can't throw anything off of that!")
     </script>
+    <SYNONYM>THROW HURL CHUCK TOSS</SYNONYM>
   </command>
 
   <command name="V_TIE">
@@ -2193,6 +2376,7 @@
         msg ("You can't tie the " + GLOBAL.PRSO.alias + " to that.")
       }
     </script>
+    <SYNONYM>TIE FASTEN SECURE ATTACH</SYNONYM>
   </command>
 
   <command name="V_TIE_UP">
@@ -2205,6 +2389,7 @@
     <script>
       msg ("You could certainly never tie it with that!")
     </script>
+    <SYNONYM>TIE FASTEN SECURE ATTACH</SYNONYM>
   </command>
 
   <command name="V_TREASURE">
@@ -2220,6 +2405,7 @@
         msg ("Nothing happens.")
       }
     </script>
+    <SYNONYM>TREASURE TREASU TEMPLE</SYNONYM>
   </command>
 
   <command name="V_UNLOCK">
@@ -2231,15 +2417,17 @@
     <script>
       invoke (V_LOCK.script)
     </script>
+    <SYNONYM>UNLOCK</SYNONYM>
   </command>
 
   <command name="V_UNTIE">
-    <pattern type="string"><![CDATA[^(UNTIE|FREE|RELEASE|UNFASTEN|UNATTACH|UNHOOK) (?<object1>.*)$|^(UNTIE|FREE|RELEASE|UNFASTEN|UNATTACH|UNHOOK) from (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(UNTIE|FREE|RELEASE|RELEAS|UNFASTEN|UNFAST|UNATTACH|UNATTA|UNHOOK) (?<object1>.*)$|^(UNTIE|FREE|RELEASE|RELEAS|UNFASTEN|UNFAST|UNATTACH|UNATTA|UNHOOK) from (?<object1>.*)$]]></pattern>
     <attr name="SCOPE_PRSO">ON_GROUND IN_ROOM HELD CARRIED</attr>
     <scope>ON_GROUND;IN_ROOM;HELD;CARRIED</scope>
     <script>
       msg ("This cannot be tied, so it cannot be untied!")
     </script>
+    <SYNONYM>UNTIE FREE RELEASE RELEAS UNFASTEN UNFAST UNATTACH UNATTA UNHOOK</SYNONYM>
   </command>
 
   <command name="V_WAIT">
@@ -2271,10 +2459,11 @@
       }
       GLOBAL.CLOCK_WAIT = true
     ]]></script>
+    <SYNONYM>WAIT Z</SYNONYM>
   </command>
 
   <command name="V_ALARM">
-    <pattern type="string"><![CDATA[^(WAKE|AWAKE|SUPRISE|STARTLE)(| UP) (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(WAKE|AWAKE|SURPRISE|SURPRI|STARTLE|STARTL)(| UP) (?<object1>.*)$]]></pattern>
     <attr name="FIND_PRSO">ACTORBIT</attr>
     <attr name="SCOPE_PRSO" type="string">ON_GROUND IN_ROOM</attr>
     <scope>ON_GROUND;IN_ROOM</scope>
@@ -2292,17 +2481,19 @@
         msg ("The " + GLOBAL.PRSO.alias + " isn't sleeping.")
       }
     ]]></script>
+    <SYNONYM>WAKE AWAKE SURPRISE SURPRI STARTLE STARTL</SYNONYM>
   </command>
 
   <command name="V_WALK_AROUND">
-    <pattern type="string"><![CDATA[^(WALK|GO|RUN|PROCEED|STEP)$|^(WALK|GO|RUN|PROCEED|STEP) AROUND (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(WALK|GO|RUN|PROCEED|PROCEE|STEP)$|^(WALK|GO|RUN|PROCEED|PROCEE|STEP) AROUND (?<object1>.*)$]]></pattern>
     <script>
       msg ("Use compass directions for movement.")
     </script>
+    <SYNONYM>WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
   </command>
 
   <command name="V_WALK">
-    <pattern type="string"><![CDATA[^(WALK|GO|RUN|PROCEED|STEP)(| (AWAY|TO)) (?<exit>.*)$|^(WALK|GO|RUN|PROCEED|STEP)(| AWAY) (?<exit>.*)$|^(?<exit>north|east|south|west|northeast|northwest|southeast|southwest|in|out|up|down|n|e|s|w|ne|nw|se|sw|o|u|d)$]]></pattern>
+    <pattern type="string"><![CDATA[^(WALK|GO|RUN|PROCEED|PROCEE|STEP)(| (AWAY|TO)) (?<exit>.*)$|^(WALK|GO|RUN|PROCEED|PROCEE|STEP)(| AWAY) (?<exit>.*)$|^(?<exit>north|east|south|west|northeast|northe|northwest|northw|southeast|southe|southwest|southw|in|out|up|down|n|e|s|w|ne|nw|se|sw|o|u|d)$]]></pattern>
     <script>
       if (TypeOf(exit) = "string") {
         GLOBAL.P_WALK_DIR = exit
@@ -2361,10 +2552,11 @@
         RFATAL
       }
     </script>
+    <SYNONYM>WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
   </command>
 
   <command name="V_WALK_TO">
-    <pattern type="string"><![CDATA[^(WALK|GO|RUN|PROCEED|STEP) TO (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(WALK|GO|RUN|PROCEED|PROCEE|STEP) TO (?<object1>.*)$]]></pattern>
     <script>
       if ((not GLOBAL.PRSO = NOTHING) and (IN_P (GLOBAL.PRSO, GLOBAL.HERE) or GLOBAL_IN_P (GLOBAL.PRSO, GLOBAL.HERE))) {
         msg ("It's here!")
@@ -2373,14 +2565,16 @@
         msg ("You should supply a direction!")
       }
     </script>
+    <SYNONYM>WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
   </command>
 
   <command name="V_WAVE">
-    <pattern type="string"><![CDATA[^(WAVE|BRANDISH) (?<object1>.*) AT (?<object2>.*)$|^(WAVE|BRANDISH) (?<object1>.*)$|(WAVE|BRANDISH) AT (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^(WAVE|BRANDISH|BRANDI) (?<object1>.*) AT (?<object2>.*)$|^(WAVE|BRANDISH|BRANDI) (?<object1>.*)$|(WAVE|BRANDISH|BRANDI) AT (?<object1>.*)$]]></pattern>
     <script>
       HACK_HACK ("Waving the ")
     </script>
     <SCOPE_PRSO type="string">HELD CARRIED TAKE HAVE</SCOPE_PRSO>
+    <SYNONYM>WAVE BRANDISH BRANDI</SYNONYM>
   </command>
 
   <command name="V_WEAR">
@@ -2394,13 +2588,15 @@
         return (true)
       }
     </script>
+    <SYNONYM>PUT STUFF INSERT PLACE HIDE WEAR</SYNONYM>
   </command>
 
   <command name="V_WIN">
-    <pattern>WIN;WINNAGE</pattern>
+    <pattern>WIN;WINNAGE;WINNAG</pattern>
     <script>
       msg ("Naturally!")
     </script>
+    <SYNONYM>WIN WINNAGE WINNAG</SYNONYM>
   </command>
 
   <command name="V_WIND">
@@ -2408,6 +2604,7 @@
     <script>
       msg ("You cannot wind up a " + GLOBAL.PRSO.alias + ".")
     </script>
+    <SYNONYM>WIND</SYNONYM>
   </command>
 
   <command name="V_WISH">
@@ -2415,6 +2612,7 @@
     <script>
       msg ("With luck, your wish will come true.")
     </script>
+    <SYNONYM>WISH</SYNONYM>
   </command>
 
   <command name="V_YELL">
@@ -2422,6 +2620,7 @@
     <script>
       msg ("Aaaarrrrgggghhhh!")
     </script>
+    <SYNONYM>YELL SCREAM SHOUT</SYNONYM>
   </command>
 
   <command name="V_ZORK">
@@ -2429,6 +2628,7 @@
     <script>
       msg ("At your service!")
     </script>
+    <SYNONYM>ZORK</SYNONYM>
   </command>
 
 <!-- COMMAND HELPERS -->
@@ -2444,6 +2644,11 @@
 
   <function name="PRE_BOARD" type="boolean">
     AV = LOC(GLOBAL.WINNER)
+    if (GLOBAL.PRSO = NOTHING){
+      msg ("I can't see that.")
+      RFATAL
+      return (2)
+    }
     if (not IN_P(GLOBAL.PRSO, GLOBAL.HERE)) {
       msg ("The " + GLOBAL.PRSO.alias + " must be on the ground to be boarded.")
       return (true)

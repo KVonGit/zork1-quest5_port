@@ -341,7 +341,7 @@
     <close type="boolean">false</close>
     <open type="boolean">false</open>
     <transparent />
-    <SYNONYM type="string"></SYNONYM>
+    <SYNONYM type="string">BASKET CAGE DUMBWAITER</SYNONYM>
     <FLAGS>TRANSBIT TRYTAKEBIT CONTBIT OPENBIT</FLAGS>
   </object>
 
@@ -439,7 +439,7 @@
     <ACTION>AXE_F</ACTION>
     <SIZE type="int">25</SIZE>
     <SYNONYM>AXE AX</SYNONYM>
-    <ADJECTIVE type="string"></ADJECTIVE>
+    <ADJECTIVE type="string">BLOODY</ADJECTIVE>
     <FLAGS>WEAPONBIT TRYTAKEBIT TAKEBIT NDESCBIT</FLAGS>
   </object>
 
@@ -522,7 +522,7 @@
     <feature_container />
     <isopen />
     <SYNONYM>BOOK PRAYER PAGE BOOKS</SYNONYM>
-    <ADJECTIVE type="string"></ADJECTIVE>
+    <ADJECTIVE type="string">BLACK</ADJECTIVE>
     <FLAGS>READBIT TAKEBIT CONTBIT BURNBIT TURNBIT</FLAGS>
   </object>
 
@@ -567,7 +567,7 @@
     <VALUE type="int">4</VALUE>
     <TVALUE type="int">6</TVALUE>
     <SYNONYM>SCEPTRE SCEPTER TREASUR</SYNONYM>
-    <ADJECTIVE type="string"></ADJECTIVE>
+    <ADJECTIVE type="string">SHARP ANCIENT ENAMELED</ADJECTIVE>
     <FLAGS>TAKEBIT WEAPONBIT</FLAGS>
   </object>
 
@@ -604,16 +604,8 @@
       <value>twisting ramp</value>
       <value>twisting slide</value>
     </alt>
-    <SYNONYM type="stringlist">
-      <value>CHUTE</value>
-      <value>RAMP</value>
-      <value>SLIDE</value>
-    </SYNONYM>
-    <ADJECTIVE type="stringlist">
-      <value>STEEP</value>
-      <value>METAL</value>
-      <value>TWISTING</value>
-    </ADJECTIVE>
+    <SYNONYM>CHUTE RAMP SLIDE</SYNONYM>
+    <ADJECTIVE>STEEP METAL TWISTING</ADJECTIVE>
     <CLIMBBIT />
     <ACTION>SLIDE_FUNCTION</ACTION>
   </object>
@@ -1065,7 +1057,7 @@
     <TVALUE type="int">15</TVALUE>
     <feature_container />
     <SYNONYM>COFFIN CASKET TREASURE</SYNONYM>
-    <ADJECTIVE type="string"></ADJECTIVE>
+    <ADJECTIVE type="string">SOLID GOLD</ADJECTIVE>
     <FLAGS>TAKEBIT CONTBIT SACREDBIT SEARCHBIT</FLAGS>
   </object>
 
@@ -1117,7 +1109,7 @@
       <value>enormous treasure</value>
     </alt>
     <SYNONYM>DIAMOND TREASURE</SYNONYM>
-    <ADJECTIVE type="string"></ADJECTIVE>
+    <ADJECTIVE type="string">ENORMOUS HUGE</ADJECTIVE>
     <LDESC>There is an enormous diamond (perfectly cut) here.</LDESC>
     <TVALUE type="int">10</TVALUE>
     <VALUE type="int">10</VALUE>
@@ -1415,7 +1407,7 @@
       <value>enormous</value>
     </alt>
     <scenery />
-    <SYNONYM type="string"></SYNONYM>
+    <SYNONYM type="string">MIRROR</SYNONYM>
     <FLAGS type="string"></FLAGS>
     <TRYTAKEBIT />
     <NDESCBIT />
@@ -1432,7 +1424,7 @@
       <value>enormous</value>
     </alt>
     <scenery />
-    <SYNONYM type="string"></SYNONYM>
+    <SYNONYM type="string">MIRROR</SYNONYM>
     <FLAGS type="string"></FLAGS>
     <TRYTAKEBIT />
     <NDESCBIT />
@@ -1862,7 +1854,7 @@
     </alt>
     <visible type="boolean">false</visible>
     <take />
-    <SYNONYM type="string"></SYNONYM>
+    <SYNONYM type="string">SCARAB</SYNONYM>
     <ADJECTIVE>BEAUTI CARVED JEWELED</ADJECTIVE>
     <FLAGS>TAKEBIT INVISIBLE</FLAGS>
     <TAKEBIT />

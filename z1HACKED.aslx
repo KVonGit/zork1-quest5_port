@@ -972,7 +972,7 @@
       }
     }
     // check if input matches the start of any word in the name
-    if (Instr(name, value) = 1 or Instr(name, " " + value) > 0) {
+    else if (Instr(name, value) = 1 or Instr(name, " " + value) > 0) {
       if (not ListContains(partialmatches, obj)) {
         list add (partialmatches, obj)
       }

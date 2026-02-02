@@ -11,8 +11,8 @@
   <include ref="z1ParserAddons.aslx" />
   <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
-    <gameid>qcode-z1-2026-0123-8b00-e7d39e177663</gameid>
-    <version>0.1.6.1 beta</version>
+    <gameid>qcode-z1-2026-0202-8b00-e7d39e177663</gameid>
+    <version>0.1.7  beta</version>
     <firstpublished>2026</firstpublished>
     <debugging type="boolean">false</debugging>
     <attr name="debug_fighting" type="boolean">false</attr>
@@ -47,6 +47,7 @@
     <start type="script">
       PreGO
       GO
+      BuildGrammarLists
     </start>
     <scopebackdrop type="script">
       AddGlobalObjectsToScope (items)
@@ -60,9 +61,24 @@
       len = ListCount(words)
       if (len = 0) {
         msg ("I beg your pardon?")
+        return (0)
+      }
+      typ = GET_PART_OF_SPEECH (StringListItem(words, 0))
+      if (typ = 0) {
+        msg ("I don't know the word '" + StringListItem(words, 0) + "'.")
+      }
+      else if (len = 1 and not BTST (typ, game.ps_verb)) {
+        msg ("That sentence seemed to be missing a verb.")
       }
       else {
-        msg (Template("UnrecognisedCommand"))
+        msg ("I didn't understand your command.")
+        typ = GET_PART_OF_SPEECH(StringListItem(words,0))
+        verb = "undefined"
+        foreach (wrd, words) {
+          if (BTST (GET_PART_OF_SPEECH (wrd), game.ps_verb)) {
+            verb = wrd
+          }
+        }
       }
     </unresolvedcommandhandler>
   </game>
@@ -91,7 +107,132 @@
       </changedparent>
     </object>
   </object>
-
+  <function name="FAKE_PARSE" parameters="str">
+    firster = StringListItem(str,0)
+    n = GET_PART_OF_SPEECH (firster)
+    if (not adjective_recognized and not object_recognized) {
+      if (not verb_recognized) {
+        msg ("I don't know the word \"" + firster + "\".")
+      }
+    }
+    else if (not verb_recognized) {
+      msg ("I don't know how to '" + firster + "'.")
+    }
+    else {
+      msg (Template("UnrecognisedCommand"))
+    }
+  </function>
+  <function name="GET_PART_OF_SPEECH" parameters="str" type="int">
+    // nothing 0
+    // verb 1
+    // object 2
+    // adjective 4
+    // preposition 8
+    // direction 16
+    // buzz 32
+    str = Left (LCase (Trim (str)), 6)
+    typ = 0
+    if (ListContains(GLOBAL.VERBS_LIST, str)) {
+      typ = typ or game.ps_verb
+    }
+    if (ListContains(GLOBAL.NOUNS_LIST, str)) {
+      typ = typ or game.ps_object
+    }
+    if (ListContains(GLOBAL.ADJECTIVES_LIST, str)) {
+      typ = typ or game.ps_adjective
+    }
+    if (ListContains(GLOBAL.PREPOSITIONS_LIST, str)) {
+      typ = typ or game.ps_preposition
+    }
+    if (ListContains(GLOBAL.DIRECTIONS_LIST, str)) {
+      typ = typ or game.ps_direction
+    }
+    if (ListContains(GLOBAL.BUZZ_WORDS_LIST, str)) {
+      typ = typ or game.ps_buzz
+    }
+    return (typ)
+  </function>
+  <function name="BuildGrammarLists">
+    if (not HasAttribute (GLOBAL, "NOUNS_LIST")) {
+      GLOBAL.NOUNS_LIST = NewStringList()
+    }
+    if (not HasAttribute (GLOBAL, "ADJECTIVES_LIST")) {
+      GLOBAL.ADJECTIVES_LIST = NewStringList()
+    }
+    if (not HasAttribute (GLOBAL, "VERBS_LIST")) {
+      GLOBAL.VERBS_LIST = NewStringList()
+    }
+    if (not HasAttribute (GLOBAL, "PREPOSITIONS_LIST")) {
+      GLOBAL.PREPOSITIONS_LIST = Split("about;behind;under;below;beneath;beneat;underneath;undern;around;for;at;off;across;over;away;from;on;onto;down;d;in;inside;into;up;u;out;with;through;throug;thru;using;to")
+    }
+    if (not HasAttribute (GLOBAL, "DIRECTIONS_LIST")) {
+      GLOBAL.DIRECTIONS_LIST = Split("north;n;east;e;west;w;south;s;northeast;northe;ne;northwest;northw;nw;soutehast;southe;se;southwest;southw;sw;up;u;down;d;in;out;land")
+    }
+    if (not HasAttribute (GLOBAL, "BUZZ_WORDS_LIST")) {
+      GLOBAL.BUZZ_WORDS_LIST = Split("again;g;oops;a;an;the;is;and;of;then;all;one;but;except;.;,;\";yes;no;y;here")
+    }
+    game.ps_object = 128
+    game.ps_verb = 64
+    game.ps_adjective = 32
+    game.ps_preposition = 16
+    game.ps_direction = 8
+    game.ps_buzz = 4
+    foreach (o, AllObjects()) {
+      if (HasString(o,"SYNONYM")) {
+        syns = Split (LCase(o.SYNONYM), " ")
+        foreach (syn, syns) {
+          // syn = Left (syn, 6)
+          if (not ListContains (GLOBAL.NOUNS_LIST, syn)) {
+            list add (GLOBAL.NOUNS_LIST, syn)
+            syn = Left (syn, 6)
+            list add (GLOBAL.NOUNS_LIST, syn)
+          }
+        }
+        if (HasString (o, "ADJECTIVE")) {
+          adjs = Split (LCase (o.ADJECTIVE), " ")
+          foreach (adj, adjs) {
+            // adj = Left (adj, 6)
+            if (not ListContains (GLOBAL.ADJECTIVES_LIST, adj)) {
+              list add (GLOBAL.ADJECTIVES_LIST, adj)
+              adj = Left (adj, 6)
+              list add (GLOBAL.ADJECTIVES_LIST, adj)
+            }
+          }
+        }
+      }
+    }
+    GLOBAL.NOUNS_LIST = ListCompact(GLOBAL.NOUNS_LIST)
+    GLOBAL.ADJECTIVES_LIST = ListCompact(GLOBAL.ADJECTIVES_LIST)
+    foreach (cmd, AllCommands()) {
+      if (HasString(cmd, "SYNONYM")) {
+        syns = Split (LCase (cmd.SYNONYM), " ")
+        foreach (syn, syns) {
+          // syn = Left (syn, 6)
+          if (not ListContains (GLOBAL.VERBS_LIST, syn)) {
+            list add (GLOBAL.VERBS_LIST, syn)
+            syn = Left (syn, 6)
+            list add (GLOBAL.VERBS_LIST, syn)
+          }
+        }
+      }
+    }
+    GLOBAL.VERBS_LIST = ListCompact(GLOBAL.VERBS_LIST)
+    // msg ("NOUNS")
+    // msg (GLOBAL.NOUNS_LIST)
+    // msg ("ADJECTIVES")
+    // msg (GLOBAL.ADJECTIVES_LIST)
+    // msg ("VERBS")
+    // msg (GLOBAL.VERBS_LIST)
+    // msg ("PREPOSITIONS")
+    // msg (GLOBAL.PREPOSITIONS_LIST)
+    // msg ("DIRECTIONS")
+    // msg (GLOBAL.DIRECTIONS_LIST)
+    // msg ("BUZZ")
+    // msg (GLOBAL.BUZZ_WORDS_LIST)
+  </function>
+  <function name="BTST" parameters="val1, val2" type="boolean"><![CDATA[
+    return ((val1 and val2) <> 0)
+  ]]></function>
   <walkthrough name="to_troll_fight">
     <steps type="simplestringlist">
       delay:50
