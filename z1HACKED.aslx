@@ -577,6 +577,34 @@
         }
         game.pov.commandmetadata = metadata
         if (game.multiplecommands) {
+          if (Instr(command, " and ") > 0){
+            //msg ("checking for ands...")
+            ands = NewList()
+            lexv = Split(command, " ")
+            andi = 0
+            foreach (wrd,lexv){
+              if (wrd = "and"){
+                list add (ands, andi)
+                //msg ("found an and at index " + andi)
+              }
+              andi = andi + 1
+            }
+            foreach (ind, ands){
+              if (ListCount (lexv) > ind - 1){
+                nw = StringListItem (lexv, ind + 1)
+                //msg ("the next word after and at " + ind + " is " + nw)
+                typ = GET_PART_OF_SPEECH (nw)
+                //msg ("...it is type " + typ)
+                validexit = (not (typ and game.ps_direction) = 0) and not GetExitByName(GLOBAL.HERE, nw) = null
+                //msg ("validexit? " + validexit)
+                if (((not (typ and game.ps_verb) = 0) or validexit) and (typ and game.ps_object) = 0 and ((typ and game.ps_adjective) = 0 or validexit)) {
+                  PUT (lexv, ind, "then")
+                  //msg("replaced an and with then")
+                }
+              }
+            }
+            command = Join (lexv, " ")
+          }
           command = Replace(command, " then ", ".")
           if (Trim(Replace(command,".","")) = ""){
             msg ("I beg your pardon?")
@@ -953,7 +981,9 @@
   
   <function name="CompareNames" parameters="name, value, obj, fullmatches, partialmatches"><![CDATA[
     namearr = Split(name, " ")
+    nlen = ListCount (namearr)
     valuearr = Split(value, " ")
+    vlen = ListCount (valuearr)
     name = ""
     value = ""
     foreach (wrd, namearr) {
@@ -965,16 +995,31 @@
       value = value + " " + wrd
     }
     name = Trim(name)
+    //msg("name: " + name)
     value = Trim(value)
+    //msg("value: " + value)
     if (name = value) {
       if (not ListContains(fullmatches, obj)) {
         list add (fullmatches, obj)
       }
     }
     // check if input matches the start of any word in the name
-    else if (Instr(name, value) = 1 or Instr(name, " " + value) > 0) {
-      if (not ListContains(partialmatches, obj)) {
-        list add (partialmatches, obj)
+    else {
+      if (Instr(name, value) = 1 or Instr(name, " " + value) > 0) {
+        narr = Split(name, " ")
+        varr = Split(value, " ")
+        matches = 0
+        foreach (wrd,varr){
+          if (ListContains(narr, wrd)){
+            matches = matches + 1
+          }
+        }
+        if (matches = ListCount (varr)) {
+          if (not ListContains(partialmatches, obj)) {
+            //msg("adding " + obj)
+            list add (partialmatches, obj)
+          }
+        }
       }
     }
   ]]></function>

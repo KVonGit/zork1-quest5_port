@@ -12,7 +12,7 @@
   <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
     <gameid>qcode-z1-2026-0202-8b00-e7d39e177663</gameid>
-    <version>0.1.7  beta</version>
+    <version>0.1.8.1  beta</version>
     <firstpublished>2026</firstpublished>
     <debugging type="boolean">false</debugging>
     <attr name="debug_fighting" type="boolean">false</attr>
@@ -71,13 +71,12 @@
         msg ("That sentence seemed to be missing a verb.")
       }
       else {
-        msg ("I didn't understand your command.")
-        typ = GET_PART_OF_SPEECH(StringListItem(words,0))
-        verb = "undefined"
         foreach (wrd, words) {
-          if (BTST (GET_PART_OF_SPEECH (wrd), game.ps_verb)) {
-            verb = wrd
+          if (GET_PART_OF_SPEECH (wrd) = 0) {
+            msg ("I don't know the word '" + wrd + "'.")
+            return (2)
           }
+          msg ("I didn't understand your command.")
         }
       }
     </unresolvedcommandhandler>
@@ -195,14 +194,14 @@
             if (not ListContains (GLOBAL.ADJECTIVES_LIST, adj)) {
               list add (GLOBAL.ADJECTIVES_LIST, adj)
               adj = Left (adj, 6)
-              list add (GLOBAL.ADJECTIVES_LIST, adj)
+              list add (GLOBAL.ADJECTIVES_LIST, ToString(adj))
             }
           }
         }
       }
     }
-    GLOBAL.NOUNS_LIST = ListCompact(GLOBAL.NOUNS_LIST)
-    GLOBAL.ADJECTIVES_LIST = ListCompact(GLOBAL.ADJECTIVES_LIST)
+    GLOBAL.NOUNS_LIST = StringListCompact(GLOBAL.NOUNS_LIST)
+    GLOBAL.ADJECTIVES_LIST = StringListCompact(GLOBAL.ADJECTIVES_LIST)
     foreach (cmd, AllCommands()) {
       if (HasString(cmd, "SYNONYM")) {
         syns = Split (LCase (cmd.SYNONYM), " ")
@@ -216,7 +215,7 @@
         }
       }
     }
-    GLOBAL.VERBS_LIST = ListCompact(GLOBAL.VERBS_LIST)
+    GLOBAL.VERBS_LIST = StringListCompact(GLOBAL.VERBS_LIST)
     // msg ("NOUNS")
     // msg (GLOBAL.NOUNS_LIST)
     // msg ("ADJECTIVES")
@@ -233,6 +232,21 @@
   <function name="BTST" parameters="val1, val2" type="boolean"><![CDATA[
     return ((val1 and val2) <> 0)
   ]]></function>
+  <function name="StringListCompact" parameters="lst" type="stringlist">
+    typ = TypeOf(lst)
+    if (not typ = "stringlist") {
+      error ("StringListCompact: invalid list type (" + typ + ")")
+    }
+    l = NewStringList()
+    foreach (o, lst) {
+      if (not Equal(o, null)) {
+        if (IndexOf(l, o) = -1) {
+          list add (l, o)
+        }
+      }
+    }
+    return (l)
+  </function>
   <walkthrough name="to_troll_fight">
     <steps type="simplestringlist">
       delay:50

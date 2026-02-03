@@ -3,6 +3,37 @@
   COMMANDS for ZORK 1
 -->
 <library>
+<implied element="command" property="SYNTAX" type="simplestringlist"/>
+<!--
+"Buzzwords, Prepositions and Directions"
+
+<BUZZ AGAIN G OOPS>
+
+<BUZZ A AN THE IS AND OF THEN ALL ONE BUT EXCEPT \. \, \" YES NO Y HERE>
+
+<COND (<==? ,ZORK-NUMBER 2>
+       <BUZZ FEEBLE FUMBLE FEAR FILCH FREEZE FALL FRY FLUORESCE
+	     FERMENT FIERCE FLOAT FIREPROOF FENCE FUDGE FANTASIZE
+	     FROTZ OZMOO>)
+      (<==? ,ZORK-NUMBER 3>
+       <BUZZ FROTZ OZMOO>)>
+
+<SYNONYM WITH USING THROUGH THRU>
+<SYNONYM IN INSIDE INTO>
+<SYNONYM ON ONTO>
+<SYNONYM UNDER UNDERNEATH BENEATH BELOW>
+
+<SYNONYM NORTH N>
+<SYNONYM SOUTH S>
+<SYNONYM EAST E>
+<SYNONYM WEST W>
+<SYNONYM DOWN D>
+<SYNONYM UP U>
+<SYNONYM NW NORTHWEST>
+<SYNONYM NE NORTHE>
+<SYNONYM SW SOUTHWEST>
+<SYNONYM SE SOUTHE>
+-->
 
 <!-- GAME COMMANDS -->
 
@@ -27,6 +58,9 @@
       game.suppressturnscripts = true
     ]]></script>
     <SYNONYM>OOPS</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      OOPS OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_UNDO_modified"> <!-- NOT IN ORIGINAL! -->
@@ -44,6 +78,9 @@
       SuppressTurnscripts
     ]]></script>
     <SYNONYM>UNDO</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      UNDO
+    </SYNTAX>
   </command>
 
   <command name="V_prounouns"> <!-- NOT IN ORIGINAL! -->
@@ -61,6 +98,9 @@
       SuppressTurnscripts
     </script>
     <SYNONYM>PRONOUNS PRONOU</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      PROUNOUNS
+    </SYNTAX>
   </command>
 
   <command name="V_DEBUG"> <!-- NOT IN ORIGINAL! -->
@@ -75,9 +115,9 @@
         msg ("I didn't understand your command.")
       }
     </script>
-    <SYNONYM>#XTRACE</SYNONYM>
+    <SYNONYM>#XTRACE #XTRA</SYNONYM>
     <SYNTAX type="simplestringlist">
-      #XTRA = V_XTRACE
+      #XTRACE
     </SYNTAX>
   </command>
 
@@ -103,7 +143,7 @@
     </script>
     <SYNONYM>VERBOSE VERBOS</SYNONYM>
     <SYNTAX type="simplestringlist">
-      VERBOSE = V_VERBOSE
+      VERBOSE
     </SYNTAX>
   </command>
 
@@ -117,7 +157,7 @@
     </script>
     <SYNONYM>BRIEF</SYNONYM>
     <SYNTAX type="simplestringlist">
-      BRIEF = V_BRIEF
+      BRIEF
     </SYNTAX>
   </command>
 
@@ -130,7 +170,7 @@
     </script>
     <SYNONYM>SUPER SUPERBRIEF SUPERB</SYNONYM>
     <SYNTAX type="simplestringlist">
-      SUPER = V_SUPER_BRIEF
+      SUPER
     </SYNTAX>
   </command>
 
@@ -207,7 +247,7 @@
     </script>
     <SYNONYM>DIAGNOSE DIAGNO</SYNONYM>
     <SYNTAX type="simplestringlist">
-      DIAGNOSE = V_DIAGNOSE
+      DIAGNOSE
     </SYNTAX>
   </command>
 
@@ -223,7 +263,7 @@
     </script>
     <SYNONYM>INVENTORY I</SYNONYM>
     <SYNTAX type="simplestringlist">
-      INVENTORY = V_INVENTORY
+      INVENTORY
     </SYNTAX>
   </command>
 
@@ -244,7 +284,7 @@
     </script>
     <SYNONYM>QUIT Q</SYNONYM>
     <SYNTAX type="simplestringlist">
-      QUIT = V_QUIT
+      QUIT
     </SYNTAX>
   </command>
 
@@ -269,7 +309,7 @@
     </script>
     <SYNONYM>RESTART RESTAR</SYNONYM>
     <SYNTAX type="simplestringlist">
-      RESTART = V_RESTART
+      RESTART
     </SYNTAX>
   </command>
 
@@ -281,7 +321,7 @@
     ]]></script>
     <SYNONYM>RESTORE</SYNONYM>
     <SYNTAX type="simplestringlist">
-      RESTORE = V_RESTORE
+      RESTORE
     </SYNTAX>
   </command>
 
@@ -292,6 +332,9 @@
       SuppressTurnscripts
     </script>
     <SYNONYM>SAVE</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      SAVE
+    </SYNTAX>
   </command>
 
   <command name="V_SCORE">
@@ -333,6 +376,9 @@
       SuppressTurnscripts
     ]]></script>
     <SYNONYM>SCORE</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      SCORE
+    </SYNTAX>
   </command>
 
   <command name="V_SCRIPT">
@@ -342,6 +388,9 @@
       SuppressTurnscripts
     </script>
     <SYNONYM>SCRIPT</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      SCRIPT
+    </SYNTAX>
   </command>
 
   <command name="V_UNSCRIPT">
@@ -351,6 +400,9 @@
       SuppressTurnscripts
     </script>
     <SYNONYM>UNSCRIPT UNSCRI</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      UNSCRIPT
+    </SYNTAX>
   </command>
 
   <command name="V_view_transcript_unmodified"> <!-- NOT IN ORIGINAL! -->
@@ -365,6 +417,9 @@
       SuppressTurnscripts
     </script>
     <SYNONYM>VIEW DISPLAY DISPLA SHOW</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      VIEW TRANSCRIPT
+    </SYNTAX>
   </command>
 
   <command name="V_VERSION">
@@ -374,6 +429,9 @@
       msg ("<div style=\"font-size:88%;\"><b>ZORK I: The Great Underground Empire</b><br/>by Marc Blank and Dave Lebling<br/>Infocom interactive fiction - a fantasy story<br/>Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986 Infocom, Inc. All rights reserved.<br/>ZORK is a registered trademark of Infocom, Inc.<br/>MIT License - Copyright (c) 2025 Microsoft<br/>2026 Quest 5.9 port by KV<br/>IFID: {=UCase(game.gameid)}<br/>v{game.version}</div>")
     ]]></script>
     <SYNONYM>VERSION VERSIO ABOUT</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      VERSION
+    </SYNTAX>
   </command>
 
   <command name="V_VERIFY">
@@ -382,7 +440,10 @@
       SuppressTurnscripts
       msg ("Verifying game file...<br/>The file is correct.")
     ]]></script>
-    <SYNONYM>$VERIFY</SYNONYM>
+    <SYNONYM>$VERIFY $VE</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      $VERIFY
+    </SYNTAX>
   </command>
 
   <command name="V_RANDOM">
@@ -399,6 +460,9 @@
       }
     </script>
     <SYNONYM>#RANDOM</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      SCORE
+    </SYNTAX>
   </command>
 
   <command name="V_COMMAND_FILE">
@@ -406,7 +470,10 @@
     <script>
       invoke (V_RECORD.script)
     </script>
-    <SYNONYM>#COMMAND</SYNONYM>
+    <SYNONYM>#COMMAND #COMM</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      #COMMAND
+    </SYNTAX>
   </command>
 
   <command name="V_RECORD">
@@ -416,7 +483,10 @@
       //game.recording_steps = true
       SuppressTurnscripts
     </script>
-    <SYNONYM>#RECORD</SYNONYM>
+    <SYNONYM>#RECORD #RECO</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      #RECORD
+    </SYNTAX>
   </command>
 
   <command name="V_UNRECORD">
@@ -425,7 +495,10 @@
       invoke (V_RECORD.script)
       //game.recording_steps = false
     </script>
-    <SYNONYM>#UNRECORD #UNRECO</SYNONYM>
+    <SYNONYM>#UNRECORD #UNRECO #UNRE</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      #UNRECORD
+    </SYNTAX>
   </command>
 
 <!-- REAL VERBS -->
@@ -479,10 +552,10 @@
     </script>
     <SYNONYM>ACTIVATE ACTIVA LIGHT TURN SET FLIP SHUT SWITCH</SYNONYM>
     <SYNTAX type="simplestringlist">
-      ACTIVATE OBJECT (FIND LIGHTBIT) (HELD CARRIED ON-GROUND IN-ROOM) = V-LAMP-ON
-      LIGHT OBJECT (FIND LIGHTBIT) (HELD CARRIED ON-GROUND IN-ROOM TAKE HAVE) = V-LAMP-ON
-      TURN ON	OBJECT (FIND LIGHTBIT) (HELD CARRIED ON-GROUND IN-ROOM) = V-LAMP-ON
-      TURN ON OBJECT WITH OBJECT (HAVE) = V-LAMP-ON
+      ACTIVATE OBJECT (FIND LIGHTBIT) (HELD CARRIED ON_GROUND IN_ROOM)
+      LIGHT OBJECT (FIND LIGHTBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE HAVE)
+      TURN ON	OBJECT (FIND LIGHTBIT) (HELD CARRIED ON_GROUND IN_ROOM)
+      TURN ON OBJECT WITH OBJECT (HAVE)
     </SYNTAX>
   </command>
 
@@ -508,7 +581,7 @@
     </script>
     <SYNONYM>ANSWER REPLY</SYNONYM>
     <SYNTAX type="simplestringlist">
-      ANSWER OBJECT = V-REPLY
+      ANSWER OBJECT
     </SYNTAX>
   </command>
 
@@ -561,13 +634,13 @@
     ]]></script>
     <SYNONYM>DROP APPLY MOVE PUT STUFF INSERT PLACE HIDE SQUEEZE SQUEEZ THROW HURL CHUCK TOSS</SYNONYM>
     <SYNTAX type="simplestringlist">
-      APPLY OBJECT TO OBJECT = V-PUT PRE-PUT
-      DROP OBJECT (HELD MANY HAVE) DOWN OBJECT = V-PUT PRE-PUT
-      DROP OBJECT (HELD MANY HAVE) IN OBJECT = V-PUT PRE-PUT
-      MOVE OBJECT (HELD MANY HAVE) IN OBJECT = V-PUT PRE-PUT
-      PUT OBJECT (HELD MANY HAVE) IN OBJECT = V-PUT PRE-PUT
-      SQUEEZE OBJECT ON OBJECT = V-PUT PRE-PUT
-      THROW OBJECT (HELD CARRIED HAVE) IN OBJECT = V-PUT PRE-PUT
+      APPLY OBJECT TO OBJECT
+      DROP OBJECT (HELD MANY HAVE) DOWN OBJECT
+      DROP OBJECT (HELD MANY HAVE) IN OBJECT
+      MOVE OBJECT (HELD MANY HAVE) IN OBJECT
+      PUT OBJECT (HELD MANY HAVE) IN OBJECT
+      SQUEEZE OBJECT ON OBJECT
+      THROW OBJECT (HELD CARRIED HAVE) IN OBJECT
     </SYNTAX>
   </command>
 
@@ -603,7 +676,11 @@
     </script>
     <SYNONYM>ATTACK FIGHT HURT INJURE HIT KILL MURDER SLAY DISPATCH DISPAT STAB STRIKE KNOCK</SYNONYM>
     <SYNTAX type="simplestringlist">
-      ATTACK OBJECT (FIND ACTORBIT) (ON-GROUND IN-ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE) = V-ATTACK
+      ATTACK OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE)
+      KILL OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE)
+      STAB OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE)
+      KNOCK DOWN OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM)
+      STRIKE OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED ON_GROUND IN_ROOM HAVE)
     </SYNTAX>
   </command>
 
@@ -613,6 +690,9 @@
       msg ("Sorry, my memory is poor. Please give me a direction.")
     </script>
     <SYNONYM>BACK</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      BACK
+    </SYNTAX>
   </command>
 
   <command name="V_BLAST">
@@ -621,6 +701,10 @@
       msg ("You can't blast anything by using words.")
     </script>
     <SYNONYM>BLAST BLOW</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      BLAST
+      BLOW UP OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_LAMP_OFF">
@@ -649,7 +733,15 @@
       }
     </script>
     <SYNONYM>BLOW EXTINGUISH EXTING DOUSE TURN SET FLIP SHUT SWITCH PUT</SYNONYM>
+    <SYNTAX type="simplestringlist">
+      BLOW OUT OBJECT
+      EXTINGUISH OBJECT (FIND ONBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE HAVE)
+      PUT OUT OBJECT (FIND ONBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE HAVE)
+      TURN OFF OBJECT WITH OBJECT (FIND ONBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE HAVE)
+    </SYNTAX>
   </command>
+  
+<!-- TODO - CREATE A 'SYNTAX' OBJECT AND A 'SYNONYM' OBJECT, WITH A 'lst' LIST ATTRIBUTE FOR EACH OBJECT -->
 
   <command name="V_INFLATE">
     <pattern type="string"><![CDATA[^(BLOW UP|INFLAT|INFLATE) (?<object1>.*) WITH (?<object2>.*)$|^(BLOW UP|INFLAT|INFLATE) (?<object1>.*)$]]></pattern>
@@ -660,6 +752,10 @@
       msg ("How can you inflate that?")
     </script>
     <SYNONYM>BLOW INFLATE INFLAT</SYNONYM>
+    <SYNTAX>
+      BLOW UP	OBJECT WITH OBJECT (FIND TOOLBIT) (ON_GROUND IN_ROOM HELD CARRIED)
+      INFLAT OBJECT WITH OBJECT (FIND TOOLBIT) (ON_GROUND IN_ROOM HELD CARRIED)
+    </SYNTAX>
   </command>
 
   <command name="V_BREATHE">
@@ -668,6 +764,9 @@
       PERFORM (V_INFLATE, GLOBAL.PRSO, LUNGS)
     </script>
     <SYNONYM>BLOW</SYNONYM>
+    <SYNTAX>
+      BLOW IN OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_BOARD">
@@ -684,6 +783,11 @@
       }
     </script>
     <SYNONYM>BOARD TAKE GET HOLD CARRY REMOVE GRAB CATCH CLIMB SIT</SYNONYM>
+    <SYNTAX>
+      BOARD OBJECT (FIND VEHBIT) (ON_GROUND IN_ROOM)
+      CLIMB IN OBJECT (FIND VEHBIT) (ON_GROUND IN_ROOM)
+      TAKE IN OBJECT (FIND VEHBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_BRUSH">
@@ -694,6 +798,10 @@
       msg ("If you wish, but heaven only knows why.")
     </script>
     <SYNONYM>BRUSH CLEAN</SYNONYM>
+    <SYNTAX>
+      BRUSH OBJECT (HELD CARRIED ON-GROUND IN-ROOM)
+      BRUSH OBJECT (HELD CARRIED ON-GROUND IN-ROOM) WITH OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_BUG">
@@ -702,6 +810,9 @@
       msg ("Bug? Not in a flawless program like this! (Cough, cough).")
     </script>
     <SYNONYM>BUG</SYNONYM>
+    <SYNTAX>
+      BUG
+    </SYNTAX>
   </command>
 
   <command name="V_BURN">
@@ -735,6 +846,11 @@
       }
     </script>
     <SYNONYM>BURN INCINERATE INCINE IGNITE</SYNONYM>
+    <SYNTAX>
+      BURN OBJECT (FIND BURNBIT) (HELD CARRIED ON_GROUND IN_ROOM) WITH OBJECT (FIND FLAMEBIT) (HELD CARRIED ON_GROUND IN_ROOM HAVE)
+      BURN DOWN OBJECT (FIND BURNBIT) (HELD CARRIED ON_GROUND IN_ROOM) WITH OBJECT (FIND FLAMEBIT) (HELD CARRIED ON_GROUND IN_ROOM HAVE)
+      LIGHT OBJECT (FIND LIGHTBIT) (HELD CARRIED ON_GROUND IN_ROOM) WITH OBJECT (FIND FLAMEBIT) (HELD CARRIED TAKE HAVE)
+    </SYNTAX>
   </command>
 
   <command name="V_CHOMP">
@@ -743,6 +859,9 @@
       msg ("Preposterous!")
     </script>
     <SYNONYM>CHOMP LOSE BARF</SYNONYM>
+    <SYNTAX>
+      CHOMP
+    </SYNTAX>
   </command>
 
   <command name="V_CLIMB_UP">
@@ -801,6 +920,11 @@
       return (true)
     ]]></script>
     <SYNONYM>CLIMB SIT WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
+    <SYNTAX>
+      CLIMB UP OBJECT (FIND RMUNGBIT)
+      CLIMB UP OBJECT (FIND CLIMBBIT) (ON_GROUND IN_ROOM)
+      WALK UP OBJECT (FIND CLIMBBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_CLIMB_DOWN">
@@ -812,6 +936,11 @@
       do (V_CLIMB_UP, "script", QuickParams ("DIR", "DOWN"))
     </script>
     <SYNONYM>CLIMB SIT WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
+    <SYNTAX>
+      CLIMB DOWN OBJECT (FIND RMUNGBIT)
+      CLIMB DOWN OBJECT (FIND CLIMBBIT) (ON_GROUND IN_ROOM)
+      WALK DOWN OBJECT (FIND CLIMBBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_CLIMB_FOO">
@@ -823,6 +952,9 @@
       do (V_CLIMB_UP, "script", QuickParams ("DIR", "UP"))
     </script>
     <SYNONYM>CLIMB SIT</SYNONYM>
+    <SYNTAX>
+      CLIMB OBJECT (FIND CLIMBBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_CLIMB_ON">
@@ -844,6 +976,10 @@
       }
     </script>
     <SYNONYM>CLIMB SIT TAKE GET HOLD CARRY REMOVE GRAB CATCH</SYNONYM>
+    <SYNTAX>
+      CLIMB ON OBJECT (FIND VEHBIT) (ON_GROUND IN_ROOM)
+      TAKE ON OBJECT (FIND VEHBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_THROUGH">
@@ -872,6 +1008,13 @@
       }
     </script>
     <SYNONYM>CLIMB SIT ENTER WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
+    <SYNTAX>
+      CLIMB WITH OBJECT
+      ENTER OBJECT
+      WALK IN OBJECT
+      WALK WITH OBJECT
+      WALK ON OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_CLOSE">
@@ -914,6 +1057,9 @@
       }
     </script>
     <SYNONYM>CLOSE</SYNONYM>
+    <SYNTAX>
+      CLOSE OBJECT (FIND DOORBIT) (HELD CARRIED ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_COMMAND">
@@ -929,6 +1075,9 @@
       }
     </script>
     <SYNONYM>COMMAND COMMAN</SYNONYM>
+    <SYNTAX>
+      COMMAND OBJECT (FIND ACTORBIT)
+    </SYNTAX>
   </command>
 
   <command name="V_COUNT">
@@ -942,6 +1091,9 @@
       }
     </script>
     <SYNONYM>COUNT</SYNONYM>
+    <SYNTAX>
+      COUNT OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_CROSS">
@@ -950,6 +1102,9 @@
       msg ("You can't cross that!")
     </script>
     <SYNONYM>CROSS FORD</SYNONYM>
+    <SYNTAX>
+      CROSS OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_CUT">
@@ -987,6 +1142,9 @@
       }
     </script>
     <SYNONYM>CUT SLICE PIERCE</SYNONYM>
+    <SYNTAX>
+      CUT OBJECT WITH OBJECT (FIND WEAPONBIT) (CARRIED HELD)
+    </SYNTAX>
   </command>
 
   <command name="V_CURSES">
@@ -1006,6 +1164,10 @@
       }
     </script>
     <SYNONYM>CURSE SHIT FUCK DAMN</SYNONYM>
+    <SYNTAX>
+      CURSE
+      CURSE OBJECT (FIND ACTORBIT)
+    </SYNTAX>
   </command>
 
   <command name="V_DEFLATE">
@@ -1014,6 +1176,9 @@
       msg ("Come on, now!")
     </script>
     <SYNONYM>DEFLATE DEFLAT</SYNONYM>
+    <SYNTAX>
+      DEFLATE OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_MUNG">
@@ -1032,6 +1197,12 @@
       }
     </script>
     <SYNONYM>DESTROY DESTRO DAMAGE BREAK BLOCK SMASH POKE PUNCTURE PUNCTU</SYNONYM>
+    <SYNTAX>
+      DESTROY OBJECT (ON_GROUND IN_ROOM HELD CARRIED) WITH OBJECT (HELD CARRIED TAKE)
+      DESTROY DOWN OBJECT (ON_GROUND IN_ROOM HELD CARRIED) WITH OBJECT (HELD CARRIED TAKE)
+      POKE OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE)
+      PUNCTURE OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE)
+    </SYNTAX>
   </command>
 
   <command name="V_OPEN">
@@ -1094,6 +1265,12 @@
       }
     ]]></script>
     <SYNONYM>DESTROY DESTRO DAMAGE BREAK BLOCK SMASH OPEN</SYNONYM>
+    <SYNTAX>
+      DESTROY IN OBJECT (ON_GROUND IN_ROOM HELD CARRIED)
+      OPEN OBJECT (FIND DOORBIT) (HELD CARRIED ON_GROUND IN_ROOM)
+      OPEN UP	OBJECT (FIND DOORBIT) (HELD CARRIED ON_GROUND IN_ROOM)
+      OPEN OBJECT (FIND DOORBIT) (HELD CARRIED ON_GROUND IN_ROOM) WITH OBJECT (FIND TOOLBIT) (ON_GROUND IN_ROOM HELD CARRIED HAVE)
+    </SYNTAX>
   </command>
 
   <command name="V_DIG">
@@ -1119,6 +1296,11 @@
       }
     </script>
     <SYNONYM>DIG</SYNONYM>
+    <SYNTAX>
+      DIG IN OBJECT (ON_GROUND IN_ROOM)
+      DIG IN OBJECT (ON_GROUND IN_ROOM) WITH OBJECT (FIND TOOLBIT) (HELD CARRIED HAVE)
+      DIG OBJECT (ON_GROUND IN_ROOM) WITH OBJECT (FIND TOOLBIT) (HELD CARRIED HAVE)
+    </SYNTAX>
   </command>
 
   <command name="V_DISEMBARK">
@@ -1148,6 +1330,10 @@
       }
     </script>
     <SYNONYM>DISEMBARK DISEMB TAKE GET HOLD CARRY REMOVE GRAB CATCH STAND</SYNONYM>
+    <SYNTAX>
+      DISEMBARK OBJECT (FIND VEHBIT) (ON_GROUND IN_ROOM)
+      TAKE OUT OBJECT (FIND RMUNGBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_DISENCHANT">
@@ -1156,6 +1342,9 @@
       msg ("Nothing happens.")
     </script>
     <SYNONYM>DISENCHANT DISENC</SYNONYM>
+    <SYNTAX>
+      DISENCHANT OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_DRINK">
@@ -1172,6 +1361,9 @@
       do (V_EAT, "script")
     </script>
     <SYNONYM>DRINK IMBIBE SWALLOW SWALLO</SYNONYM>
+    <SYNTAX>
+      DRINK OBJECT (FIND DRINKBIT) (HELD CARRIED ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_DRINK_FROM">
@@ -1182,6 +1374,9 @@
       msg ("How peculiar!")
     </script>
     <SYNONYM>DRINK IMBIBE SWALLOW SWALLO</SYNONYM>
+    <SYNTAX>
+      DRINK FROM OBJECT (HELD CARRIED)
+    </SYNTAX>
   </command>
 
   <command name="V_DROP">
@@ -1197,6 +1392,14 @@
       }
     </script>
     <SYNONYM>DROP LEAVE POUR SPILL</SYNONYM>
+    <SYNTAX>
+       DROP OBJECT (HELD MANY HAVE)
+       LEAVE OBJECT
+       POUR OBJECT (HELD CARRIED)
+       POUR OBJECT (HELD CARRIED) IN OBJECT
+       POUR OBJECT (HELD CARRIED) FROM OBJECT
+       PUT DOWN OBJECT (HELD MANY)
+    </SYNTAX>
   </command>
 
   <command name="V_PUT_ON">
@@ -1219,6 +1422,11 @@
       }
     </script>
     <SYNONYM>DROP PUT</SYNONYM>
+    <SYNTAX>
+      DROP OBJECT (HELD MANY HAVE) ON OBJECT
+      PUT OBJECT (HELD MANY HAVE) ON OBJECT
+      THROW OBJECT (HELD CARRIED HAVE) ON OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_EAT">
@@ -1269,6 +1477,9 @@
       }
     </script>
     <SYNONYM>EAT CONSUME CONSUM TASTE BITE</SYNONYM>
+    <SYNTAX>
+      EAT OBJECT (FIND FOODBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE)
+    </SYNTAX>
   </command>
 
   <command name="V_ECHO">
@@ -1289,6 +1500,9 @@
       msg ("echo echo ...")
     </script>
     <SYNONYM>ECHO</SYNONYM>
+    <SYNTAX>
+      ECHO
+    </SYNTAX>
   </command>
 
   <command name="V_ENCHANT">
@@ -1299,6 +1513,9 @@
       do (V_DISENCHANT, "script")
     </script>
     <SYNONYM>ENCHANT ENCHAN</SYNONYM>
+    <SYNTAX>
+      ENCHANT OBJECT (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_ENTER">
@@ -1307,6 +1524,9 @@
       DO_WALK ("IN")
     </script>
     <SYNONYM>ENTER</SYNONYM>
+    <SYNTAX>
+      ENTER
+    </SYNTAX>
   </command>
 
   <command name="V_EXIT">
@@ -1324,11 +1544,15 @@
       }
     </script>
     <SYNONYM>EXIT</SYNONYM>
+    <SYNTAX>
+      EXIT
+      EXIT OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_EXAMINE">
     <pattern type="string"><![CDATA[^(EXAMINE|EXAMIN|X|DESCRIBE|DESCRI|(WHAT IS)|WHAT|WHATS|(WHAT'S)|(LOOK AT)) (?<object1>.*)$]]></pattern>
-    <attr name="SCOPE_PRSO" type="string">MANY</attr>
+    <attr name="SCOPE_PRSO" type="string">HELD CARRIED ON_GROUND IN_ROOM MANY</attr>
     <allow_all />
     <script>
       if (HasString(GLOBAL.PRSO, "TEXT")) {
@@ -1342,6 +1566,10 @@
       }
     </script>
     <SYNONYM>EXAMINE EXAMIN X DESCRIBE DESCRI WHAT WHAT'S LOOK</SYNONYM>
+    <SYNTAX>
+      EXAMINE OBJECT (MANY)
+      LOOK AT OBJECT (HELD CARRIED ON_GROUND IN_ROOM MANY)
+    </SYNTAX>
   </command>
 
   <command name="V_LOOK_INSIDE">
@@ -1381,6 +1609,12 @@
       }
     ]]></script>
     <SYNONYM>EXAMINE EXAMIN DESCRIBE DESCRI WHAT WHATS WHAT'S LOOK L STARE GAZE</SYNONYM>
+    <SYNTAX>
+      EXAMINE IN OBJECT (HELD CARRIED IN_ROOM ON_GROUND MANY)
+      EXAMINE ON OBJECT (HELD CARRIED IN_ROOM ON_GROUND MANY)
+      LOOK WITH OBJECT (HELD CARRIED ON_GROUND IN_ROOM MANY)
+      LOOK IN OBJECT (HELD CARRIED ON_GROUND IN_ROOM MANY)
+    </SYNTAX>
   </command>
 
   <command name="V_EXORCISE">
@@ -1390,6 +1624,11 @@
       msg ("What a bizarre concept!")
     </script>
     <SYNONYM>EXORCISE EXORCI BANISH CAST DRIVE BEGONE</SYNONYM>
+    <SYNTAX>
+      EXORCISE OBJECT
+      EXORCISE OUT OBJECT (FIND ACTORBIT)
+      EXORCISE AWAY OBJECT (FIND ACTORBIT)
+    </SYNTAX>
   </command>
 
   <command name="V_FILL">
@@ -1423,6 +1662,10 @@
       }
     </script>
     <SYNONYM>FILL</SYNONYM>
+    <SYNTAX>
+      FILL OBJECT (FIND CONTBIT) (HELD CARRIED ON_GROUND IN_ROOM) WITH OBJECT
+      FILL OBJECT (FIND CONTBIT) (HELD CARRIED ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_FIND">
@@ -1456,6 +1699,11 @@
       }
     </script>
     <SYNONYM>FIND WHERE SEEK SEE SEARCH LOOK</SYNONYM>
+    <SYNTAX>
+      FIND OBJECT
+      LOOK FOR OBJECT
+      SEARCH FOR OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_FOLLOW">
@@ -1464,6 +1712,10 @@
       msg ("You're nuts!")
     </script>
     <SYNONYM>FOLLOW PURSUE CHASE COME</SYNONYM>
+    <SYNTAX>
+      FOLLOW
+      FOLLOW OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_FROBOZZ">
@@ -1472,6 +1724,9 @@
       msg ("The FROBOZZ Corporation created, owns, and operates this dungeon.")
     </script>
     <SYNONYM>FROBOZZ FROBOZ</SYNONYM>
+    <SYNTAX>
+      FROBOZZ
+    </SYNTAX>
   </command>
 
   <command name="V_GIVE">
@@ -1497,6 +1752,9 @@
       }
     </script>
     <SYNONYM>GIVE DONATE OFFER FEED</SYNONYM>
+    <SYNTAX>
+      GIVE OBJECT (MANY HELD HAVE) TO OBJECT (FIND ACTORBIT) (ON_GROUND)
+    </SYNTAX>
   </command>
 
   <command name="V_SGIVE">
@@ -1522,6 +1780,9 @@
       do(V_GIVE,"script",QuickParams("multiple",multiple))
     </script>
     <SYNONYM>GIVE DONATE OFFER FEED</SYNONYM>
+    <SYNTAX>
+      GIVE OBJECT (FIND ACTORBIT) (ON_GROUND) OBJECT (MANY HELD HAVE)
+    </SYNTAX>
   </command>
 
   <command name="V_HATCH">
@@ -1530,6 +1791,9 @@
       msg ("Bizarre!")
     </script>
     <SYNONYM>HATCH</SYNONYM>
+    <SYNTAX>
+      HATCH OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_HELLO">
@@ -1548,6 +1812,10 @@
       }
     </script>
     <SYNONYM>HELLO HI</SYNONYM>
+    <SYNTAX>
+      HELLO
+      HELLO OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_INCANT">
@@ -1558,6 +1826,9 @@
       GLOBAL.P_CONT = 0
     </script>
     <SYNONYM>INCANT CHANT</SYNONYM>
+    <SYNTAX>
+      INCANT
+    </SYNTAX>
   </command>
 
   <command name="V_LEAP">
@@ -1598,6 +1869,15 @@
       }
     ]]></script>
     <SYNONYM>JUMP LEAP DIVE WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
+    <SYNTAX>
+      JUMP
+      JUMP OVER OBJECT
+      JUMP ACROSS OBJECT
+      JUMP IN OBJECT
+      JUMP FROM OBJECT
+      JUMP OFF OBJECT
+      WALK OVER OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_KICK">
@@ -1606,6 +1886,9 @@
       HACK_HACK ("Kicking the ")
     </script>
     <SYNONYM>KICK TAUNT</SYNONYM>
+    <SYNTAX>
+      KICK OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_STAB">
@@ -1629,6 +1912,9 @@
       }
     </script>
     <SYNONYM>STAB</SYNONYM>
+    <SYNTAX>
+      STAB OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_KISS">
@@ -1640,6 +1926,9 @@
       msg ("I'd sooner kiss a pig.")
     </script>
     <SYNONYM>KISS</SYNONYM>
+    <SYNTAX>
+      KISS OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_KNOCK">
@@ -1653,6 +1942,10 @@
       }
     </script>
     <SYNONYM>KNOCK RAP</SYNONYM>
+    <SYNTAX>
+      KNOCK AT OBJECT
+      KNOCK ON OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_LAUNCH">
@@ -1672,6 +1965,9 @@
       }
     </script>
     <SYNONYM>LAUNCH</SYNONYM>
+    <SYNTAX>
+      LAUNCH OBJECT (FIND VEHBIT)
+    </SYNTAX>
   </command>
 
   <command name="V_LEAN_ON">
@@ -1682,6 +1978,9 @@
       msg ("Getting tired?")
     </script>
     <SYNONYM>LEAN</SYNONYM>
+    <SYNTAX>
+      LEAN ON OBJECT (HELD HAVE)
+    </SYNTAX>
   </command>
 
   <command name="V_LEAVE">
@@ -1690,6 +1989,9 @@
       DO_WALK ("OUT")
     </script>
     <SYNONYM>LEAVE</SYNONYM>
+    <SYNTAX>
+      LEAVE
+    </SYNTAX>
   </command>
 
   <command name="V_LISTEN">
@@ -1698,6 +2000,10 @@
       msg ("The " + GLOBAL.PRSO.alias + " makes no sound.")
     </script>
     <SYNONYM>LISTEN</SYNONYM>
+    <SYNTAX>
+      LISTEN TO OBJECT
+      LISTEN FOR OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_LOCK">
@@ -1710,6 +2016,9 @@
       msg ("It doesn't seem to work.")
     </script>
     <SYNONYM>LOCK</SYNONYM>
+    <SYNTAX>
+      LOCK OBJECT (ON_GROUND IN_ROOM)	WITH OBJECT (FIND TOOLBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE)
+    </SYNTAX>
   </command>
 
   <command name="V_LOOK">
@@ -1721,6 +2030,11 @@
       }
     </script>
     <SYNONYM>LOOK L STARE GAZE</SYNONYM>
+    <SYNTAX>
+      LOOK
+      LOOK AROUND OBJECT (FIND RMUNGBIT)
+      LOOK DOWN OBJECT (FIND RMUNGBIT)
+    </SYNTAX>
   </command>
 
   <command name="V_LOOK_ON">
@@ -1734,6 +2048,9 @@
       }
     </script>
     <SYNONYM>LOOK L STARE GAZE</SYNONYM>
+    <SYNTAX>
+      LOOK ON OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_LOOK_UNDER">
@@ -1769,6 +2086,13 @@
       }
     </script>
     <SYNONYM>LOOL L STARE GAZE READ SKIM</SYNONYM>
+    <SYNTAX>
+      LOOK AT OBJECT (HELD CARRIED ON-GROUND IN-ROOM) WITH OBJECT
+      READ OBJECT (FIND READBIT) (HELD CARRIED ON-GROUND IN-ROOM TAKE)
+      READ FROM OBJECT (FIND READBIT) (HELD CARRIED ON-GROUND IN-ROOM TAKE)
+      READ OBJECT (FIND READBIT) (HELD CARRIED ON-GROUND IN-ROOM TAKE) WITH OBJECT
+      
+    </SYNTAX>
   </command>
 
   <command name="V_READ_PAGE">
@@ -1781,6 +2105,9 @@
       return (true)
     </script>
     <SYNONYM>READ SKIM</SYNONYM>
+    <SYNTAX>
+      READ OBJECT (FIND READBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE) OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_LOWER">
@@ -1789,6 +2116,9 @@
       HACK_HACK ("Playing in this way with the ")
     </script>
     <SYNONYM>LOWER</SYNONYM>
+    <SYNTAX>
+      LOWER OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_OIL">
@@ -1799,6 +2129,9 @@
       msg ("You probably put spinach in your gas tank, too.")
     </script>
     <SYNONYM>LUBRICATE LUBRIC LUBE OIL GREASE</SYNONYM>
+    <SYNTAX>
+      LUBRICATE OBJECT WITH OBJECT (HELD CARRIED)
+    </SYNTAX>
   </command>
 
   <command name="V_MAKE">
@@ -1807,6 +2140,9 @@
       msg ("You can't do that.")
     </script>
     <SYNONYM>MAKE</SYNONYM>
+    <SYNTAX>
+      MAKE OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_MELT">
@@ -1818,6 +2154,9 @@
       msg ("It's not clear that a " + GLOBAL.PRSO.alias + " can be melted.")
     </script>
     <SYNONYM>MELT LIQUIFY LIQUIF</SYNONYM>
+    <SYNTAX>
+      MELT OBJECT WITH OBJECT (FIND FLAMEBIT) (HELD CARRIED ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_MOVE">
@@ -1835,6 +2174,14 @@
       }
     </script>
     <SYNONYM>MOVE ROLL PULL TUG YANK</SYNONYM>
+    <SYNTAX>
+      MOVE OBJECT (ON_GROUND IN_ROOM)
+      ROLL UP OBJECT (ON_GROUND IN_ROOM)
+      ROLL OBJECT (ON_GROUND IN_ROOM)
+      PULL OBJECT (ON_GROUND IN_ROOM)
+      PULL ON OBJECT (ON_GROUND IN_ROOM)
+      PULL UP OBJECT (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_PUSH_TO">
@@ -1845,6 +2192,14 @@
       msg ("You can't push things to that.")
     </script>
     <SYNONYM>MOVE PUSH SLIDE</SYNONYM>
+    <SYNTAX>
+      MOVE OBJECT (ON_GROUND IN_ROOM) OBJECT
+      MOVE OBJECT (ON_GROUND IN_ROOM) TO OBJECT
+      PUSH OBJECT (IN_ROOM ON_GROUND) OBJECT
+      PUSH OBJECT (IN_ROOM ON_GROUND) TO OBJECT
+      SLIDE OBJECT (IN_ROOM ON_GROUND) OBJECT
+      SLIDE OBJECT (IN_ROOM ON_GROUND) TO OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_TURN">
@@ -1856,6 +2211,13 @@
       }
     </script>
     <SYNONYM>MOVE PUSH PRESS TURN SET FLIP SHUT</SYNONYM>
+    <SYNTAX>
+      MOVE OBJECT WITH OBJECT (FIND TOOLBIT)
+      PUSH OBJECT WITH OBJECT (FIND TOOLBIT)
+      TURN OBJECT (FIND TURNBIT) (HELD CARRIED ON_GROUND IN_ROOM) WITH OBJECT (FIND RMUNGBIT)
+      TURN OBJECT (FIND TURNBIT) TO OBJECT
+      TURN OBJECT (FIND TURNBIT) FOR OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_MUMBLE">
@@ -1864,6 +2226,9 @@
       msg ("You'll have to speak up if you expect me to hear you!")
     </script>
     <SYNONYM>MUMBLE SIGH</SYNONYM>
+    <SYNTAX>
+      MUMBLE
+    </SYNTAX>
   </command>
 
   <command name="V_ODYSSEUS">
@@ -1879,6 +2244,9 @@
       }
     </script>
     <SYNONYM>ODYSSEUS ODYSSE ULYSSES ULYSSE</SYNONYM>
+    <SYNTAX>
+      ODYSSEUS
+    </SYNTAX>
   </command>
 
   <command name="V_OVERBOARD">
@@ -1902,6 +2270,9 @@
       }
     </script>
     <SYNONYM>THROW HURL CHUCK TOSS</SYNONYM>
+    <SYNTAX>
+      THROW OBJECT OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_PICK">
@@ -1910,9 +2281,13 @@
       msg ("You can't pick that.")
     </script>
     <SYNONYM>PICK</SYNONYM>
+    <SYNTAX>
+      PICK OBJECT
+      PICK OBJECT WITH OBJECT
+    </SYNTAX>
   </command>
 
-  <command name="V_TAKE">
+  <command name="V_TAKE"><!-- TODO - SYNTAX SCOPES DO NOT MATCH -->
     <pattern type="string"><![CDATA[^(TAKE|GET|HOLD|CARRY|REMOVE|GRAB|CATCH) (?<object1>.*) (OUT|OFF|FROM) (?<object2>.*)$|^(TAKE|GET|HOLD|CARRY|REMOVE|GRAB|CATCH) (?<object1>.*)$|^PICK UP (?<object1>.*)$]]></pattern>
     <attr name="FIND_PRSO">TAKEBIT</attr>
     <allow_all />
@@ -1932,6 +2307,13 @@
       }
     </script>
     <SYNONYM>TAKE GET HOLD CARRY REMOVE GRAB CATCH PICK</SYNONYM>
+    <SYNTAX>
+      PICK UP	OBJECT (FIND TAKEBIT) (ON_GROUND MANY)
+      TAKE OBJECT (FIND TAKEBIT) (ON-GROUND IN-ROOM MANY)
+      TAKE OBJECT (FIND TAKEBIT) (CARRIED IN-ROOM MANY) OUT OBJECT
+      TAKE OBJECT (FIND TAKEBIT) (CARRIED IN-ROOM MANY) OFF OBJECT
+      TAKE OBJECT (FIND TAKEBIT) (IN-ROOM CARRIED MANY) FROM OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_PLAY">
@@ -1946,6 +2328,9 @@
       }
     </script>
     <SYNONYM>PLAY</SYNONYM>
+    <SYNTAX>
+      PLAY OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_PLUG">
@@ -1954,6 +2339,9 @@
       msg ("This has no effect.")
     </script>
     <SYNONYM>PLUG GLUE PATCH REPAIR FIX</SYNONYM>
+    <SYNTAX>
+      PLUG OBJECT WITH OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_ADVENT">
@@ -1963,6 +2351,9 @@
       msg ("A hollow voice says \"Fool.\"")
     </script>
     <SYNONYM>PLUGH XYZZY</SYNONYM>
+    <SYNTAX>
+      PLUGH
+    </SYNTAX>
   </command>
 
   <command name="V_POUR_ON">
@@ -1991,6 +2382,9 @@
       }
     </script>
     <SYNONYM>POUR SPILL</SYNONYM>
+    <SYNTAX>
+      POUR OBJECT (HELD CARRIED) ON OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_PRAY">
@@ -2004,6 +2398,9 @@
       }
     </script>
     <SYNONYM>PRAY</SYNONYM>
+    <SYNTAX>
+      PRAY
+    </SYNTAX>
   </command>
 
   <command name="V_PUMP">
@@ -2022,6 +2419,10 @@
       }
     </script>
     <SYNONYM>PUMP</SYNONYM>
+    <SYNTAX>
+      PUMP UP OBJECT
+      PUMP UP OBJECT WITH OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_PUSH">
@@ -2030,6 +2431,10 @@
       HACK_HACK ("Pushing the ")
     </script>
     <SYNONYM>PUSH PRESS</SYNONYM>
+    <SYNTAX>
+      PUSH OBJECT (IN-ROOM ON-GROUND MANY)
+      PUSH ON OBJECT (IN-ROOM ON-GROUND MANY)
+    </SYNTAX>
   </command>
 
   <command name="V_PUT_UNDER">
@@ -2038,6 +2443,11 @@
       msg ("You can't do that.")
     </script>
     <SYNONYM>PUSH PRESS PUT STUFF INSERT PLACE HIDE SLIDE</SYNONYM>
+    <SYNTAX>
+      PUSH OBJECT UNDER OBJECT
+      PUT OBJECT (HELD HAVE) UNDER OBJECT
+      SLIDE OBJECT UNDER OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_PUT_BEHIND">
@@ -2046,6 +2456,9 @@
       msg ("That hiding place is too obvious.")
     </script>
     <SYNONYM>PUT STUFF INSERT PLACE HIDE</SYNONYM>
+    <SYNTAX>
+      PUT OBJECT (HELD MANY HAVE) BEHIND OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_RAISE">
@@ -2054,6 +2467,10 @@
       invoke (V_LOWER.script)
     </script>
     <SYNONYM>RAISE LIFT</SYNONYM>
+    <SYNTAX>
+      RAISE OBJECT
+      RAISE UP OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_REPENT">
@@ -2062,7 +2479,23 @@
       msg ("It could very well be too late!")
     </script>
     <SYNONYM>REPENT</SYNONYM>
+    <SYNTAX>
+      REPENT
+    </SYNTAX>
   </command>
+
+<!--
+  <command name="V_GRAPE">
+    <pattern>GRAPE #object1#;TSELOM #object1#</pattern>
+    <script>
+      msg ("What a (ahem!) strange idea.")
+    </script
+    <SYNONYM>GRAPE TSELOM</SYNONYM>
+    <SYNTAX>
+      GRAPE OBJECT
+    </SYNTAX>
+  </command>
+-->
 
   <command name="V_RING">
     <pattern type="string"><![CDATA[^(RING|PEAL) (?<object1>.*)(| WITH (?<object2>.*))$]]></pattern>
@@ -2071,6 +2504,10 @@
       msg ("How, exactly, can you ring that?")
     </script>
     <SYNONYM>RING PEAL</SYNONYM>
+    <SYNTAX>
+      RING OBJECT (TAKE)
+      RING OBJECT (TAKE) WITH OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_RUB">
@@ -2079,6 +2516,10 @@
       HACK_HACK ("Fiddling with the ")
     </script>
     <SYNONYM>RUB TOUCH FEEL PAT PET</SYNONYM>
+    <SYNTAX>
+      RUB OBJECT
+      RUB OBJECT WITH OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_TELL">
@@ -2104,6 +2545,11 @@
       }
     ]]></script>
     <SYNONYM>TALK TELL ASK</SYNONYM>
+    <SYNTAX>
+      TALK TO OBJECT (FIND ACTORBIT) (IN_ROOM)
+      TELL OBJECT (FIND ACTORBIT) (IN_ROOM)
+      TELL OBJECT (FIND ACTORBIT) (IN_ROOM) ABOUT OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_SAY">
@@ -2126,6 +2572,9 @@
       }
     ]]></script>
     <SYNONYM>SAY</SYNONYM>
+    <SYNTAX>
+      SAY
+    </SYNTAX>
   </command>
 
   <command name="V_SEARCH">
@@ -2134,6 +2583,10 @@
       msg ("You find nothing unusual.")
     </script>
     <SYNONYM>SEARCH</SYNONYM>
+    <SYNTAX>
+      SEARCH OBJECT
+      SEARCH IN OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_SEND">
@@ -2147,6 +2600,9 @@
       }
     </script>
     <SYNONYM>SEND</SYNONYM>
+    <SYNTAX>
+      SEND FOR OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_SHAKE">
@@ -2182,6 +2638,9 @@
       }
     </script>
     <SYNONYM>SHAKE</SYNONYM>
+    <SYNTAX>
+      SHAKE OBJECT (HAVE)
+    </SYNTAX>
   </command>
 
   <command name="V_SKIP">
@@ -2190,6 +2649,9 @@
       msg (PICK_ONE(GLOBAL.WHEEEEE))
     </script>
     <SYNONYM>SKIP HOP</SYNONYM>
+    <SYNTAX>
+      SKIP
+    </SYNTAX>
   </command>
 
   <command name="V_SMELL">
@@ -2198,6 +2660,9 @@
       msg ("It smells like a " + GLOBAL.PRSO.alias + ".")
     </script>
     <SYNONYM>SMELL SNIFF</SYNONYM>
+    <SYNTAX>
+      SMELL OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_SPIN">
@@ -2206,6 +2671,9 @@
       msg ("You can't spin that!")
     </script>
     <SYNONYM>SPIN</SYNONYM>
+    <SYNTAX>
+      SPIN OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_SPRAY">
@@ -2214,6 +2682,9 @@
       invoke (V_SQUEEZE.script)
     </script>
     <SYNONYM>SPRAY</SYNONYM>
+    <SYNTAX>
+      SPRAY OBJECT ON OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_SSPRAY">
@@ -2226,6 +2697,9 @@
       invoke (V_SPRAY.script)
     </script>
     <SYNONYM>SPRAY</SYNONYM>
+    <SYNTAX>
+      SPRAY OBJECT WITH OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_SQUEEZE">
@@ -2240,10 +2714,13 @@
       CRLF
     </script>
     <SYNONYM>SQUEEZE SQUEEZ</SYNONYM>
+    <SYNTAX>
+      SQUEEZE OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_STAND">
-    <pattern>STAND UP #object1#;STAND</pattern>
+    <pattern>STAND UP #object1#;STAND;TAKE UP;GET UP;HOLD UP;CARRY UP;REMOVE UP;GRAB UP;CATCH UP</pattern>
     <attr name="FIND_PRSO">RMUNGBIT</attr>
     <script>
       if (FSET_P (LOC (GLOBAL.WINNER), "VEHBIT")) {
@@ -2255,6 +2732,11 @@
       }
     </script>
     <SYNONYM>STAND</SYNONYM>
+    <SYNTAX>
+      STAND
+      STAND UP OBJECT (FIND RMUNGBIT)
+      TAKE UP OBJECT (FIND RMUNGBIT)
+    </SYNTAX>
   </command>
 
   <command name="V_STAY">
@@ -2263,6 +2745,9 @@
       msg ("You will be lost without me!")
     </script>
     <SYNONYM>STAY</SYNONYM>
+    <SYNTAX>
+      STAY
+    </SYNTAX>
   </command>
 
   <command name="V_STRIKE">
@@ -2287,6 +2772,9 @@
       }
     </script>
     <SYNONYM>STRIKE</SYNONYM>
+    <SYNTAX>
+      STRIKE OBJECT (ON_GROUND IN_ROOM HELD CARRIED)
+    </SYNTAX>
   </command>
 
   <command name="V_SWIM">
@@ -2306,6 +2794,11 @@
       }
     </script>
     <SYNONYM>SWIM BATHE WADE</SYNONYM>
+    <SYNTAX>
+      SWIM
+      SWIM IN OBJECT
+      SWIM ACROSS OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_SWING">
@@ -2329,6 +2822,10 @@
       }
     </script>
     <SYNONYM>SWING THRUST</SYNONYM>
+    <SYNTAX>
+      SWING OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE)
+      SWING OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE) AT OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_THROW">
@@ -2354,6 +2851,10 @@
       }
     </script>
     <SYNONYM>THROW HURL CHUCK TOSS</SYNONYM>
+    <SYNTAX>
+      THROW OBJECT (HELD CARRIED HAVE) AT OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM)
+      THROW OBJECT (HELD CARRIED HAVE) WITH OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_THROW_OFF">
@@ -2364,6 +2865,10 @@
       msg ("You can't throw anything off of that!")
     </script>
     <SYNONYM>THROW HURL CHUCK TOSS</SYNONYM>
+    <SYNTAX>
+      THROW OBJECT (HELD CARRIED HAVE) OFF OBJECT
+      THROW OBJECT (HELD CARRIED HAVE) OVER OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_TIE">
@@ -2377,6 +2882,9 @@
       }
     </script>
     <SYNONYM>TIE FASTEN SECURE ATTACH</SYNONYM>
+    <SYNTAX>
+      TIE OBJECT TO OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_TIE_UP">
@@ -2390,6 +2898,9 @@
       msg ("You could certainly never tie it with that!")
     </script>
     <SYNONYM>TIE FASTEN SECURE ATTACH</SYNONYM>
+    <SYNTAX>
+      TIE UP OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND TOOLBIT) (ON_GROUND IN_ROOM HELD CARRIED HAVE)
+    </SYNTAX>
   </command>
 
   <command name="V_TREASURE">
@@ -2406,6 +2917,9 @@
       }
     </script>
     <SYNONYM>TREASURE TREASU TEMPLE</SYNONYM>
+    <SYNTAX>
+      TREASURE
+    </SYNTAX>
   </command>
 
   <command name="V_UNLOCK">
@@ -2418,6 +2932,9 @@
       invoke (V_LOCK.script)
     </script>
     <SYNONYM>UNLOCK</SYNONYM>
+    <SYNTAX>
+      UNLOCK OBJECT (ON_GROUND IN_ROOM) WITH OBJECT (FIND TOOLBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE)
+    </SYNTAX>
   </command>
 
   <command name="V_UNTIE">
@@ -2428,6 +2945,10 @@
       msg ("This cannot be tied, so it cannot be untied!")
     </script>
     <SYNONYM>UNTIE FREE RELEASE RELEAS UNFASTEN UNFAST UNATTACH UNATTA UNHOOK</SYNONYM>
+    <SYNTAX>
+      UNTIE OBJECT (ON_GROUND IN_ROOM HELD CARRIED)
+      UNTIE OBJECT (ON_GROUND IN_ROOM HELD CARRIED) FROM OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_WAIT">
@@ -2460,6 +2981,9 @@
       GLOBAL.CLOCK_WAIT = true
     ]]></script>
     <SYNONYM>WAIT Z</SYNONYM>
+    <SYNTAX>
+      WAIT
+    </SYNTAX>
   </command>
 
   <command name="V_ALARM">
@@ -2482,6 +3006,10 @@
       }
     ]]></script>
     <SYNONYM>WAKE AWAKE SURPRISE SURPRI STARTLE STARTL</SYNONYM>
+    <SYNTAX>
+      WAKE OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM)
+      WAKE UP OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM)
+    </SYNTAX>
   </command>
 
   <command name="V_WALK_AROUND">
@@ -2490,6 +3018,10 @@
       msg ("Use compass directions for movement.")
     </script>
     <SYNONYM>WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
+    <SYNTAX>
+      WALK
+      WALK AROUND OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_WALK">
@@ -2553,6 +3085,10 @@
       }
     </script>
     <SYNONYM>WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
+    <SYNTAX>
+      WALK OBJECT
+      WALK AWAY OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_WALK_TO">
@@ -2566,6 +3102,9 @@
       }
     </script>
     <SYNONYM>WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
+    <SYNTAX>
+      WALK TO OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_WAVE">
@@ -2575,6 +3114,11 @@
     </script>
     <SCOPE_PRSO type="string">HELD CARRIED TAKE HAVE</SCOPE_PRSO>
     <SYNONYM>WAVE BRANDISH BRANDI</SYNONYM>
+    <SYNTAX>
+      WAVE OBJECT (HELD CARRIED TAKE HAVE)
+      WAVE OBJECT (HELD CARRIED TAKE HAVE) AT OBJECT
+      WAVE AT OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_WEAR">
@@ -2589,6 +3133,10 @@
       }
     </script>
     <SYNONYM>PUT STUFF INSERT PLACE HIDE WEAR</SYNONYM>
+    <SYNTAX>
+      PUT ON OBJECT (IN_ROOM ON_GROUND CARRIED MANY)
+      WEAR OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_WIN">
@@ -2597,6 +3145,9 @@
       msg ("Naturally!")
     </script>
     <SYNONYM>WIN WINNAGE WINNAG</SYNONYM>
+    <SYNTAX>
+      WIN
+    </SYNTAX>
   </command>
 
   <command name="V_WIND">
@@ -2605,6 +3156,10 @@
       msg ("You cannot wind up a " + GLOBAL.PRSO.alias + ".")
     </script>
     <SYNONYM>WIND</SYNONYM>
+    <SYNTAX>
+      WIND OBJECT
+      WIND UP OBJECT
+    </SYNTAX>
   </command>
 
   <command name="V_WISH">
@@ -2613,6 +3168,9 @@
       msg ("With luck, your wish will come true.")
     </script>
     <SYNONYM>WISH</SYNONYM>
+    <SYNTAX>
+      WISH
+    </SYNTAX>
   </command>
 
   <command name="V_YELL">
@@ -2621,6 +3179,9 @@
       msg ("Aaaarrrrgggghhhh!")
     </script>
     <SYNONYM>YELL SCREAM SHOUT</SYNONYM>
+    <SYNTAX>
+      YELL
+    </SYNTAX>
   </command>
 
   <command name="V_ZORK">
@@ -2629,6 +3190,9 @@
       msg ("At your service!")
     </script>
     <SYNONYM>ZORK</SYNONYM>
+    <SYNTAX>
+      ZORK
+    </SYNTAX>
   </command>
 
 <!-- COMMAND HELPERS -->
