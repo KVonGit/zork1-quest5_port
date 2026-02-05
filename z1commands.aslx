@@ -57,8 +57,9 @@
       }
       game.suppressturnscripts = true
     ]]></script>
+    <META />
     <SYNONYM>OOPS</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       OOPS OBJECT
     </SYNTAX>
   </command>
@@ -77,8 +78,9 @@
       }
       SuppressTurnscripts
     ]]></script>
+    <META />
     <SYNONYM>UNDO</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       UNDO
     </SYNTAX>
   </command>
@@ -97,8 +99,9 @@
       }
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>PRONOUNS PRONOU</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       PROUNOUNS
     </SYNTAX>
   </command>
@@ -115,8 +118,9 @@
         msg ("I didn't understand your command.")
       }
     </script>
+    <META />
     <SYNONYM>#XTRACE #XTRA</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       #XTRACE
     </SYNTAX>
   </command>
@@ -141,8 +145,9 @@
       msg ("Maximum verbosity.")
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>VERBOSE VERBOS</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       VERBOSE
     </SYNTAX>
   </command>
@@ -155,8 +160,9 @@
       msg ("Brief descriptions.")
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>BRIEF</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       BRIEF
     </SYNTAX>
   </command>
@@ -168,8 +174,9 @@
       msg ("Superbrief descriptions.")
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>SUPER SUPERBRIEF SUPERB</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       SUPER
     </SYNTAX>
   </command>
@@ -245,8 +252,9 @@
       }
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>DIAGNOSE DIAGNO</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       DIAGNOSE
     </SYNTAX>
   </command>
@@ -261,8 +269,9 @@
         msg ("You are empty-handed.")
       }
     </script>
+    <META />
     <SYNONYM>INVENTORY I</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       INVENTORY
     </SYNTAX>
   </command>
@@ -282,8 +291,9 @@
         }
       }
     </script>
+    <META />
     <SYNONYM>QUIT Q</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       QUIT
     </SYNTAX>
   </command>
@@ -307,8 +317,9 @@
         }
       }
     </script>
+    <META />
     <SYNONYM>RESTART RESTAR</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       RESTART
     </SYNTAX>
   </command>
@@ -319,8 +330,9 @@
       SuppressTurnscripts
       JS.eval("addText (\"Quest 5 doesn't work that way.<br/>\"); if (window.location.href.indexOf(\"res\") == 0) { addTextAndScroll (\"To play from a save from the Windows app, you must directly load the save file instead of the game itself.<br/>\"); }else{ addTextAndScroll (\"To access your saves online, restart the game or open a new tab and start the game to load the list of saves.<br/>You should also check out the <a target=\\\"_blank\\\" href=\\\"https://textadventures.co.uk/games/play/q_zjajkiwuu8ijbmyyixrw\\\">Viva Save Manager</a><br/>\"); }")
     ]]></script>
+    <META />
     <SYNONYM>RESTORE</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       RESTORE
     </SYNTAX>
   </command>
@@ -331,8 +343,9 @@
       do (save, "script")
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>SAVE</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       SAVE
     </SYNTAX>
   </command>
@@ -375,8 +388,9 @@
       msg (".")
       SuppressTurnscripts
     ]]></script>
+    <META />
     <SYNONYM>SCORE</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       SCORE
     </SYNTAX>
   </command>
@@ -387,8 +401,9 @@
       do (transcript_on_cmd, "script")
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>SCRIPT</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       SCRIPT
     </SYNTAX>
   </command>
@@ -399,8 +414,9 @@
       do (transcript_off_cmd, "script")
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>UNSCRIPT UNSCRI</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       UNSCRIPT
     </SYNTAX>
   </command>
@@ -416,8 +432,9 @@
       }
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>VIEW DISPLAY DISPLA SHOW</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       VIEW TRANSCRIPT
     </SYNTAX>
   </command>
@@ -428,8 +445,9 @@
       SuppressTurnscripts
       msg ("<div style=\"font-size:88%;\"><b>ZORK I: The Great Underground Empire</b><br/>by Marc Blank and Dave Lebling<br/>Infocom interactive fiction - a fantasy story<br/>Copyright (c) 1981, 1982, 1983, 1984, 1985, 1986 Infocom, Inc. All rights reserved.<br/>ZORK is a registered trademark of Infocom, Inc.<br/>MIT License - Copyright (c) 2025 Microsoft<br/>2026 Quest 5.9 port by KV<br/>IFID: {=UCase(game.gameid)}<br/>v{game.version}</div>")
     ]]></script>
+    <META />
     <SYNONYM>VERSION VERSIO ABOUT</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       VERSION
     </SYNTAX>
   </command>
@@ -440,8 +458,9 @@
       SuppressTurnscripts
       msg ("Verifying game file...<br/>The file is correct.")
     ]]></script>
+    <META />
     <SYNONYM>$VERIFY $VE</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       $VERIFY
     </SYNTAX>
   </command>
@@ -459,8 +478,9 @@
         msg ("Illegal call to #RANDOM.")
       }
     </script>
+    <META />
     <SYNONYM>#RANDOM</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       SCORE
     </SYNTAX>
   </command>
@@ -470,8 +490,9 @@
     <script>
       invoke (V_RECORD.script)
     </script>
+    <META />
     <SYNONYM>#COMMAND #COMM</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       #COMMAND
     </SYNTAX>
   </command>
@@ -483,8 +504,9 @@
       //game.recording_steps = true
       SuppressTurnscripts
     </script>
+    <META />
     <SYNONYM>#RECORD #RECO</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       #RECORD
     </SYNTAX>
   </command>
@@ -495,8 +517,9 @@
       invoke (V_RECORD.script)
       //game.recording_steps = false
     </script>
+    <META />
     <SYNONYM>#UNRECORD #UNRECO #UNRE</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       #UNRECORD
     </SYNTAX>
   </command>
@@ -551,7 +574,7 @@
       }
     </script>
     <SYNONYM>ACTIVATE ACTIVA LIGHT TURN SET FLIP SHUT SWITCH</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       ACTIVATE OBJECT (FIND LIGHTBIT) (HELD CARRIED ON_GROUND IN_ROOM)
       LIGHT OBJECT (FIND LIGHTBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE HAVE)
       TURN ON	OBJECT (FIND LIGHTBIT) (HELD CARRIED ON_GROUND IN_ROOM)
@@ -567,7 +590,7 @@
       GLOBAL.QUOTE_FLAG = false
     </script>
     <SYNONYM>ANSWER REPLY</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       ANSWER
     </SYNTAX>
   </command>
@@ -580,7 +603,7 @@
       GLOBAL.QUOTE_FLAG = false
     </script>
     <SYNONYM>ANSWER REPLY</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       ANSWER OBJECT
     </SYNTAX>
   </command>
@@ -633,7 +656,7 @@
       }
     ]]></script>
     <SYNONYM>DROP APPLY MOVE PUT STUFF INSERT PLACE HIDE SQUEEZE SQUEEZ THROW HURL CHUCK TOSS</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       APPLY OBJECT TO OBJECT
       DROP OBJECT (HELD MANY HAVE) DOWN OBJECT
       DROP OBJECT (HELD MANY HAVE) IN OBJECT
@@ -675,7 +698,7 @@
       }
     </script>
     <SYNONYM>ATTACK FIGHT HURT INJURE HIT KILL MURDER SLAY DISPATCH DISPAT STAB STRIKE KNOCK</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       ATTACK OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE)
       KILL OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE)
       STAB OBJECT (FIND ACTORBIT) (ON_GROUND IN_ROOM) WITH OBJECT (FIND WEAPONBIT) (HELD CARRIED HAVE)
@@ -690,7 +713,7 @@
       msg ("Sorry, my memory is poor. Please give me a direction.")
     </script>
     <SYNONYM>BACK</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       BACK
     </SYNTAX>
   </command>
@@ -701,14 +724,14 @@
       msg ("You can't blast anything by using words.")
     </script>
     <SYNONYM>BLAST BLOW</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNTAX>
       BLAST
       BLOW UP OBJECT
     </SYNTAX>
   </command>
 
   <command name="V_LAMP_OFF">
-    <pattern type="string"><![CDATA[^BLOW OUT (?<object1>.*)$|^(EXTINGUISH|EXTING|DOUSE) (?<object1>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) OFF (?<object1>.*) WITH (?<object2>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) OFF (?<object1>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) (?<object1>.*) OFF$|^(BLOW|PUT) OUT (?<object1>.*)$]]></pattern>
+    <pattern type="string"><![CDATA[^BLOW OUT (?<object1>.*)$|^(EXTINGUISH|EXTINGUIS|DOUSE) (?<object1>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) OFF (?<object1>.*) WITH (?<object2>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) OFF (?<object1>.*)$|^(TURN|SET|FLIP|SHUT|SWITCH) (?<object1>.*) OFF$|^(BLOW|PUT) OUT (?<object1>.*)$]]></pattern>
     <SCOPE_PRSO type="string">HELD CARRIED ON_GROUND IN_ROOM TAKE HAVE</SCOPE_PRSO>
     <FIND_PRSO type="string">ONBIT</FIND_PRSO>
     <script>
@@ -732,8 +755,8 @@
         msg ("You can't turn that off.")
       }
     </script>
-    <SYNONYM>BLOW EXTINGUISH EXTING DOUSE TURN SET FLIP SHUT SWITCH PUT</SYNONYM>
-    <SYNTAX type="simplestringlist">
+    <SYNONYM>BLOW EXTINGUISH DOUSE TURN SET FLIP SHUT SWITCH PUT</SYNONYM>
+    <SYNTAX>
       BLOW OUT OBJECT
       EXTINGUISH OBJECT (FIND ONBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE HAVE)
       PUT OUT OBJECT (FIND ONBIT) (HELD CARRIED ON_GROUND IN_ROOM TAKE HAVE)
@@ -816,7 +839,7 @@
   </command>
 
   <command name="V_BURN">
-    <pattern>BURN DOWN #object1#;INCINERATE DOWN #object1# WITH #object2#;INCINE DOWN #object1# WITH #object2#;IGNITE DOWN #object1# WITH #object2#;BURN #object1# WITH #object2#;INCINERATE #object1# WITH #object2#;INCINE #object1# WITH #object2#;IGNITE #object1# WITH #object2#</pattern>
+    <pattern>BURN DOWN #object1#;INCINERATE DOWN #object1# WITH #object2#;INCINERAT DOWN #object1# WITH #object2#;IGNITE DOWN #object1# WITH #object2#;BURN #object1# WITH #object2#;INCINERATE #object1# WITH #object2#;INCINERAT #object1# WITH #object2#;IGNITE #object1# WITH #object2#</pattern>
     <attr name="FIND_PRSO">BURNBIT</attr>
     <attr name="SCOPE_PRSO" type="string">HELD CARRIED ON_GROUND IN_ROOM</attr>
     <attr name="FIND_PRSI">FLAMEBIT</attr>
@@ -845,7 +868,7 @@
         }
       }
     </script>
-    <SYNONYM>BURN INCINERATE INCINE IGNITE</SYNONYM>
+    <SYNONYM>BURN INCINERATE IGNITE</SYNONYM>
     <SYNTAX>
       BURN OBJECT (FIND BURNBIT) (HELD CARRIED ON_GROUND IN_ROOM) WITH OBJECT (FIND FLAMEBIT) (HELD CARRIED ON_GROUND IN_ROOM HAVE)
       BURN DOWN OBJECT (FIND BURNBIT) (HELD CARRIED ON_GROUND IN_ROOM) WITH OBJECT (FIND FLAMEBIT) (HELD CARRIED ON_GROUND IN_ROOM HAVE)
@@ -1337,11 +1360,11 @@
   </command>
 
   <command name="V_DISENCHANT">
-    <pattern>DISENCHANT #object1#;DISENC #object1#</pattern>
+    <pattern>DISENCHANT #object1#;DISENCHAN #object1#</pattern>
     <script>
       msg ("Nothing happens.")
     </script>
-    <SYNONYM>DISENCHANT DISENC</SYNONYM>
+    <SYNONYM>DISENCHANT</SYNONYM>
     <SYNTAX>
       DISENCHANT OBJECT
     </SYNTAX>

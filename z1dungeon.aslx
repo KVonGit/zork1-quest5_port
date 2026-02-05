@@ -912,6 +912,7 @@
       <value>dusty trapdoor</value>
       <value>dusty trap-door</value>
       <value>dusty cover</value>
+      <value>dusty trap door</value>
     </alt>
   </object>
 
@@ -1384,6 +1385,7 @@
     <take />
     <alt type="stringlist">
       <value>matches</value>
+      <value>match</value>
     </alt>
     <SYNONYM>MATCH MATCHES MATCHBOOK</SYNONYM>
     <ADJECTIVE>MATCH</ADJECTIVE>

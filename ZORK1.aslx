@@ -12,7 +12,7 @@
   <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
     <gameid>qcode-z1-2026-0202-8b00-e7d39e177663</gameid>
-    <version>0.1.8.1  beta</version>
+    <version>0.2 beta</version>
     <firstpublished>2026</firstpublished>
     <debugging type="boolean">false</debugging>
     <attr name="debug_fighting" type="boolean">false</attr>
@@ -45,6 +45,18 @@
     <publishfileextensions>*.jpg;*.jpeg;*.png;*.gif;*.js;*.wav;*.mp3;*.htm;*.html;*.svg;*.ogg;*.ogv;*.zip;*.pdf</publishfileextensions>
     <pov type="object">ADVENTURER</pov>
     <start type="script">
+      foreach (cmd, AllCommands()) {
+        if (HasScript(cmd, "initialize")) {
+          // do (cmd, "initialize")
+        }
+        if (HasAttribute (cmd, "SYNTAX")) {
+          foreach (syn, cmd.SYNTAX) {
+            // msg ("")
+            SetSyntax (syn, cmd)
+            // msg ("")
+          }
+        }
+      }
       PreGO
       GO
       BuildGrammarLists
@@ -106,20 +118,35 @@
       </changedparent>
     </object>
   </object>
-  <function name="FAKE_PARSE" parameters="str">
-    firster = StringListItem(str,0)
-    n = GET_PART_OF_SPEECH (firster)
-    if (not adjective_recognized and not object_recognized) {
-      if (not verb_recognized) {
-        msg ("I don't know the word \"" + firster + "\".")
+  <function name="AddToResolvedNames" parameters="var, result">
+    if (TypeOf(result) = "object") {
+      if (result.type = "object") {
+        list add (game.pov.currentcommandresolvedobjects, result)
       }
     }
-    else if (not verb_recognized) {
-      msg ("I don't know how to '" + firster + "'.")
+    else if (TypeOf(result) = "objectlist") {
+      foreach (obj, result) {
+        if (obj.type = "object") {
+          list add (game.pov.currentcommandresolvedobjects, obj)
+        }
+      }
     }
-    else {
-      msg (Template("UnrecognisedCommand"))
+    // dictionary add (game.pov.currentcommandresolvedelements, var, result)
+    DictionaryAdd (game.pov.currentcommandresolvedelements, var, result)
+    ResolveNextName
+  </function>
+  <function name="FinishTurn">
+    if (GetBoolean(game,"runturnscripts")) {
+      if (not GetBoolean(game, "suppressturnscripts")) {
+        RunTurnScripts
+      }
     }
+    GLOBAL.unfound = 0
+    game.runturnscripts = false
+    game.suppressturnscripts = false
+    UpdateStatusAttributes
+    CheckDarkness
+    UpdateObjectLinks
   </function>
   <function name="GET_PART_OF_SPEECH" parameters="str" type="int">
     // nothing 0
@@ -151,7 +178,7 @@
     }
     return (typ)
   </function>
-  <function name="BuildGrammarLists">
+  <function name="BuildGrammarLists"><![CDATA[
     if (not HasAttribute (GLOBAL, "NOUNS_LIST")) {
       GLOBAL.NOUNS_LIST = NewStringList()
     }
@@ -170,6 +197,9 @@
     if (not HasAttribute (GLOBAL, "BUZZ_WORDS_LIST")) {
       GLOBAL.BUZZ_WORDS_LIST = Split("again;g;oops;a;an;the;is;and;of;then;all;one;but;except;.;,;\";yes;no;y;here")
     }
+    if (not HasAttribute (GLOBAL, "VERB_SYNONYMS")) {
+      GLOBAL.VERB_SYNONYMS = NewList()
+    }
     game.ps_object = 128
     game.ps_verb = 64
     game.ps_adjective = 32
@@ -183,6 +213,9 @@
           // syn = Left (syn, 6)
           if (not ListContains (GLOBAL.NOUNS_LIST, syn)) {
             list add (GLOBAL.NOUNS_LIST, syn)
+            // if (LengthOf(syn) > 6) {
+              // msg (syn + " is longer than 6 letters!")
+              // }
             syn = Left (syn, 6)
             list add (GLOBAL.NOUNS_LIST, syn)
           }
@@ -193,6 +226,9 @@
             // adj = Left (adj, 6)
             if (not ListContains (GLOBAL.ADJECTIVES_LIST, adj)) {
               list add (GLOBAL.ADJECTIVES_LIST, adj)
+              // if (LengthOf(adj) > 6) {
+                // msg (adj + " is longer than 6 letters!")
+                // }
               adj = Left (adj, 6)
               list add (GLOBAL.ADJECTIVES_LIST, ToString(adj))
             }
@@ -204,13 +240,20 @@
     GLOBAL.ADJECTIVES_LIST = StringListCompact(GLOBAL.ADJECTIVES_LIST)
     foreach (cmd, AllCommands()) {
       if (HasString(cmd, "SYNONYM")) {
-        syns = Split (LCase (cmd.SYNONYM), " ")
-        foreach (syn, syns) {
-          // syn = Left (syn, 6)
-          if (not ListContains (GLOBAL.VERBS_LIST, syn)) {
-            list add (GLOBAL.VERBS_LIST, syn)
-            syn = Left (syn, 6)
-            list add (GLOBAL.VERBS_LIST, syn)
+        SYNONYMS = Split(cmd.SYNONYM, ";")
+        foreach (SYNONYM, SYNONYMS) {
+          syns = Split (LCase (cmd.SYNONYM), " ")
+          list add (GLOBAL.VERB_SYNONYMS, syns)
+          foreach (syn, syns) {
+            // syn = Left (syn, 6)
+            if (not ListContains (GLOBAL.VERBS_LIST, syn)) {
+              list add (GLOBAL.VERBS_LIST, syn)
+              // if (LengthOf(syn) > 6) {
+                // msg (syn + " is longer than 6 letters!")
+                // }
+              syn = Left (syn, 6)
+              list add (GLOBAL.VERBS_LIST, syn)
+            }
           }
         }
       }
@@ -228,7 +271,10 @@
     // msg (GLOBAL.DIRECTIONS_LIST)
     // msg ("BUZZ")
     // msg (GLOBAL.BUZZ_WORDS_LIST)
-  </function>
+    // foreach (syns, GLOBAL.VERB_SYNONYMS) {
+      // msg (syns)
+      // }
+  ]]></function>
   <function name="BTST" parameters="val1, val2" type="boolean"><![CDATA[
     return ((val1 and val2) <> 0)
   ]]></function>

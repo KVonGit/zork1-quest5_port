@@ -98,4 +98,20 @@
       // }
   ]]></function>
 
+  <function name="FAKE_PARSE" parameters="str">
+    firster = StringListItem(str,0)
+    n = GET_PART_OF_SPEECH (firster)
+    if (not adjective_recognized and not object_recognized) {
+      if (not verb_recognized) {
+        msg ("I don't know the word \"" + firster + "\".")
+      }
+    }
+    else if (not verb_recognized) {
+      msg ("I don't know how to '" + firster + "'.")
+    }
+    else {
+      msg (Template("UnrecognisedCommand"))
+    }
+  </function>
+
 </library>

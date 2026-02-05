@@ -164,16 +164,22 @@
       dLog ("[PERFORM_COMMAND] PRSO is an object list: " + GLOBAL.PRSO)
       PRSO_BAK = ListExclude(GLOBAL.PRSO, player)
       PRSO_LIST = ListExclude(PRSO_BAK, player)
+      if (DictionaryContains(game.pov.currentcommandvarlist,"object1")) {
+        thisprso = DictionaryItem(game.pov.currentcommandvarlist,"object1")
+        if (thisprso = "all") {
+          isall = true
+          if (ListCount(GLOBAL.PRSO) = 0){
+            msg ("There is nothing at all available!")
+            RFATAL
+            return (null)
+          }
+        }
+      }
       foreach (o, PRSO_BAK) {
         // if (not HANDLED_BY_ACTION) {
           THIS_IS_IT (o)
           isall = false
-          if (DictionaryContains(game.pov.currentcommandvarlist,"object1")) {
-            thisprso = DictionaryItem(game.pov.currentcommandvarlist,"object1")
-            if (thisprso = "all") {
-              isall = true
-            }
-          }
+          
           if (ListCount(GLOBAL.PRSO) > 1 or isall) {
             TELL (o.alias + ": ")
           }
@@ -318,8 +324,14 @@
     // This is not the ZIL way.
     dLog ("[PERFORM] " + vrb + ", " + prso + ", " + prsi)
     args = NewDictionary()
+
     dictionary add (args, "multiple", HasAttribute(game.pov,"commandqueue"))
     if (Instr(vrb.pattern,"object1") > 0) {
+      if (DictionaryContains (args, "object1")){
+        msg ("PERFORM: Dictionary already contains object1!")
+        RFATAL
+        return (2)
+      }
       dictionary add (args, "object1", prso)
     }
     if (Instr(vrb.pattern,"object2") > 0) {
@@ -344,7 +356,7 @@
   ]]></function>
 
   <function name="FIND_GRIND"><![CDATA[
-    if (GLOBAL.PRSO = NOTHING and HasAttribute(GLOBAL.PRSA,"FIND_PRSO")) {
+    if ((GLOBAL.PRSO = NOTHING or GLOBAL.PRSO = NewObjectList()) and HasAttribute(GLOBAL.PRSA,"FIND_PRSO")) {
       dLog ("[PERFORM_COMMAND] " + GLOBAL.PRSA.name + ": FIND_PRSO: " + GLOBAL.PRSA.FIND_PRSO)
       // find_candidates = FilterByAttribute(ScopeVisible(),GLOBAL.PRSA.FIND_PRSO)
       // if (not ListCount(find_candidates) = 0) {
@@ -569,4 +581,149 @@
     }
   ]]></function>
 
+  <function name="SetSyntax" parameters="str,cmd"><![CDATA[
+    if (not HasAttribute (GLOBAL, "SYNTAX_TABLE")){
+      GLOBAL.SYNTAX_TABLE = NewList()
+    }
+    prep1 = "undefined"
+    prep2 = "undefined"
+    sarr = Split (str, " ")
+    firstw = StringListItem (sarr, 0)
+    if (firstw = "OBJECT,"){
+      // this is the COMMAND command
+      // this doesn't happen in Zork 1
+      verb = "COMMAND"
+    }
+    else {
+      verb = firstw
+    }
+    list remove (sarr, firstw)
+    if (not firstw = "OBJECT,"){
+      fullsyntax = "* " + Join (sarr, " ") + " = " + cmd.name
+    }
+    else {
+      fullsyntax = str + " = " + cmd.name
+    }
+    if (not ListContains(GLOBAL.SYNTAX_TABLE, fullsyntax)){
+      list add (GLOBAL.SYNTAX_TABLE, fullsyntax)
+    }
+    ocnt = 0
+    pcnt = 0
+    fcnt = 0
+    find1 = "undefined"
+    find2 = "undefined"
+    scnt = 0
+    scope1 = "undefined"
+    scope2 = "undefined"
+    findflg = false
+    scopeflg = false
+    foreach (s, sarr){
+      if (s = "OBJECT"){
+        if (ocnt = 2){
+          msg ("SetSyntax: too many objects! (" + str + ")")
+          return (2)
+        }
+        ocnt = ocnt + 1
+      }
+      else if (EndsWith (s, ")") and (findflg or scopeflg)){
+        s = Replace (s, ")", "")
+        if (findflg) {  
+          if (fcnt = 1){
+            if (find1 = "undefined"){
+              find1 = s
+            }
+            else {
+              find1 = find1 + " " + s
+            }
+          }
+          else {
+            if (find2 = "undefined"){
+              find2 = s
+            }
+            else {
+              find2 = find2 + " " + s
+            }
+          }
+        }
+        else if (scopeflg){
+          if (scnt = 1){
+            scope1 = scope1 + " " + s
+          }
+          else {
+            scope2 = scope2 + " " + s
+          }
+        }
+        findflg = false
+        scopeflg = false
+      }
+      else if (s = "(FIND"){
+        if (fcnt = 2){
+          msg ("SetSyntax: too many FINDs! ()")
+          return (2)
+        }
+        fcnt = ocnt
+        findflg = true
+      }
+      else if (StartsWith (s, "(")){
+        scopeflg = true
+        s = Replace (s, "(", "")
+        if (EndsWith( s, ")")){
+          scopeflg = false
+          s = Replace (s, ")", "")
+        }
+        if (scnt = 2){
+          msg ("SetSyntax: too many SCOPEs! (" + str + ")")
+          return (2)
+        }
+        scnt = ocnt
+        if (scnt = 1){
+          scope1 = s
+        }
+        else {
+          scope2 = s
+        }
+      }
+      else if (scopeflg){
+        if (scnt = 1){
+          scope1 = scope1 + " " + s
+        }
+        else {
+          scope2 = scope2 + " " + s
+        }
+      }
+      else {
+        if (pcnt = 2) {
+          msg ("SetSyntax: too many prepositions! (" + str + ")")
+          return (2)
+        }
+        pcnt = pcnt + 1
+        if (ocnt = 1) {
+          pcnt = 2
+        }
+        if (pcnt = 1){
+          prep1 = s
+        }
+        else {
+          prep2 = s
+        }
+      }
+    }
+    //actionnumber = IndexOf(AllCommands(), cmd)
+    //msg ("verb: " + verb)
+    //msg ("fullsyntax: " + fullsyntax)
+    //msg ("ocnt: " + ocnt)
+    //msg ("prep1: " + prep1)
+    //msg ("find1: " + find1)
+    //msg ("scope1: " + scope1)
+    //msg ("prep2: " + prep2)
+    //msg ("find2: " + find2)
+    //msg ("scope2: " + scope2)
+    //msg ("cmd: " + cmd.name)
+    //msg ("action number: " + actionnumber)
+    //msg (str + " = " + cmd.name)
+  ]]></function>
+
+  <function name="AddToSyntaxGrammarTable" parameters="str">
+    
+  </function>
 </library>

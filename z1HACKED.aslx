@@ -334,6 +334,7 @@
 
   <function name="ResolveNextName"><![CDATA[
     resolvedall = false
+    //GLOBAL.unfound = 0
     queuetype = TypeOf(game.pov, "currentcommandvarlistqueue")
     if (queuetype = "stringlist") {
       queuelength = ListCount(game.pov.currentcommandvarlistqueue)
@@ -365,12 +366,54 @@
                 scope = FilterByAttribute(GetScope("object", "", "object"), "scenery", false)
                 game.pov.currentcommandpendingobjectscope = ListExclude(scope, FilterByAttribute(scope, "not_all", true))
                 game.pov.currentcommandpendingvariable = var
-                ResolveNameList (value, "object")
-                resolvinglist = true
+                
+                if (not value = "all" and (Instr (value, ",") > 0 or Instr(value, " and ") > 0)){
+                  valbak = value
+                  value = Replace (value, ", ", " and ")
+                  values = Split(value, " and ")
+                  truevalues = NewStringList()
+                  value = ""
+                  foreach (val, values ){
+                    res = ResolveName(var, val, "object")
+                    if (res = null){
+                      GLOBAL.unfound = GLOBAL.unfound + 1
+                      if (GET_PART_OF_SPEECH(val) = 0){
+                        msg ("I don't know the word \"" + val + "\".")
+                        RFATAL
+                        return (null)
+                      }
+                    }
+                    else {
+                      list add (truevalues, val)
+                    }
+                  }
+                  if (ListCount(truevalues) > 1){
+                    value = Join (truevalues, " and ")
+                    ResolveNameList (value, "object")
+                    resolvinglist = true
+                  }
+                  else if (ListCount(truevalues) = 1) {
+                    value = Join(truevalues," ")
+                    TELL (StringListItem(truevalues, 0) + ": ")
+                    ResolveNameList (value, "object")
+                    resolvinglist = true
+                    
+                  }
+                  else {
+                    msg ("I can't see that. (" + valbak + ")")
+                    return (null)
+                  } 
+                }
+                else {
+                  ResolveNameList (value, "object")
+                  resolvinglist = true
+                }
+                
               }
               else if (HasScript(game.pov.currentcommandpattern, "multipleobjects")) {
                 game.pov.currentcommandpendingobjectlist = NewObjectList()
                 game.pov.currentcommandpendingvariable = var
+                //msg("Has multipleobjects script: value: " + value)
                 do (game.pov.currentcommandpattern, "multipleobjects")
                 ResolveNameList (value, "object")
                 resolvinglist = true
@@ -391,6 +434,11 @@
           }
           // at this point, ResolveName has returned - either an object name, unresolved, or pending
           if (result = null) {
+            if ((not resolvinglist) and LengthOf(GetString(game.pov, "currentcommandpendingvariable")) = 0) {
+              UnresolvedCommand (value, var)
+            }
+          }
+          else if (result = NOTHING) {
             if ((not resolvinglist) and LengthOf(GetString(game.pov, "currentcommandpendingvariable")) = 0) {
               UnresolvedCommand (value, var)
             }
@@ -441,11 +489,21 @@
         // This is the bit that actually runs the commands
         // do (game.pov.currentcommandpattern, "script", game.pov.currentcommandresolvedelements)
         PERFORM_COMMAND (game.pov.currentcommandpattern, "script", game.pov.currentcommandresolvedelements)
+        if (GLOBAL.unfound > 0){
+          TELL ("The other object")
+          if (GLOBAL.unfound > 1){
+            TELL ("s")
+          }
+          TELL (" that you mentioned ")
+          if (GLOBAL.unfound = 1){
+            TELL ("is")
+          }
+          else {
+            TELL ("are")
+          }
+          msg ("n't here.")
+        }
       }
-      //
-      // Setting game.runturnscripts to true to run turn scripts after ShowMenu , show menu, ask, or Ask.
-      // This works in conjuction with FinishTurn, which has also been modified as of Quest 5.8.
-      // - KV, 2018/05/25
       game.runturnscripts = true
       FinishTurn
       HandleNextCommandQueueItem
@@ -577,6 +635,9 @@
         }
         game.pov.commandmetadata = metadata
         if (game.multiplecommands) {
+          command = Replace (command, ", and ", " and ")
+          command = Replace (command, ", then ", " then ")
+          command = Replace (command, " and then ", " then ")
           if (Instr(command, " and ") > 0){
             //msg ("checking for ands...")
             ands = NewList()
@@ -590,7 +651,7 @@
               andi = andi + 1
             }
             foreach (ind, ands){
-              if (ListCount (lexv) > ind - 1){
+              if (ListCount (lexv) - 1 > ind){
                 nw = StringListItem (lexv, ind + 1)
                 //msg ("the next word after and at " + ind + " is " + nw)
                 typ = GET_PART_OF_SPEECH (nw)
@@ -611,7 +672,9 @@
             RFATAL
             return (2)
           }
+          //msg ("COMMAND: " + command)
           commands = Split(command, ".")
+          GLOBAL.P_LEXV = commands
           if (ListCount(commands) = 1) {
             game.pov.commandqueue = null
             HandleSingleCommand (Trim(command))
@@ -1003,7 +1066,6 @@
         list add (fullmatches, obj)
       }
     }
-    // check if input matches the start of any word in the name
     else {
       if (Instr(name, value) = 1 or Instr(name, " " + value) > 0) {
         narr = Split(name, " ")
