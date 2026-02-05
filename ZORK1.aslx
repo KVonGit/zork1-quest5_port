@@ -11,8 +11,8 @@
   <include ref="z1ParserAddons.aslx" />
   <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
-    <gameid>qcode-z1-2026-0202-8b00-e7d39e177663</gameid>
-    <version>0.2 beta</version>
+    <gameid>qcode-z1-2026-0205-8b00-q59916636226</gameid>
+    <version>0.2.1 beta</version>
     <firstpublished>2026</firstpublished>
     <debugging type="boolean">false</debugging>
     <attr name="debug_fighting" type="boolean">false</attr>
@@ -118,23 +118,6 @@
       </changedparent>
     </object>
   </object>
-  <function name="AddToResolvedNames" parameters="var, result">
-    if (TypeOf(result) = "object") {
-      if (result.type = "object") {
-        list add (game.pov.currentcommandresolvedobjects, result)
-      }
-    }
-    else if (TypeOf(result) = "objectlist") {
-      foreach (obj, result) {
-        if (obj.type = "object") {
-          list add (game.pov.currentcommandresolvedobjects, obj)
-        }
-      }
-    }
-    // dictionary add (game.pov.currentcommandresolvedelements, var, result)
-    DictionaryAdd (game.pov.currentcommandresolvedelements, var, result)
-    ResolveNextName
-  </function>
   <function name="FinishTurn">
     if (GetBoolean(game,"runturnscripts")) {
       if (not GetBoolean(game, "suppressturnscripts")) {

@@ -367,11 +367,12 @@
                 game.pov.currentcommandpendingobjectscope = ListExclude(scope, FilterByAttribute(scope, "not_all", true))
                 game.pov.currentcommandpendingvariable = var
                 
-                if (not value = "all" and (Instr (value, ",") > 0 or Instr(value, " and ") > 0)){
+                if (not value = "all" and not StartsWith(value, "all but") and (Instr (value, ",") > 0 or Instr(value, " and ") > 0)){
                   valbak = value
                   value = Replace (value, ", ", " and ")
                   values = Split(value, " and ")
                   truevalues = NewStringList()
+                  names = NewList()
                   value = ""
                   foreach (val, values ){
                     res = ResolveName(var, val, "object")
@@ -384,6 +385,7 @@
                       }
                     }
                     else {
+                      list add (names, res)
                       list add (truevalues, val)
                     }
                   }
@@ -394,7 +396,7 @@
                   }
                   else if (ListCount(truevalues) = 1) {
                     value = Join(truevalues," ")
-                    TELL (StringListItem(truevalues, 0) + ": ")
+                    TELL (GetAttribute (ListItem(names,0), "alias") + ": ")
                     ResolveNameList (value, "object")
                     resolvinglist = true
                     

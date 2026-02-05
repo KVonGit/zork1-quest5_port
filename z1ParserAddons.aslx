@@ -25,12 +25,14 @@
     GLOBAL.PRSO_TEXT = "undefined"
     GLOBAL.PRSO_DIR = "undefined"
     GLOBAL.PRSA = cmd
+    isallbut = false
     if ("object1" in argsdict) {
       GLOBAL.PRSO = DictionaryItem(argsdict,"object1")
     }
     if (GetBoolean (game.pov, "currentcommandallbut")) {
       dLog ("ALL_BUT")
       onlytake = false
+      isallbut = true
       items = NewObjectList()
       if (HasString(GLOBAL.PRSA, "SCOPE_PRSO")) {
         dLog ("CHECKING SCOPE...")
@@ -180,7 +182,7 @@
           THIS_IS_IT (o)
           isall = false
           
-          if (ListCount(GLOBAL.PRSO) > 1 or isall) {
+          if (ListCount(GLOBAL.PRSO) > 1 or isall or isallbut) {
             TELL (o.alias + ": ")
           }
           GLOBAL.PRSO = o
