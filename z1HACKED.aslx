@@ -1088,4 +1088,18 @@
     }
   ]]></function>
 
+  <function name="FinishTurn">
+    if (GetBoolean(game,"runturnscripts")) {
+      if (not GetBoolean(game, "suppressturnscripts")) {
+        RunTurnScripts
+      }
+    }
+    GLOBAL.unfound = 0
+    game.runturnscripts = false
+    game.suppressturnscripts = false
+    UpdateStatusAttributes
+    CheckDarkness
+    UpdateObjectLinks
+  </function>
+
 </library>

@@ -1208,4 +1208,8 @@
     return (RES)
   ]]></function>
 
+  <function name="BTST" parameters="val1, val2" type="boolean"><![CDATA[
+    return ((val1 and val2) <> 0)
+  ]]></function>
+
 </library>

@@ -207,4 +207,150 @@
     JS.eval("var scoreMoves = ''; if ($('#divOutput').width() < 768){ scoreMoves = '" + GLOBAL.SCORE + "/" + GLOBAL.MOVES + "'; }else{ scoreMoves = 'Score: " + GLOBAL.SCORE + "&emsp;Moves: " + GLOBAL.MOVES + "'; } updateLocation ('" + room_name + "<span class=\"score-moves\" style=\"float:right;margin-right:1%;\">' + scoreMoves + '&emsp;</span>');")
   ]]></function>
 
+  <function name="StringListCompact" parameters="lst" type="stringlist">
+    typ = TypeOf(lst)
+    if (not typ = "stringlist") {
+      error ("StringListCompact: invalid list type (" + typ + ")")
+    }
+    l = NewStringList()
+    foreach (o, lst) {
+      if (not Equal(o, null)) {
+        if (IndexOf(l, o) = -1) {
+          list add (l, o)
+        }
+      }
+    }
+    return (l)
+  </function>
+
+
+  <function name="GET_PART_OF_SPEECH" parameters="str" type="int">
+    // nothing 0
+    // verb 1
+    // object 2
+    // adjective 4
+    // preposition 8
+    // direction 16
+    // buzz 32
+    str = Left (LCase (Trim (str)), 6)
+    typ = 0
+    if (ListContains(GLOBAL.VERBS_LIST, str)) {
+      typ = typ or game.ps_verb
+    }
+    if (ListContains(GLOBAL.NOUNS_LIST, str)) {
+      typ = typ or game.ps_object
+    }
+    if (ListContains(GLOBAL.ADJECTIVES_LIST, str)) {
+      typ = typ or game.ps_adjective
+    }
+    if (ListContains(GLOBAL.PREPOSITIONS_LIST, str)) {
+      typ = typ or game.ps_preposition
+    }
+    if (ListContains(GLOBAL.DIRECTIONS_LIST, str)) {
+      typ = typ or game.ps_direction
+    }
+    if (ListContains(GLOBAL.BUZZ_WORDS_LIST, str)) {
+      typ = typ or game.ps_buzz
+    }
+    return (typ)
+  </function>
+
+  <function name="BuildGrammarLists"><![CDATA[
+    if (not HasAttribute (GLOBAL, "NOUNS_LIST")) {
+      GLOBAL.NOUNS_LIST = NewStringList()
+    }
+    if (not HasAttribute (GLOBAL, "ADJECTIVES_LIST")) {
+      GLOBAL.ADJECTIVES_LIST = NewStringList()
+    }
+    if (not HasAttribute (GLOBAL, "VERBS_LIST")) {
+      GLOBAL.VERBS_LIST = NewStringList()
+    }
+    if (not HasAttribute (GLOBAL, "PREPOSITIONS_LIST")) {
+      GLOBAL.PREPOSITIONS_LIST = Split("about;behind;under;below;beneath;beneat;underneath;undern;around;for;at;off;across;over;away;from;on;onto;down;d;in;inside;into;up;u;out;with;through;throug;thru;using;to")
+    }
+    if (not HasAttribute (GLOBAL, "DIRECTIONS_LIST")) {
+      GLOBAL.DIRECTIONS_LIST = Split("north;n;east;e;west;w;south;s;northeast;northe;ne;northwest;northw;nw;soutehast;southe;se;southwest;southw;sw;up;u;down;d;in;out;land")
+    }
+    if (not HasAttribute (GLOBAL, "BUZZ_WORDS_LIST")) {
+      GLOBAL.BUZZ_WORDS_LIST = Split("again;g;oops;a;an;the;is;and;of;then;all;one;but;except;.;,;\";yes;no;y;here")
+    }
+    if (not HasAttribute (GLOBAL, "VERB_SYNONYMS")) {
+      GLOBAL.VERB_SYNONYMS = NewList()
+    }
+    game.ps_object = 128
+    game.ps_verb = 64
+    game.ps_adjective = 32
+    game.ps_preposition = 16
+    game.ps_direction = 8
+    game.ps_buzz = 4
+    foreach (o, AllObjects()) {
+      if (HasString(o,"SYNONYM")) {
+        syns = Split (LCase(o.SYNONYM), " ")
+        foreach (syn, syns) {
+          // syn = Left (syn, 6)
+          if (not ListContains (GLOBAL.NOUNS_LIST, syn)) {
+            list add (GLOBAL.NOUNS_LIST, syn)
+            // if (LengthOf(syn) > 6) {
+              // msg (syn + " is longer than 6 letters!")
+              // }
+            syn = Left (syn, 6)
+            list add (GLOBAL.NOUNS_LIST, syn)
+          }
+        }
+        if (HasString (o, "ADJECTIVE")) {
+          adjs = Split (LCase (o.ADJECTIVE), " ")
+          foreach (adj, adjs) {
+            // adj = Left (adj, 6)
+            if (not ListContains (GLOBAL.ADJECTIVES_LIST, adj)) {
+              list add (GLOBAL.ADJECTIVES_LIST, adj)
+              // if (LengthOf(adj) > 6) {
+                // msg (adj + " is longer than 6 letters!")
+                // }
+              adj = Left (adj, 6)
+              list add (GLOBAL.ADJECTIVES_LIST, ToString(adj))
+            }
+          }
+        }
+      }
+    }
+    GLOBAL.NOUNS_LIST = StringListCompact(GLOBAL.NOUNS_LIST)
+    GLOBAL.ADJECTIVES_LIST = StringListCompact(GLOBAL.ADJECTIVES_LIST)
+    foreach (cmd, AllCommands()) {
+      if (HasString(cmd, "SYNONYM")) {
+        SYNONYMS = Split(cmd.SYNONYM, ";")
+        foreach (SYNONYM, SYNONYMS) {
+          syns = Split (LCase (cmd.SYNONYM), " ")
+          list add (GLOBAL.VERB_SYNONYMS, syns)
+          foreach (syn, syns) {
+            // syn = Left (syn, 6)
+            if (not ListContains (GLOBAL.VERBS_LIST, syn)) {
+              list add (GLOBAL.VERBS_LIST, syn)
+              // if (LengthOf(syn) > 6) {
+                // msg (syn + " is longer than 6 letters!")
+                // }
+              syn = Left (syn, 6)
+              list add (GLOBAL.VERBS_LIST, syn)
+            }
+          }
+        }
+      }
+    }
+    GLOBAL.VERBS_LIST = StringListCompact(GLOBAL.VERBS_LIST)
+    // msg ("NOUNS")
+    // msg (GLOBAL.NOUNS_LIST)
+    // msg ("ADJECTIVES")
+    // msg (GLOBAL.ADJECTIVES_LIST)
+    // msg ("VERBS")
+    // msg (GLOBAL.VERBS_LIST)
+    // msg ("PREPOSITIONS")
+    // msg (GLOBAL.PREPOSITIONS_LIST)
+    // msg ("DIRECTIONS")
+    // msg (GLOBAL.DIRECTIONS_LIST)
+    // msg ("BUZZ")
+    // msg (GLOBAL.BUZZ_WORDS_LIST)
+    // foreach (syns, GLOBAL.VERB_SYNONYMS) {
+      // msg (syns)
+      // }
+  ]]></function>
+
 </library>

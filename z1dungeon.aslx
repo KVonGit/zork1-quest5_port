@@ -992,7 +992,7 @@
 
   <object name="BOTTLE">
     <inherit name="editor_object" />
-    <inherit name="container_open" />
+    <inherit name="container_closed" />
     <parent type="object">KITCHEN_TABLE</parent>
     <LOC type="object">KITCHEN_TABLE</LOC>
     <alias>glass bottle</alias>
