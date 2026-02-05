@@ -138,7 +138,7 @@
       else if (LCase(Trim(result)) = "undo") {
         UpdateLocationString (CapFirst(GetDisplayAlias(game.pov.parent)))
         JS.eval ("$('#inventoryLabel,#inventoryAccordion,#placesObjectsLabel,#placesObjectsAccordion,#compassLabel,#compassAccordion').show();")
-        invoke (UNDO_modified.script)
+        invoke (V_UNDO_modified.script)
       }
       else if (LCase(Trim(result)) = "quit") {
         finish

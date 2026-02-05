@@ -12,7 +12,7 @@
   <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
     <gameid>qcode-z1-2026-0205-8b00-q59916636226</gameid>
-    <version>0.2.1 beta</version>
+    <version>0.2.2 beta</version>
     <firstpublished>2026</firstpublished>
     <debugging type="boolean">false</debugging>
     <attr name="debug_fighting" type="boolean">false</attr>
