@@ -69,6 +69,9 @@
       FixContinueLink
     </inituserinterface>
     <unresolvedcommandhandler type="script">
+      if (StartsWith(command, "the ")) {
+        command = Mid(command,5)
+      }
       words = Split(command," ")
       len = ListCount(words)
       if (len = 0) {
@@ -88,8 +91,8 @@
             msg ("I don't know the word '" + wrd + "'.")
             return (2)
           }
-          msg ("I didn't understand your command.")
         }
+        msg ("I didn't understand your command.")
       }
     </unresolvedcommandhandler>
   </game>
