@@ -223,6 +223,15 @@
     return (l)
   </function>
 
+  <function name="FilterByHasAttribute" parameters="lst, att" type="objectlist">
+    l = NewObjectList()
+    foreach (o, lst) {
+      if (HasAttribute(o, att)) {
+        list add (l, o)
+      }
+    }
+    return (l)
+  </function>
 
   <function name="GET_PART_OF_SPEECH" parameters="str" type="int">
     // nothing 0
