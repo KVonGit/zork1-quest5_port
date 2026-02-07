@@ -151,7 +151,7 @@
         return (true)
       }
     }
-    else if (not GLOBAL.HERE = EAST_OF_HOUSE and not GLOBAL.HERE = WEST_OF_HOUSE and not GLOBAL.HERE = NORTH_OF_HOUSE and not GLOBAL.HERE = CLEARING) {
+    else if (not GLOBAL.HERE = EAST_OF_HOUSE and not GLOBAL.HERE = WEST_OF_HOUSE and not GLOBAL.HERE = NORTH_OF_HOUSE and not GLOBAL.HERE = SOUTH_OF_HOUSE and not GLOBAL.HERE = CLEARING) {
       if (GLOBAL.PRSA = V_FIND) {
         if (GLOBAL.HERE = CLEARING) {
           msg ("It seems to be to the west.")

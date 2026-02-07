@@ -952,7 +952,9 @@
   ]]></function>
 
   <function name="LKP" parameters="ITM, TBL" type="dictionary">
-    // dLog ("[LKP] ...")
+    dLog ("[LKP] ...")
+    dLog ("[LKP]: ITM: " + ITM)
+    dLog("[LKP]: TBL: " + TBL)
     retval = NOTHING
     CNT = 0
     len = ListCount(TBL) - 1
@@ -960,9 +962,10 @@
       if (TypeOf(item) = TypeOf(ITM)) {
         if (item = ITM) {
           if (CNT = len) {
-            return (NOTHING)
+            return (QuickParams("result",NOTHING))
           }
           retval = TBL[CNT + 1]
+          return (QuickParams("result",retval))
         }
       }
       CNT = CNT + 1
