@@ -1009,7 +1009,7 @@
   </function>
 
   <function name="FIND_IN" parameters="WHERE, WHAT" type="object"><![CDATA[
-    visible = ScopeVisibleForRoom (WHERE)
+    visible = ListExclude(ListExclude(ScopeVisibleForRoom (WHERE), game.pov), ME)
     if (ListCount(visible) < 1) {
       return (NOTHING)
     }

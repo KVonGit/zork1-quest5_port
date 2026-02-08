@@ -2579,7 +2579,8 @@
   <command name="V_SAY">
     <pattern>SAY #text_prso#;SAY</pattern>
     <script><![CDATA[
-      if (GLOBAL.P_CONT < 1) {
+      //if (GLOBAL.P_CONT < 1) {
+      if (not IsDefined("text_prso")) {
         msg ("Say what?")
         return (true)
       }
@@ -2589,16 +2590,23 @@
         msg ("You must address the " + V.alias + " directly.")
         GLOBAL.P_CONT = 0
       }
-      else if (not GET(GLOBAL.P_LEXV, GLOBAL.P_CONT) = "hello") {
+      else if (text_prso = "hello" or text_prso = "\"hello\""){
+        do(V_HELLO,"script")
+      }
+      else if (StartsWith(text_prso,"\"") and EndsWith(text_prso,"\"")) {
         GLOBAL.P_CONT = 0
         msg ("Talking to yourself is a sign of impending mental collapse.")
         return (true)
+      }
+      else {
+        msg ("Nothing happens.")
       }
     ]]></script>
     <SYNONYM>SAY</SYNONYM>
     <SYNTAX>
       SAY
     </SYNTAX>
+    <unresolved type="script">msg ("Nothing happens.")</unresolved>
   </command>
 
   <command name="V_SEARCH">

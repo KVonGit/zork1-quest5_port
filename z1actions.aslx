@@ -4740,7 +4740,7 @@
     }
     SWORD.TVALUE = 0
     N = FIRST_P(GLOBAL.WINNER)
-    L = ListCount(GLOBAL.ABOVE_GROUND)
+    L = ListCount(GLOBAL.ABOVE_GROUND) - 1
     exitwhile = false
     while (not exitwhile) {
       F = N
