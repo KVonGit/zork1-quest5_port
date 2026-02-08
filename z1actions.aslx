@@ -4695,7 +4695,9 @@
       msg ("Bad luck, huh?")
     }
     SCORE_UPD (-10)
-    msg ("\r\n{=Spaces(4)}****{=Spaces(2)}You have died{=Spaces(2)}****\r\n")
+    msg ("")
+    msg("{=Spaces(4)}****{=Spaces(2)}You have died{=Spaces(2)}****")
+    msg("")
     if (FSET_P(LOC(GLOBAL.WINNER),"VEHBIT")) {
       MOVE (GLOBAL.WINNER, GLOBAL.HERE)
     }
@@ -4728,7 +4730,8 @@
   </function>
 
   <function name="RANDOMIZE_OBJECTS">
-    R = false
+    dLog("[RANDOMIZE_OBJECTS]")
+    R = NOTHING
     if (IN_P(LAMP,GLOBAL.WINNER)) {
       MOVE (LAMP, LIVING_ROOM)
     }
@@ -4737,7 +4740,7 @@
     }
     SWORD.TVALUE = 0
     N = FIRST_P(GLOBAL.WINNER)
-    L = GLOBAL.ABOVE_GROUND[0]
+    L = ListCount(GLOBAL.ABOVE_GROUND)
     exitwhile = false
     while (not exitwhile) {
       F = N
@@ -4746,7 +4749,12 @@
         exitwhile = true
       }
       N = NEXT_P(F)
-      if (G_P(F.TVALUE,0)) {
+      ftv = 0
+      if (HasAttribute (F, "TVALUE")){
+        ftv = F.TVALUE
+        msg (F + " TVALUE: " + F.TVALUE)
+      }
+      if (G_P(ftv,0)) {
         exitwhile2 = false
         while (not exitwhile2) {
           if (R = NOTHING) {
@@ -4768,6 +4776,7 @@
         MOVE (F, GLOBAL.ABOVE_GROUND[RANDOM(L)])
       }
     }
+    dLog("[RANDOMIZE_OBJECTS] ends")
   </function>
 
   <function name="KILL_INTERRUPTS" type="boolean">
