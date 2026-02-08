@@ -3039,61 +3039,7 @@
   <command name="V_WALK_AROUND">
     <pattern type="string"><![CDATA[^(WALK|GO|RUN|PROCEED|PROCEE|STEP)$|^(WALK|GO|RUN|PROCEED|PROCEE|STEP) AROUND( (?<object1>.*))?$]]></pattern>
     <script><![CDATA[
-      //if (EndsWith (game.pov.currentcommand, " around") and GLOBAL.PRSO = NOTHING){
-      //  SuppressTurnscripts
-      //  msg ("Walk around what?")
-      //  game.OUTPUT_OFF = true
-      //  HandleSingleCommand("walk around ORPHAN")
-      //  game.OUTPUT_OFF = false
-      //  get input {
-      //    result = LCase(result)
-      //    str = Trim(result)
-      //    if (StartsWith(str,"the ")){
-      //      str = Mid(str,5)
-      //    }
-      //    partial = NewObjectList()
-      //    full = NewObjectList()
-      //    vis = ScopeVisible()
-      //    //msg(vis)
-      //    foreach(o,vis){
-      //      CompareNames(o.alias,str,o,partial,full)
-      //      if (not ListCount(full) = 1 and HasAttribute(o,"alt")){
-      //        foreach (altstr,o.alt){
-      //          CompareNames(altstr,str,o,partial,full)
-      //        }
-      //      }
-      //    }
-      //    //msg ("full: " + full)
-      //    //msg ("partial: " + partial)
-      //    msg ("<br/>> " + result)
-      //    if (ListCount (full) > 0 or ListCount (partial) > 0){
-      //      HandleSingleCommand ("OOPS " + result)
-      //    }
-      //    else {
-      //      //
-      //      foreach(o, FilterByHasAttribute(AllObjects(),"alias")){
-      //        CompareNames(o.alias,str,o,partial,full)
-      //        if (not ListCount(full) = 1 and HasAttribute(o,"alt")){
-      //          foreach (altstr,o.alt){
-      //            CompareNames(altstr,str,o,partial,full)
-      //          }
-      //        }
-      //      }
-      //      if (ListCount (full) > 0 or ListCount (partial) > 0){
-      //        //msg ("You can't see any " + str + " here!")
-      //        // The above is the proper way, I think, but we'll do it the way the OG handles it:
-      //        msg ("You can't see any " + result + " here!")
-      //      }
-      //      else {
-      //      //
-      //        HandleSingleCommand (result)
-      //      }
-      //    }
-      //  }
-      //}
-      //else {
-        msg ("Use compass directions for movement.")
-      //}
+      msg ("Use compass directions for movement.")
     ]]></script>
     <SYNONYM>WALK GO RUN PROCEED PROCEE STEP</SYNONYM>
     <SYNTAX>
