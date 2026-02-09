@@ -12,7 +12,7 @@
   <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
     <gameid>qcode-0-260209-z1-q59916636226</gameid>
-    <version>0.4 beta</version>
+    <version>0.4.1 beta</version>
     <release type="int">0</release>
     <serial type="int">260209</serial>
     <firstpublished>2026</firstpublished>
@@ -34,7 +34,7 @@
     <autodescription type="boolean">false</autodescription>
     <showpanes type="boolean">false</showpanes>
     <turnoffsavebutton />
-    <classiclocation type="boolean">false</classiclocation>
+    <classiclocation />
     <customlocationcolour>Black</customlocationcolour>
     <customlocationtextcolour>White</customlocationtextcolour>
     <borderlesscursor type="boolean">false</borderlesscursor>
@@ -86,7 +86,6 @@
       </changedparent>
     </object>
   </object>
-
   <walkthrough name="eristic">
     <steps type="simplestringlist">
       delay:50

@@ -3053,6 +3053,12 @@
       WALK
       WALK AROUND OBJECT
     </SYNTAX>
+    <unresolved type="script"><![CDATA[
+      dirs = "^(?<exit>north|east|south|west|northeast|northe|northwest|northw|southeast|southe|southwest|southw|in|out|up|down|n|e|s|w|ne|nw|se|sw|o|u|d)$"
+      if (IsRegexMatch(dirs,object)){
+        msg ("You can't walk around a compass direction.")
+      }
+    ]]></unresolved>
   </command>
 
   <command name="V_WALK">
