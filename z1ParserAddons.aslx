@@ -143,7 +143,10 @@
       GLOBAL.PRSO_DIR = GLOBAL.PRSO_DIR.alias
     }
     dLog ("[PERFORM_COMMAND] PRSO_DIR: " + GLOBAL.PRSO_DIR)
-    GLOBAL.PRSO_MULTI = DictionaryItem(argsdict,"multiple")
+    GLOBAL.PRSO_MULTI = false
+    if (DictionaryContains(argsdict,"multiple")){
+      GLOBAL.PRSO_MULTI = DictionaryItem(argsdict,"multiple")
+    }
     dLog ("[PERFORM_COMMAND] cmd = " + cmd.name)
     dLog ("[PERFORM_COMMAND] multiple? " + GLOBAL.PRSO_MULTI)
     // Check for lack of PRSO or PRSI and FIND attributes

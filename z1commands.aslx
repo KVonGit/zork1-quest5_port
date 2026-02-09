@@ -2579,22 +2579,22 @@
   <command name="V_SAY">
     <pattern>SAY #text_prso#;SAY</pattern>
     <script><![CDATA[
-      //if (GLOBAL.P_CONT < 1) {
       if (not IsDefined("text_prso")) {
         msg ("Say what?")
+        ORPHAN(V_SAY,"text_prso", NOTHING)
         return (true)
       }
       GLOBAL.QUOTE_FLAG = false
       V = FIND_IN(GLOBAL.HERE, "ACTORBIT")
       if (not V = NOTHING) {
         msg ("You must address the " + V.alias + " directly.")
-        GLOBAL.P_CONT = 0
+        RFATAL
       }
       else if (text_prso = "hello" or text_prso = "\"hello\""){
         do(V_HELLO,"script")
       }
       else if (StartsWith(text_prso,"\"") and EndsWith(text_prso,"\"")) {
-        GLOBAL.P_CONT = 0
+        RFATAL
         msg ("Talking to yourself is a sign of impending mental collapse.")
         return (true)
       }
@@ -2606,7 +2606,6 @@
     <SYNTAX>
       SAY
     </SYNTAX>
-    <unresolved type="script">msg ("Nothing happens.")</unresolved>
   </command>
 
   <command name="V_SEARCH">
@@ -3045,7 +3044,7 @@
   </command>
 
   <command name="V_WALK_AROUND">
-    <pattern type="string"><![CDATA[^(WALK|GO|RUN|PROCEED|PROCEE|STEP)$|^(WALK|GO|RUN|PROCEED|PROCEE|STEP) AROUND( (?<object1>.*))?$]]></pattern>
+    <pattern type="string"><![CDATA[^(WALK|GO|RUN|PROCEED|PROCEE|STEP)$|^(WALK|GO|RUN|PROCEED|PROCEE|STEP) AROUND (?<object1>.*)$]]></pattern>
     <script><![CDATA[
       msg ("Use compass directions for movement.")
     ]]></script>

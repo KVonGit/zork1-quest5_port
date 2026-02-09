@@ -14,6 +14,23 @@
   </turnscript>
 
   <function name="PreGO">
+    player.parent = null
+    foreach (cmd, AllCommands()) {
+      //if (HasScript(cmd, "initialize")) {
+        // do (cmd, "initialize")
+      //}
+      if (HasAttribute (cmd, "SYNTAX")) {
+        foreach (syn, cmd.SYNTAX) {
+          // msg ("")
+          SetSyntax (syn, cmd)
+          // msg ("")
+        }
+      }
+    }
+    foreach (xit, AllExits()) {
+      xit.lightstrength = "weak"
+      xit.lightsource = true
+    }
     InitCurrentPronouns
     DisableQuestCommands
     SetUpRFATAL
@@ -464,4 +481,32 @@
     dictionary add (res, "inscope", inscope)
     return (res)
   ]]></function>
+
+  <function name="UnresolvedCommandHandlerF">
+    if (StartsWith(command, "the ")) {
+      command = Mid(command,5)
+    }
+    words = Split(command," ")
+    len = ListCount(words)
+    if (len = 0) {
+      msg ("I beg your pardon?")
+      return (0)
+    }
+    typ = GET_PART_OF_SPEECH (StringListItem(words, 0))
+    if (typ = 0) {
+      msg ("I don't know the word '" + StringListItem(words, 0) + "'.")
+    }
+    else if (len = 1 and not BTST (typ, game.ps_verb)) {
+      msg ("That sentence seemed to be missing a verb.")
+    }
+    else {
+      foreach (wrd, words) {
+        if (GET_PART_OF_SPEECH (wrd) = 0) {
+          msg ("I don't know the word '" + wrd + "'.")
+          return (2)
+        }
+      }
+      msg ("I didn't understand your command.")
+    }
+  </function>
 </library>

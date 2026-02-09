@@ -11,8 +11,10 @@
   <include ref="z1ParserAddons.aslx" />
   <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
-    <gameid>qcode-z1-2026-0208-8b00-q59916636226</gameid>
-    <version>0.3.1 beta</version>
+    <gameid>qcode-0-260209-z1-q59916636226</gameid>
+    <version>0.4 beta</version>
+    <release type="int">0</release>
+    <serial type="int">260209</serial>
     <firstpublished>2026</firstpublished>
     <debugging type="boolean">false</debugging>
     <attr name="debug_fighting" type="boolean">false</attr>
@@ -25,7 +27,6 @@
     <feature_advancedscripts />
     <donotclearmenus />
     <showmenuresponses />
-    <gridmap type="boolean">false</gridmap>
     <multiplecommands />
     <attr name="changeroom_newline" type="boolean">false</attr>
     <enablehyperlinks type="boolean">false</enablehyperlinks>
@@ -36,7 +37,7 @@
     <classiclocation type="boolean">false</classiclocation>
     <customlocationcolour>Black</customlocationcolour>
     <customlocationtextcolour>White</customlocationtextcolour>
-    <borderlesscursor />
+    <borderlesscursor type="boolean">false</borderlesscursor>
     <cover>z1Cover.png</cover>
     <defaultforeground>Black</defaultforeground>
     <defaultbackground>White</defaultbackground>
@@ -45,23 +46,6 @@
     <publishfileextensions>*.jpg;*.jpeg;*.png;*.gif;*.js;*.wav;*.mp3;*.htm;*.html;*.svg;*.ogg;*.ogv;*.zip;*.pdf</publishfileextensions>
     <pov type="object">ADVENTURER</pov>
     <start type="script">
-      player.parent = null
-      foreach (cmd, AllCommands()) {
-        if (HasScript(cmd, "initialize")) {
-          // do (cmd, "initialize")
-        }
-        if (HasAttribute (cmd, "SYNTAX")) {
-          foreach (syn, cmd.SYNTAX) {
-            // msg ("")
-            SetSyntax (syn, cmd)
-            // msg ("")
-          }
-        }
-      }
-      foreach (xit, AllExits()) {
-        xit.lightstrength = "weak"
-        xit.lightsource = true
-      }
       PreGO
       GO
       BuildGrammarLists
@@ -74,31 +58,7 @@
       FixContinueLink
     </inituserinterface>
     <unresolvedcommandhandler type="script">
-      if (StartsWith(command, "the ")) {
-        command = Mid(command,5)
-      }
-      words = Split(command," ")
-      len = ListCount(words)
-      if (len = 0) {
-        msg ("I beg your pardon?")
-        return (0)
-      }
-      typ = GET_PART_OF_SPEECH (StringListItem(words, 0))
-      if (typ = 0) {
-        msg ("I don't know the word '" + StringListItem(words, 0) + "'.")
-      }
-      else if (len = 1 and not BTST (typ, game.ps_verb)) {
-        msg ("That sentence seemed to be missing a verb.")
-      }
-      else {
-        foreach (wrd, words) {
-          if (GET_PART_OF_SPEECH (wrd) = 0) {
-            msg ("I don't know the word '" + wrd + "'.")
-            return (2)
-          }
-        }
-        msg ("I didn't understand your command.")
-      }
+      UnresolvedCommandHandlerF
     </unresolvedcommandhandler>
   </game>
   <object name="room">
@@ -126,523 +86,136 @@
       </changedparent>
     </object>
   </object>
-  <walkthrough name="to_troll_fight">
-    <steps type="simplestringlist">
-      delay:50
-      open mailbox
-      get leaflet
-      read it
-      drop it
-      n
-      n
-      climb tree
-      get egg
-      d
-      open egg
-      s
-      e
-      open window
-      in
-      take all
-      open brown sack
-      west
-      take all
-      move rug
-      open trap door
-      light lamp
-      down
-      drop jewel-encrusted egg
-    </steps>
-  </walkthrough>
-  <walkthrough name="after_troll_fight">
-    <steps type="simplestringlist">
-      drop sword
-      w
-      w
-      w
-      u
-      get coins and key
-      sw
-      e
-      s
-      se
-      odysseus
-      e
-      e
-      open case
-      put coins in case
-      drop lunch, bottle, and key
-      open trap
-      d
-      s
-      e
-      get painting
-      w
-      n
-      u
-      put painting in case
-      d
-      n
-      e
-      e
-      e.jump
-      echo
-      get bar
-      w
-      w
-      w
-      s
-      u
-      put bar in case
-      d
-      n
-      e
-      e
-      e
-      u
-      e
-      n
-      get matchbook
-      n
-      get wrench and screwdriver
-      push yellow
-      s
-      s
-      turn bolt with wrench
-      drop wrench
-      w
-      z
-      z
-      n
-      get trunk
-      s
-      sw
-      sw
-      w
-      s
-      u
-      put trunk in case
-      d
-      n
-      e
-      n
-      ne
-      n
-      n
-      get air pump
-      n
-      get trident
-      u
-      n
-      n
-      w
-      d
-      u
-      put trident in case
-      e
-      u
-      get rope
-      d
-      w
-      d
-      n
-      e
-      e
-      se
-      e
-      tie rope to railing
-      d
-      get torch
-      turn off lamp
-      s
-      drop sack, lantern, pump, matchbook, and screwdriver
-      e
-      get coffin
-      open it
-      take sceptre
-      w
-      s
-      pray
-      e
-      s
-      e
-      in
-      w
-      put coffin and sceptre in case
-      d
-      n
-      e
-      e
-      se
-      e
-      d
-      s
-      get matchbook and bell
-      open matchbook
-      s
-      get candles and black book
-      put out candles
-      d
-      d
-      ring bell
-      get candles
-      light match
-      light candles
-      read book
-      turn off candles
-      drop book
-      s
-      get skull
-      n
-      u
-      n
-      n
-      n
-      w
-      w
-      s
-      u
-      put skull in case
-      get sceptre
-      d
-      n
-      e
-      e
-      se
-      e
-      d
-      s
-      get sack, lamp, pump, and screwdriver
-      s
-      d
-      n
-      n
-      n
-      e
-      u
-      e
-      e
-      inflate plastic with pump
-      drop pump
-      put screwdriver and sceptre in sack
-      get label
-      drop it
-      enter boat
-      launch it
-      z
-      z
-      z
-      z
-      get buoy
-      east
-      exit boat
-      open buoy
-      drop buoy
-      get emerald
-      get shovel
-      ne
-      sw
-      ne
-      dig sand with shovel
-      dig sand with shovel
-      dig sand with shovel
-      dig sand with shovel
-      drop shovel
-      get scarab
-      sw
-      s
-      s
-      wave sceptre
-      w
-      w
-      sw
-      u
-      u
-      nw
-      w
-      w
-      w
-      put scarab, emerald, and sceptre in case
-      e
-      e
-      e
-      e
-      d
-      d
-      n
-      get pot
-      sw
-      u
-      u
-      nw
-      w
-      w
-      w
-      put pot in case
-      get garlic
-      d
-      n
-      e
-      e
-      s
-      s
-      touch mirror
-      n
-      w
-      n
-      w
-      n
-      get jade
-      e
-      put candles and screwdriver in basket
-      drop torch
-      turn on lantern
-      n
-      d
-      get bracelet
-      e
-      ne
-      se
-      sw
-      d
-      d
-      s
-      get coal
-      n
-      u
-      u
-      n
-      e
-      s
-      n
-      u
-      s
-      put coal in basket
-      get candles
-      light match
-      light candles
-      put candles in basket
-      lower basket
-      n
-      d
-      e
-      ne
-      se
-      sw
-      d
-      d
-      w
-      drop sack, garlic, lamp, matchbook, jade, and bracelet
-      w
-      get coal, screwdriver, and candles
-      s
-      l
-      open machine
-      put coal in machine
-      close machine
-      turn switch with screwdriver
-      open machine
-      get diamond
-      drop screwdriver
-      n
-      put candles and diamond in basket
-      e
-      get all but timber
-      e
-      u
-      u
-      n
-      e
-      s
-      n
-      u
-      s
-      raise basket
-      take diamond and candles
-      turn off candles
-      w
-      s
-      e
-      s
-      d
-      u
-      put diamond, bracelet, and jade in case
-      drop garlic and candles
-      e
-      u
-      get knife
-      d
-      w
-      w
-      w
-    </steps>
-  </walkthrough>
-  <walkthrough name="book">
-    <steps type="simplestringlist">
-      delay:50
-      open mailbox
-      get leaflet
-      read it
-      drop it
-      n
-      n
-      climb tree
-      get egg
-      d
-      open egg
-      s
-      e
-      open window
-      in
-      take all
-      open brown sack
-      west
-      take all
-      move rug
-      open trap door
-      light
-      down
-      drop jewel-encrusted egg
-      #random 187
-      n
-      attack troll with sword
-      g
-      drop sword
-      w
-      w
-      w
-      u
-      get coins and key
-      sw
-      e
-      s
-      se
-      odysseus
-      e
-      e
-      open case
-      put coins in case
-      drop lunch, bottle, and key
-      open trap
-      d
-      s
-      e
-      get painting
-      w
-      n
-      u
-      put painting in case
-      d
-      n
-      e
-      e
-      e.jump
-      echo
-      get bar
-      w
-      w
-      w
-      s
-      u
-      put bar in case
-      d
-      n
-      e
-      e
-      e
-      u
-      e
-      n
-      get matchbook
-      n
-      get wrench and screwdriver
-      push yellow
-      s
-      s
-      turn bolt with wrench
-      drop wrench
-      w
-      z
-      z
-      n
-      get trunk
-      s
-      sw
-      sw
-      w
-      s
-      u
-      put trunk in case
-      d
-      n
-      e
-      n
-      ne
-      n
-      n
-      get air pump
-      n
-      get trident
-      u
-      n
-      n
-      w
-      d
-      u
-      put trident in case
-      e
-      u
-      get rope
-      d
-      w
-      d
-      n
-      e
-      e
-      se
-      e
-      tie rope to railing
-      d
-      get torch
-      turn off lamp
-      s
-      drop sack, lantern, pump, matchbook, and screwdriver
-      e
-      get coffin
-      open it
-      take sceptre
-      w
-      s
-      pray
-      e
-      s
-      e
-      in
-      w
-      put coffin and sceptre in case
-      d
-      n
-      e
-      e
-      se
-      e
-      d
-      s
-      get matchbook and bell
-      open matchbook
-      s
-      get candles and black book
-      put out candles
-      d
-      d
-      ring bell
-      get candles
-      light match
-      light candles
-      read book
-      read book
-    </steps>
-  </walkthrough>
+  <function name="UnresolvedCommand" parameters="objectname, varname"><![CDATA[
+    // TO DO: Update names below, we don't need these two variables
+    unresolvedobject = objectname
+    unresolvedkey = varname
+    if (HasString(game.pov.currentcommandpattern, "unresolved")) {
+      if (ListCount(game.pov.currentcommandvarlist) > 1) {
+        msg (game.pov.currentcommandpattern.unresolved + " (" + unresolvedobject + ")")
+      }
+      else {
+        msg (game.pov.currentcommandpattern.unresolved)
+      }
+    }
+    else if (HasScript(game.pov.currentcommandpattern, "unresolved")) {
+      do (game.pov.currentcommandpattern, "unresolved", QuickParams("object", unresolvedobject, "key", unresolvedkey))
+    }
+    else {
+      // msg ("game.pov.currentcommandvarlist: " + game.pov.currentcommandvarlist)
+      // if (game.pov.currentcommandpattern = V_WALK and unresolvedobject = "around") {
+        // msg ("Walk around what?")
+        // ORPHAN (V_WALK_AROUND, "object1", NOTHING)
+        // return (1)
+        // }
+      if (ListCount(game.pov.currentcommandvarlist) > 1) {
+        msg (Template("UnresolvedObject") + " (" + unresolvedobject + ")")
+      }
+      else {
+        msg (Template("UnresolvedObject"))
+      }
+    }
+    game.unresolvedcommand = game.pov.currentcommandpattern
+    game.unresolvedcommandvarlist = game.pov.currentcommandvarlist
+    game.unresolvedcommandkey = unresolvedkey
+  ]]></function>
+  <function name="HandleSingleCommand" parameters="command"><![CDATA[
+    if (GetBoolean(GLOBAL,"O_FLAG")) {
+      GLOBAL.O_FLAG = false
+      orphaned = DictionaryItem(GLOBAL.O_TABLE,"ORPHANED")
+      o_cmd = DictionaryItem (GLOBAL.O_TABLE, "PRSA")
+      dictionary remove (GLOBAL.O_TABLE, "PRSA")
+      if (StartsWith(orphaned, "text")) {
+        dictionary add (GLOBAL.O_TABLE, orphaned, command)
+        PERFORM_COMMAND (o_cmd, "script", GLOBAL.O_TABLE)
+        // TODO add this to command history properly
+        GLOBAL.O_TABLE = null
+        return (1)
+      }
+      else {
+        res = FindObjectFromString(command)
+        if (DictionaryContains(res, "onlymatch")) {
+          o_obj = DictionaryItem(res,"onlymatch")
+        }
+        else {
+          o_obj = NOTHING
+          // TODO which do you mean?
+        }
+        if (not o_obj = NOTHING) {
+          dictionary add (GLOBAL.O_TABLE, orphaned, o_obj)
+          PERFORM_COMMAND (o_cmd, "script", GLOBAL.O_TABLE)
+          // TODO add this to command history properly
+          GLOBAL.O_TABLE = null
+          return (1)
+        }
+      }
+      GLOBAL.O_TABLE = null
+    }
+    if (LCase(command) = LCase(Template("Again1")) or LCase(command) = LCase(Template("Again2"))) {
+      // First handle AGAIN
+      if (not game.pov.currentcommand = null) {
+        HandleSingleCommand (game.pov.currentcommand)
+      }
+      else {
+        msg ("There is nothing to repeat.")
+      }
+    }
+    else {
+      // Check through all commands for any that match
+      candidates = NewObjectList()
+      foreach (cmd, ScopeCommands()) {
+        if (IsRegexMatch(cmd.pattern, command, cmd.name)) {
+          list add (candidates, cmd)
+        }
+      }
+      maxstrength = -1
+      thiscommand = null
+      // Pick the best match
+      foreach (candidate, candidates) {
+        strength = GetMatchStrength(candidate.pattern, command, candidate.name)
+        // favour commands defined later, so an author can override a library command...
+        if (strength >= maxstrength) {
+          // ... except if the command defined later (candidate) has no parent, and the current best
+          // match (thiscommand) does have a parent. We want to favour any commands defined in rooms
+          // over global candidates.
+          skip = false
+          if (thiscommand <> null) {
+            if (thiscommand.parent <> null and candidate.parent = null) {
+              skip = true
+            }
+          }
+          if (not skip) {
+            thiscommand = candidate
+            maxstrength = strength
+          }
+        }
+      }
+      if (thiscommand = null) {
+        if (HasScript(game, "unresolvedcommandhandler")) {
+          params = NewDictionary()
+          dictionary add (params, "command", command)
+          do (game, "unresolvedcommandhandler", params)
+        }
+        else {
+          msg (Template("UnrecognisedCommand"))
+        }
+        HandleNextCommandQueueItem
+      }
+      else {
+        varlist = Populate(thiscommand.pattern, command, thiscommand.name)
+        HandleSingleCommandPattern (command, thiscommand, varlist)
+      }
+    }
+  ]]></function>
+  <function name="ORPHAN" parameters="prsa, var, object1">
+    GLOBAL.O_FLAG = true
+    GLOBAL.O_TABLE = NewDictionary()
+    dictionary add (GLOBAL.O_TABLE, "PRSA", prsa)
+    dictionary add (GLOBAL.O_TABLE, "ORPHANED", var)
+    if (not object1 = NOTHING) {
+      dictionary add (GLOBAL.O_TABLE, "object1", object1)
+    }
+  </function>
   <walkthrough name="eristic">
     <steps type="simplestringlist">
       delay:50
