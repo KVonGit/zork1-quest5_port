@@ -1102,4 +1102,182 @@
     UpdateObjectLinks
   </function>
 
+  <function name="UnresolvedCommand" parameters="objectname, varname"><![CDATA[
+    // TO DO: Update names below, we don't need these two variables
+    unresolvedobject = objectname
+    unresolvedkey = varname
+    if (HasString(game.pov.currentcommandpattern, "unresolved")) {
+      if (ListCount(game.pov.currentcommandvarlist) > 1) {
+        msg (game.pov.currentcommandpattern.unresolved + " (" + unresolvedobject + ")")
+      }
+      else {
+        msg (game.pov.currentcommandpattern.unresolved)
+      }
+    }
+    else if (HasScript(game.pov.currentcommandpattern, "unresolved")) {
+      do (game.pov.currentcommandpattern, "unresolved", QuickParams("object", unresolvedobject, "key", unresolvedkey))
+    }
+    else {
+      if (ListCount(game.pov.currentcommandvarlist) > 1) {
+        msg (Template("UnresolvedObject") + " (" + unresolvedobject + ")")
+      }
+      else {
+        msg (Template("UnresolvedObject"))
+      }
+    }
+    game.unresolvedcommand = game.pov.currentcommandpattern
+    game.unresolvedcommandvarlist = game.pov.currentcommandvarlist
+    game.unresolvedcommandkey = unresolvedkey
+  ]]></function>
+
+  <function name="HandleSingleCommand" parameters="command"><![CDATA[
+    if (GetBoolean(GLOBAL,"O_FLAG")) {
+      GLOBAL.O_FLAG = false
+      orphaned = DictionaryItem(GLOBAL.O_TABLE,"ORPHANED")
+      o_cmd = DictionaryItem (GLOBAL.O_TABLE, "PRSA")
+      o_cmdstr = DictionaryItem (GLOBAL.O_TABLE, "cmdstr")
+      
+      //dictionary remove (GLOBAL.O_TABLE, "PRSA")
+      if (StartsWith(orphaned, "text")) {
+        dictionary add (GLOBAL.O_TABLE, orphaned, command)       
+        HandleSingleCommand(o_cmdstr + " " + command)      
+        GLOBAL.O_TABLE = null
+        return (1)
+      }
+      else {
+        res = FindObjectFromString(command)
+        o_obj = NOTHING
+        if (DictionaryContains(res, "onlymatch")) {
+          o_obj = DictionaryItem(res,"onlymatch")
+          //msg ("o_obj: " + o_obj)
+        }
+        if (o_obj = NOTHING) {
+          
+          // TODO which do you mean?
+          fullcnt = DictionaryItem(res, "fullcnt")
+          //msg("fullcnt: " + fullcnt)
+          if (fullcnt > 0){
+            fullmatches = DictionaryItem(res, "full")
+            //msg("full: " + fullmatches)
+            if (fullcnt = 1){
+              o_obj = ListItem(fullmatches,0)
+            }
+            else {
+              GLOBAL.O_FLAG = true
+              TELL ("Which do you mean: ")
+              i = 0
+              foreach (o,fullmatches){
+                TELL ("the " + o.alias)
+                if ((i < fullcnt - 1) and (fullcnt > 2)){
+                  TELL (", ")
+                }
+                else {
+                  TELL (" ")
+                }
+                if (i = fullcnt - 2){
+                  TELL ("or ")
+                }
+                i = i + 1
+              }
+              msg("?")
+              return (2)
+            }
+          }
+          partialcnt = DictionaryItem(res, "partialcnt")
+          //msg("partialcnt: " + partialcnt)
+          if (partialcnt > 0){
+            partialmatches = DictionaryItem(res, "partial")
+            //msg("partial: " + partialmatches)
+            if (partialcnt = 1){
+              o_obj = ListItem(partialmatches,0)
+            }
+            else {
+              GLOBAL.O_FLAG = true
+              TELL ("Which do you mean: ")
+              i = 0
+              foreach (o,partialmatches){
+                TELL ("the " + o.alias)
+                if ((i < partialcnt - 1) and (partialcnt > 2)){
+                  TELL (", ")
+                }
+                else {
+                  TELL (" ")
+                }
+                if (i = partialcnt - 1){
+                  TELL ("or ")
+                }
+              }
+              msg("?")
+              return (2)
+            }
+          }
+        }
+        if (not o_obj = NOTHING and not GLOBAL.O_FLAG) {
+          dictionary add (GLOBAL.O_TABLE, orphaned, o_obj)
+          HandleSingleCommand(o_cmdstr + " " + command)
+          GLOBAL.O_TABLE = null
+          return (1)
+        }
+      }
+      if (not GetBoolean(GLOBAL, "O_FLAG")) {
+        GLOBAL.O_TABLE = null
+      }
+    }
+    if (LCase(command) = LCase(Template("Again1")) or LCase(command) = LCase(Template("Again2"))) {
+      // First handle AGAIN
+      if (not game.pov.currentcommand = null) {
+        HandleSingleCommand (game.pov.currentcommand)
+      }
+      else {
+        msg ("There is nothing to repeat.")
+      }
+    }
+    else {
+      // Check through all commands for any that match
+      candidates = NewObjectList()
+      foreach (cmd, ScopeCommands()) {
+        if (IsRegexMatch(cmd.pattern, command, cmd.name)) {
+          list add (candidates, cmd)
+        }
+      }
+      maxstrength = -1
+      thiscommand = null
+      // Pick the best match
+      foreach (candidate, candidates) {
+        strength = GetMatchStrength(candidate.pattern, command, candidate.name)
+        // favour commands defined later, so an author can override a library command...
+        if (strength >= maxstrength) {
+          // ... except if the command defined later (candidate) has no parent, and the current best
+          // match (thiscommand) does have a parent. We want to favour any commands defined in rooms
+          // over global candidates.
+          skip = false
+          if (thiscommand <> null) {
+            if (thiscommand.parent <> null and candidate.parent = null) {
+              skip = true
+            }
+          }
+          if (not skip) {
+            thiscommand = candidate
+            maxstrength = strength
+          }
+        }
+      }
+      if (thiscommand = null) {
+        if (HasScript(game, "unresolvedcommandhandler")) {
+          params = NewDictionary()
+          dictionary add (params, "command", command)
+          do (game, "unresolvedcommandhandler", params)
+        }
+        else {
+          msg (Template("UnrecognisedCommand"))
+        }
+        HandleNextCommandQueueItem
+      }
+      else {
+        varlist = Populate(thiscommand.pattern, command, thiscommand.name)
+        HandleSingleCommandPattern (command, thiscommand, varlist)
+      }
+    }
+  ]]></function>
+
 </library>

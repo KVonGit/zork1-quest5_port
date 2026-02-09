@@ -3128,7 +3128,8 @@
     </SYNTAX>
     <unresolved type="script">
       if (object = "around"){
-        PERFORM_COMMAND (V_WALK_AROUND, "script", NewDictionary())
+        msg ("Walk around what?")
+        ORPHAN(V_WALK_AROUND,"object1",NOTHING)
       }
     </unresolved>
   </command>

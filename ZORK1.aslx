@@ -11,8 +11,8 @@
   <include ref="z1ParserAddons.aslx" />
   <include ref="z1globals.aslx" />
   <game name="ZORK I: The Great Underground Empire">
-    <gameid>qcode-0-260209-z1-q59916636226</gameid>
-    <version>0.4.1 beta</version>
+    <gameid>qcode-z1-0-260209-q59916636226</gameid>
+    <version>0.5 beta</version>
     <release type="int">0</release>
     <serial type="int">260209</serial>
     <firstpublished>2026</firstpublished>
@@ -58,7 +58,7 @@
       FixContinueLink
     </inituserinterface>
     <unresolvedcommandhandler type="script">
-      UnresolvedCommandHandlerF
+      UnresolvedCommandHandlerF (command)
     </unresolvedcommandhandler>
   </game>
   <object name="room">

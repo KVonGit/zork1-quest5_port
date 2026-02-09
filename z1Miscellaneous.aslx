@@ -482,7 +482,7 @@
     return (res)
   ]]></function>
 
-  <function name="UnresolvedCommandHandlerF">
+  <function name="UnresolvedCommandHandlerF" parameters="command">
     if (StartsWith(command, "the ")) {
       command = Mid(command,5)
     }
@@ -491,6 +491,10 @@
     if (len = 0) {
       msg ("I beg your pardon?")
       return (0)
+    }
+    if (command = "y" or command = "yes" or command = "no"){
+      msg("There was no verb in that sentence!")
+      return (1)
     }
     typ = GET_PART_OF_SPEECH (StringListItem(words, 0))
     if (typ = 0) {

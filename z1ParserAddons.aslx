@@ -731,4 +731,17 @@
   <function name="AddToSyntaxGrammarTable" parameters="str">
     
   </function>
+
+
+  <function name="ORPHAN" parameters="prsa, var, object1">
+    GLOBAL.O_FLAG = true
+    GLOBAL.O_TABLE = NewDictionary()
+    dictionary add (GLOBAL.O_TABLE, "cmdstr", game.pov.currentcommand)
+    dictionary add (GLOBAL.O_TABLE, "PRSA", prsa)
+    dictionary add (GLOBAL.O_TABLE, "ORPHANED", var)
+    if (not object1 = NOTHING) {
+      dictionary add (GLOBAL.O_TABLE, "object1", object1)
+    }
+  </function>
+
 </library>
