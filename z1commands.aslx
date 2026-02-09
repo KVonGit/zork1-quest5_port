@@ -3120,6 +3120,11 @@
       WALK OBJECT
       WALK AWAY OBJECT
     </SYNTAX>
+    <unresolved type="script">
+      if (object = "around"){
+        PERFORM_COMMAND (V_WALK_AROUND, "script", NewDictionary())
+      }
+    </unresolved>
   </command>
 
   <command name="V_WALK_TO">
